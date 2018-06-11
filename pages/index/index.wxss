@@ -1,0 +1,8 @@
+.code-row{
+  /* display: flex; */
+}
+.code-text{
+  float: left;
+  font-size: 16px;
+  line-height: 20px;
+}

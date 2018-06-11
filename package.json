@@ -1,0 +1,16 @@
+{
+  "name": "github-tree-mp",
+  "version": "0.0.1",
+  "description": "a github tree view for mini program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "github tree view",
+    "mini program",
+    "octotree like"
+  ],
+  "author": "whale",
+  "license": "ISC"
+}
