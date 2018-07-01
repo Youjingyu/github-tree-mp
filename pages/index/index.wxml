@@ -1,12 +1,16 @@
 <!--index.wxml-->
 <!-- <import src="../../utils/wxParse/wxParse.wxml"/> -->
 <view class="container">
-  <scroll-view scroll-x="{{true}}" scroll-y="{{true}}">
+  <scroll-view scroll-x="true" scroll-y="true">
       <!-- <template is="wxParse" data="{{wxParseData:code.nodes}}"/> -->
       <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
-        <text wx:for="{{item}}" class="{{'code-text ' + (item.class ? item.class : '')}}" wx:key="{{index}}">
-          {{item.text}}
-        </text>
+        <text wx:for="{{item}}"
+              wx:key="{{index}}"
+              class="{{'code-text ' + (item.class ? item.class : '')}}"
+              selectable="true"
+              space="ensp"
+              decode="true"
+          >{{item.text}}</text>
       </view>
   </scroll-view>
 </view>

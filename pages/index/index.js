@@ -18,11 +18,17 @@ class IndexPage {
     }
     onLoad() {
         index_1.default.getBlob('/bin/vue-hap.js').then((codeString) => {
-            let html = index_2.default.globalUtils.hightlight.highlightAuto(codeString).value;
+            let html = index_2.default.globalUtils.hightlight.highlight('javascript', codeString).value;
             let codeSegments = html.split(/\n/);
             const codeRows = [];
             codeSegments.forEach((segment) => {
                 const res = [];
+                const spaces = segment.match(/^(\s+)</);
+                if (spaces) {
+                    res.push({
+                        text: spaces[1]
+                    });
+                }
                 const htmlJson = index_2.default.globalUtils.html2json(segment);
                 htmlJson.nodes.forEach((node) => {
                     if (node.node === 'text') {
@@ -42,7 +48,6 @@ class IndexPage {
             this.setData({
                 codeRows: codeRows
             });
-            console.log(index_2.default.globalUtils.html2json(codeSegments[5]));
             // app.globalUtils.wxParse('code', 'html', html, this, 5)
         }).catch(() => {
             this.data.loadCodeError = true;
