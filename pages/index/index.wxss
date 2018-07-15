@@ -3,7 +3,31 @@
 }
 .code-text{
   display:inline-block;
-  font-size: 16px;
-  line-height: 20px;
-  height: 20px;
+  /* font-size: 16rpx; */
+  /* line-height: 20rpx; */
+  /* height: 20rpx; */
+}
+
+.float-icon{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sidebar{
+  position: absolute;
+  top: 0;
+  left: -600rpx;
+  width: 600rpx;
+  height: 100%;
+  background: #fff;
+}
+.sidebar-title{
+  display: flex;
+}
+.sidebar-main{
+}
+.sidebar-icon{
+  width: 50rpx;
+  height: 50rpx;
 }

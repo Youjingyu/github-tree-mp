@@ -5,6 +5,8 @@ apis.setResp('https://github.com/Youjingyu/vue-hap-tools/')
 
 interface IndexPage extends IPage {}
 
+let animation:wx.Animation
+
 class IndexPage {
 
   public data = {
@@ -12,7 +14,8 @@ class IndexPage {
       nodes: []
     },
     codeRows: [],
-    loadCodeError: false
+    loadCodeError: false,
+    animationData: {}
   }
 
   public onLoad() {
@@ -51,6 +54,32 @@ class IndexPage {
       this.data.loadCodeError = true
     })
   }
+  public onShow () {
+    animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    })
+    this.setData({
+      animationData:animation.export()
+    })
+  }
+  public showMenu () {}
+  public hideMenu () {}
 }
 
-Page(new IndexPage())
+const page = new IndexPage()
+
+page.showMenu = function () {
+  animation.left('0rpx').step()
+  this.setData({
+    animationData:animation.export()
+  })
+}
+page.hideMenu = function () {
+  animation.left('-600rpx').step()
+  this.setData({
+    animationData:animation.export()
+  })
+}
+
+Page(page)

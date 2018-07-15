@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../../apis/index"));
 const index_2 = __importDefault(require("../../utils/index"));
 index_1.default.setResp('https://github.com/Youjingyu/vue-hap-tools/');
+let animation;
 class IndexPage {
     constructor() {
         this.data = {
@@ -13,7 +14,8 @@ class IndexPage {
                 nodes: []
             },
             codeRows: [],
-            loadCodeError: false
+            loadCodeError: false,
+            animationData: {}
         };
     }
     onLoad() {
@@ -53,5 +55,29 @@ class IndexPage {
             this.data.loadCodeError = true;
         });
     }
+    onShow() {
+        animation = wx.createAnimation({
+            duration: 500,
+            timingFunction: 'ease',
+        });
+        this.setData({
+            animationData: animation.export()
+        });
+    }
+    showMenu() { }
+    hideMenu() { }
 }
-Page(new IndexPage());
+const page = new IndexPage();
+page.showMenu = function () {
+    animation.left('0rpx').step();
+    this.setData({
+        animationData: animation.export()
+    });
+};
+page.hideMenu = function () {
+    animation.left('-600rpx').step();
+    this.setData({
+        animationData: animation.export()
+    });
+};
+Page(page);

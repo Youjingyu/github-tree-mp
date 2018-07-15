@@ -1509,7 +1509,7 @@ declare namespace wx {
         /**
          * 表示一组动画完成，可以在一组动画中调用任意多个动画方法，一组动画中的所有动画会同时开始，一组动画完成后才会进行下一组动画。
          */
-        step(options: AnimationOptions): void;
+        step(options?: AnimationOptions): void;
 
         /**
          * 导出动画数据传递给组件的animation属性

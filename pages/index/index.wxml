@@ -14,3 +14,19 @@
       </view>
   </scroll-view>
 </view>
+<image
+    bindtap="showMenu"
+    class="float-icon sidebar-icon"
+    src="../../assets/imgs/arrow-right.png"></image>
+<view class="sidebar" animation="{{animationData}}">
+    <view class="sidebar-title">
+        <text>title</text>
+        <image
+            bindtap="hideMenu"
+            class="sidebar-icon"
+            src="../../assets/imgs/arrow-left.png"></image>
+    </view>
+    <view class="sidebar-main">
+        <text>222222</text>
+    </view>
+</view>
