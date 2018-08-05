@@ -1,9 +1,11 @@
 <!--index.wxml-->
 <!-- <import src="../../utils/wxParse/wxParse.wxml"/> -->
+<import src="./components/tree-item/index.wxml"/>
 <view class="container">
   <tree-item></tree-item>
   <scroll-view scroll-x="true" scroll-y="true">
       <!-- <template is="wxParse" data="{{wxParseData:code.nodes}}"/> -->
+      <template is="tree-item"/>
       <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
         <text wx:for="{{item}}"
               wx:key="{{index}}"

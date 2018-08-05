@@ -1,4 +1,5 @@
-<!-- 这是自定义组件的内部WXML结构 -->
-<view class="inner">
-<text>11111</text>
-</view>
+<template name="tree-item">
+  <view class="inner">
+    <text>11111</text>
+  </view>
+</template>
