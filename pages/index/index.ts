@@ -19,7 +19,7 @@ class IndexPage {
   }
 
   public onLoad() {
-    apis.getBlob('/bin/vue-hap.js').then((codeString) => {
+    apis.getBlob('bin/vue-hap.js').then((codeString) => {
       let html = app.globalUtils.hightlight.highlight('javascript', codeString).value
       let codeSegments = html.split(/\n/)
       const codeRows:Array<object> = []

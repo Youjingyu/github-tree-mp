@@ -1,20 +1,27 @@
 import app from '../utils/index'
 
 interface githubApiRes {
-  content: string
+  content: string,
+  tree: Array<object>
 }
 
 class Apis {
   public baseUrl = 'https://www.whaleyou.club/repos/'
   public sha = '34709373e6157be33748b58344969c318bec9fc1'
+  public branch = 'master'
   public setResp (githubUrl:string, branch:string = 'master'):string {
-    this.baseUrl = this.baseUrl + githubUrl.replace('https://github.com/', '').replace(/\/$/, '')
+    this.baseUrl = this.baseUrl + githubUrl.replace('https://github.com/', '')
     return this.baseUrl
   }
   // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
   public getBlob (path:string):Promise<string> {
-    return request(this.baseUrl + '/contents/' + path.replace(/^\//, '')).then((res) => {
+    return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
       return app.globalUtils.base64.decode(res.content)
+    })
+  }
+  public getTrees ():Promise<object> {
+    return request(`${this.baseUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
+      return res.tree
     })
   }
 }

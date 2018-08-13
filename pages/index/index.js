@@ -19,7 +19,7 @@ class IndexPage {
         };
     }
     onLoad() {
-        index_1.default.getBlob('/bin/vue-hap.js').then((codeString) => {
+        index_1.default.getBlob('bin/vue-hap.js').then((codeString) => {
             let html = index_2.default.globalUtils.hightlight.highlight('javascript', codeString).value;
             let codeSegments = html.split(/\n/);
             const codeRows = [];
