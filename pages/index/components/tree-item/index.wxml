@@ -1,5 +1,0 @@
-<template name="tree-item">
-  <view class="inner">
-    <text>11111</text>
-  </view>
-</template>

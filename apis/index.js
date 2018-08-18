@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../utils/index"));
+const parseTree_1 = __importDefault(require("../utils/parseTree"));
 class Apis {
     constructor() {
         this.baseUrl = 'https://www.whaleyou.club/repos/';
@@ -20,28 +21,32 @@ class Apis {
             return index_1.default.globalUtils.base64.decode(res.content);
         });
     }
-    getTrees() {
+    getTree() {
         return request(`${this.baseUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
-            return res.tree;
+            return parseTree_1.default(res.tree);
         });
     }
 }
 exports.default = new Apis();
+let reqNum = 0;
 function request(url) {
     return new Promise((resolve, reject) => {
+        if (reqNum > 200)
+            return reject({ code: 1, message: 'API rate limit exceeded.' });
         wx.request({
             url,
             dataType: 'json',
             success: function (res) {
                 if (res) {
+                    reqNum++;
                     resolve(res.data);
                 }
                 else {
                     reject(new Error('no data received'));
                 }
             },
-            fail: function () {
-                reject(new Error('request failed'));
+            fail: function (err) {
+                reject(err);
             }
         });
         // resolve({

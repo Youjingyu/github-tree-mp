@@ -1,8 +1,9 @@
 import app from '../utils/index'
+import parseTree from '../utils/parseTree'
 
 interface githubApiRes {
   content: string,
-  tree: Array<object>
+  tree: Array<TreeApiItem>
 }
 
 class Apis {
@@ -19,29 +20,32 @@ class Apis {
       return app.globalUtils.base64.decode(res.content)
     })
   }
-  public getTrees ():Promise<object> {
+  public getTree ():Promise<object> {
     return request(`${this.baseUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
-      return res.tree
+      return parseTree(res.tree)
     })
   }
 }
 
 export default new Apis()
 
+let reqNum = 0
 function request (url:string):Promise<githubApiRes>{
   return new Promise((resolve, reject) => {
+    if (reqNum > 200) return reject({code: 1, message: 'API rate limit exceeded.'})
     wx.request({
       url,
       dataType: 'json',
       success: function(res) {
         if (res) {
+          reqNum++
           resolve(res.data)
         } else {
           reject(new Error('no data received'))
         }
       },
-      fail: function(){
-        reject(new Error('request failed'))
+      fail: function(err){
+        reject(err)
       }
     })
     // resolve({

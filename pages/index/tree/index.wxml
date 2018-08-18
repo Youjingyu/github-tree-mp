@@ -1,0 +1,6 @@
+<view wx:for="{{data}}" wx:key="index" >
+  <view><text>{{item.name}}</text></view>
+  <block wx-if="{{item.children}}">
+      <tree data="{{item.children}}"></tree>
+  </block>
+</view>
