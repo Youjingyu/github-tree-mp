@@ -1,4 +1,3 @@
-import app from '../utils/index'
 import parseTree from '../utils/parseTree'
 
 interface githubApiRes {
@@ -21,21 +20,15 @@ class Apis {
     this.branch = branch
   }
   public getReopInfo ():Promise<object> {
-    return request(`${this.reposUrl.replace(/\/$/, '')}`).then((res) => {
-      return res
-    })
+    return request(`${this.reposUrl.replace(/\/$/, '')}`)
   }
   public getBranches ():Promise<object> {
-    return request(`${this.reposUrl}branches`).then((res) => {
-      return res
-    })
+    return request(`${this.reposUrl}branches`)
   }
   // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
-  public getBlob (path:string):Promise<string> {
+  public getBlob (path:string):Promise<object> {
     // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
-    return request(`${this.baseUrl}${path}`).then((res) => {
-      return app.globalUtils.base64.decode(res.content)
-    })
+    return request(`${this.baseUrl}${path}`)
   }
   public getTree ():Promise<object> {
     return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {

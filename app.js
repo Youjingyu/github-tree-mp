@@ -1,8 +1,7 @@
 /* global App, wx */
 // app.js
 const wxParse = require('./utils/wxParse/wxParse.js').wxParse
-const html2json = require('./utils/wxParse/html2json.js').html2json
-const hightlight = require('./utils/highlightjs/highlight.pack.js')
+const hightlight = require('./utils/highlightjs/index.js')
 const base64 = require('./utils/base64.js').Base64
 App({
   onLaunch: function () {
@@ -10,7 +9,6 @@ App({
   globalUtils: {
     wxParse,
     hightlight,
-    base64,
-    html2json
+    base64
   }
 })

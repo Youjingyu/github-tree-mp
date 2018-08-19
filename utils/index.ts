@@ -1,10 +1,7 @@
 interface WeApp extends IApp {
   globalUtils: {
     wxParse: Function
-    hightlight: {
-      highlightAuto: Function,
-      highlight: Function
-    },
+    hightlight: Function,
     base64: {
       decode :Function
     }

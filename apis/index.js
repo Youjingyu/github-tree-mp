@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../utils/index"));
 const parseTree_1 = __importDefault(require("../utils/parseTree"));
 class Apis {
     constructor() {
@@ -22,21 +21,15 @@ class Apis {
         this.branch = branch;
     }
     getReopInfo() {
-        return request(`${this.reposUrl.replace(/\/$/, '')}`).then((res) => {
-            return res;
-        });
+        return request(`${this.reposUrl.replace(/\/$/, '')}`);
     }
     getBranches() {
-        return request(`${this.reposUrl}branches`).then((res) => {
-            return res;
-        });
+        return request(`${this.reposUrl}branches`);
     }
     // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
     getBlob(path) {
         // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
-        return request(`${this.baseUrl}${path}`).then((res) => {
-            return index_1.default.globalUtils.base64.decode(res.content);
-        });
+        return request(`${this.baseUrl}${path}`);
     }
     getTree() {
         return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {

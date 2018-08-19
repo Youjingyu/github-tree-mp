@@ -3,6 +3,9 @@ import app from '../../utils/index'
 
 Page({
   data: {
+    md: {
+      nodes: []
+    },
     codeRows: [],
     tree: [],
     treeData: [],
@@ -12,10 +15,11 @@ Page({
     filePath: '',
     branches: [],
     curBranch: '',
-    loading: true
+    loading: true,
+    viewType: 'md'
   },
   onLoad () {
-    const repos = 'https://github.com/Youjingyu/vue-hap-tools/'
+    const repos = 'https://github.com/vuejs/vue/'
     apis.setResp(repos)
     this.setData({
       reposPath: repos.replace('https://github.com/', '').replace(/\/$/, '')
@@ -76,9 +80,17 @@ Page({
     return apis.getTree().then((tree) => {
       this.setData({
         tree,
-        treeData: treeDataSimplify(tree),
-        loading: false
+        treeData: treeDataSimplify(tree)
       })
+      const readme = getReadme(tree)
+      if (readme) {
+        this.viewFile({
+          detail: {
+            url: readme.url,
+            path: readme.path
+          }
+        })
+      }
       console.log(this.data.tree)
     })
   },
@@ -87,48 +99,36 @@ Page({
   },
   viewFile (e) {
     this.setData({
-      filePath: e.detail.path
-    })
-    const url = e.detail.url.replace('https://api.github.com/repos/', '')
-    this.setData({
+      filePath: e.detail.path,
       loading: true
     })
-    apis.getBlob(url).then((codeString) => {
-      let html = app.globalUtils.hightlight.highlight('javascript', codeString).value
-      let codeSegments = html.split(/\n/)
-      const codeRows = []
-      codeSegments.forEach((segment) => {
-        const res = []
-        const spaces = segment.match(/^(\s+)</)
-        if (spaces) {
-          res.push({
-            text: spaces[1]
-          })
-        }
-        const htmlJson = app.globalUtils.html2json(segment)
-        htmlJson.nodes.forEach((node) => {
-          if (node.node === 'text') {
-            res.push({
-              text: node.text
-            })
-          } else if (node.node === 'element') {
-            res.push({
-              class: node.classStr,
-              text: node.nodes[0].text
-            })
-          }
+    const url = e.detail.url.replace('https://api.github.com/repos/', '')
+    apis.getBlob(url).then((res) => {
+      this.parseFile(res, e.detail.path, () => {
+        this.setData({
+          loading: false
         })
-        codeRows.push(res)
-      })
-      this.setData({
-        codeRows: codeRows,
-        loading: false
       })
       this.hideMenu()
-      // app.globalUtils.wxParse('code', 'html', html, this, 5)
     }).catch(() => {
       this.data.loadCodeError = true
     })
+  },
+  parseFile (fileInfo, path, cb) {
+    fileInfo = parseContent(fileInfo, path)
+    const content = fileInfo.content
+    let dataToUpdate = {}
+    if (fileInfo.type === 'md') {
+      const that = this
+      app.globalUtils.wxParse('md', 'md', content, that, 5)
+    } else if (fileInfo.type === 'language') {
+      const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
+      dataToUpdate = {
+        codeRows: codeRows
+      }
+    }
+    this.setData(Object.assign({viewType: fileInfo.type}, dataToUpdate))
+    cb && cb()
   }
 })
 
@@ -142,4 +142,43 @@ function treeDataSimplify (tree) {
     }
   })
   return res
+}
+function getReadme (tree) {
+  for (let i = 0; i < tree.length; i++) {
+    if (tree[i].content && /^(readme|README)\.md$/.test(tree[i].content.path)) {
+      return tree[i].content
+    }
+  }
+}
+const languageMap = {
+  'js': 'javascript',
+  'css': 'css',
+  'html': 'html',
+  'ts': 'typescript',
+  'json': 'json'
+}
+const imgMap = ['png', 'jpeg', 'jpg', 'gif']
+function parseContent (fileInfo, path) {
+  fileInfo.type = 'nosupport'
+  if (fileInfo.encoding !== 'base64') {
+    return fileInfo
+  }
+  try {
+    fileInfo.content = app.globalUtils.base64.decode(fileInfo.content)
+  } catch (err) {
+    return fileInfo
+  }
+  const matches = path.match(/\.([a-zA-Z]+)$/)
+  const type = (matches && matches[1]) || ''
+  if (type === 'md') {
+    fileInfo.type = 'md'
+  } else if (imgMap.indexOf(type) > -1) {
+    fileInfo.type = 'img'
+  } else if (languageMap[type]) {
+    fileInfo.type = 'language'
+    fileInfo.languageType = languageMap[type]
+  } else {
+    fileInfo.type = 'text'
+  }
+  return fileInfo
 }

@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<!-- <import src="../../utils/wxParse/wxParse.wxml"/> -->
+<import src="../../utils/wxParse/wxParse.wxml"/>
 <view class="header">
   <image
     bindtap="showMenu"
@@ -8,18 +8,28 @@
   <text>{{filePath}}</text>
 </view>
 <view class="container" bindtap="clickCodeView">
-  <scroll-view scroll-x="true" scroll-y="true">
-      <!-- <template is="wxParse" data="{{wxParseData:code.nodes}}"/> -->
-      <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
-        <text wx:for="{{item}}"
-              wx:key="{{index}}"
-              class="{{'code-text ' + (item.class ? item.class : '')}}"
-              selectable="true"
-              space="ensp"
-              decode="true"
-          >{{item.text}}</text>
-      </view>
+  <view hidden="{{viewType !== 'nosupport'}}">
+    <text>不支持的文件类型</text>
+  </view>
+  <view hidden="{{viewType !== 'text'}}">
+    <text>{{text}}</text>
+  </view>
+  <view hidden="{{viewType !== 'md'}}">
+    <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
+  </view>
+  <view class="code-container" hidden="{{viewType !== 'language'}}">
+    <scroll-view scroll-x="true" scroll-y="true">
+    <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
+      <text wx:for="{{item}}"
+            wx:key="{{index}}"
+            class="{{'code-text ' + (item.class ? item.class : '')}}"
+            selectable="true"
+            space="ensp"
+            decode="true"
+        >{{item.text}}</text>
+    </view>
   </scroll-view>
+  </view>
 </view>
 <view class="sidebar" animation="{{animationData}}">
     <view class="sidebar-title">
