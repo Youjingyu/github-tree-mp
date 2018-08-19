@@ -13,8 +13,8 @@ class Apis {
   public sha = '34709373e6157be33748b58344969c318bec9fc1'
   public branch = 'master'
   public setResp (githubUrl:string) {
-    this.reposPath = githubUrl.replace('https://github.com/', '')
-    this.reposUrl = this.baseUrl + this.reposPath
+    this.reposPath = githubUrl.replace('https://github.com/', '').replace(/\/$/,  '')
+    this.reposUrl = this.baseUrl + this.reposPath + '/'
   }
   public setBranch (branch:string) {
     this.branch = branch

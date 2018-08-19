@@ -16,10 +16,12 @@ Page({
     branches: [],
     curBranch: '',
     loading: true,
-    viewType: 'md'
+    viewType: 'md',
+    viewText: ''
   },
   onLoad () {
-    const repos = 'https://github.com/vuejs/vue/'
+    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+    // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
     this.setData({
       reposPath: repos.replace('https://github.com/', '').replace(/\/$/, '')
@@ -116,15 +118,20 @@ Page({
   },
   parseFile (fileInfo, path, cb) {
     fileInfo = parseContent(fileInfo, path)
-    const content = fileInfo.content
+    console.log(fileInfo)
+    const { content, type } = fileInfo
     let dataToUpdate = {}
-    if (fileInfo.type === 'md') {
+    if (type === 'md') {
       const that = this
       app.globalUtils.wxParse('md', 'md', content, that, 5)
-    } else if (fileInfo.type === 'language') {
+    } else if (type === 'language') {
       const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
       dataToUpdate = {
         codeRows: codeRows
+      }
+    } else if (type === 'text') {
+      dataToUpdate = {
+        viewText: content
       }
     }
     this.setData(Object.assign({viewType: fileInfo.type}, dataToUpdate))

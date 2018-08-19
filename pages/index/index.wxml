@@ -5,20 +5,19 @@
     bindtap="showMenu"
     class="float-icon sidebar-icon"
     src="../../assets/imgs/arrow-right.png"></image>
-  <text>{{filePath}}</text>
+  <text class="header-title">{{filePath}}</text>
 </view>
 <view class="container" bindtap="clickCodeView">
   <view hidden="{{viewType !== 'nosupport'}}">
     <text>不支持的文件类型</text>
   </view>
   <view hidden="{{viewType !== 'text'}}">
-    <text>{{text}}</text>
+    <text>{{viewText}}</text>
   </view>
   <view hidden="{{viewType !== 'md'}}">
     <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
   </view>
   <view class="code-container" hidden="{{viewType !== 'language'}}">
-    <scroll-view scroll-x="true" scroll-y="true">
     <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
       <text wx:for="{{item}}"
             wx:key="{{index}}"
@@ -28,7 +27,6 @@
             decode="true"
         >{{item.text}}</text>
     </view>
-  </scroll-view>
   </view>
 </view>
 <view class="sidebar" animation="{{animationData}}">

@@ -4,7 +4,7 @@ page {
 .header{
   border-bottom: 1px solid #ccc;
 }
-.float-icon{
+.float-icon, .header-title{
   vertical-align: middle;
 }
 .container{
@@ -14,11 +14,11 @@ page {
   overflow: auto;
 }
 .code-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
+  box-sizing: border-box; */
 }
 .code-row{
   white-space:nowrap;

@@ -1,5 +1,5 @@
 const hightlight = require('./highlight.pack.js')
-const html2json = require('../wxParse/html2json')
+const html2json = require('../wxParse/html2json.js').html2json
 
 module.exports = function (codeString, type) {
   let html = ''
@@ -8,6 +8,7 @@ module.exports = function (codeString, type) {
   } else {
     html = hightlight.highlightAuto(type, codeString).value
   }
+  console.log(html2json(html))
   let codeSegments = html.split(/\n/)
   const codeRows = []
   codeSegments.forEach((segment) => {

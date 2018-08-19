@@ -14,8 +14,8 @@ class Apis {
         this.branch = 'master';
     }
     setResp(githubUrl) {
-        this.reposPath = githubUrl.replace('https://github.com/', '');
-        this.reposUrl = this.baseUrl + this.reposPath;
+        this.reposPath = githubUrl.replace('https://github.com/', '').replace(/\/$/, '');
+        this.reposUrl = this.baseUrl + this.reposPath + '/';
     }
     setBranch(branch) {
         this.branch = branch;
