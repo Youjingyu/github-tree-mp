@@ -8,20 +8,23 @@ interface githubApiRes {
 
 class Apis {
   public baseUrl = 'https://www.whaleyou.club/repos/'
+  // public baseUrl = 'https://api.github.com/repos/'
+  public reposUrl = ''
   public sha = '34709373e6157be33748b58344969c318bec9fc1'
   public branch = 'master'
   public setResp (githubUrl:string, branch:string = 'master'):string {
-    this.baseUrl = this.baseUrl + githubUrl.replace('https://github.com/', '')
+    this.reposUrl = this.baseUrl + githubUrl.replace('https://github.com/', '')
     return this.baseUrl
   }
   // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
   public getBlob (path:string):Promise<string> {
-    return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
+    // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
+    return request(`${this.baseUrl}${path}`).then((res) => {
       return app.globalUtils.base64.decode(res.content)
     })
   }
   public getTree ():Promise<object> {
-    return request(`${this.baseUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
+    return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
       return parseTree(res.tree)
     })
   }

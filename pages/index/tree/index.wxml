@@ -1,6 +1,32 @@
-<view wx:for="{{data}}" wx:key="index" >
-  <view><text>{{item.name}}</text></view>
-  <block wx-if="{{item.children}}">
-      <tree data="{{item.children}}"></tree>
-  </block>
+<view wx:for="{{treeData}}" wx:key="index">
+  <view bindtap="onClick" data-index="{{index}}" class="{{item.children ? '':'indent'}}">
+    <image wx-if="{{item.children}}"
+      class="{{'triangle-icon ' + (item.expand ? 'rotate' : '')}}"
+      src="../../../assets/imgs/triangle.png"></image>
+    <image wx-if="{{item.children}}"
+      class="folder-icon"
+      src="../../../assets/imgs/folder.png"></image>
+    <text>{{item.name}}</text>
+  </view>
+  <view wx-if="{{item.children}}" class="{{'sub-tree ' + (item.expand ? 'show' : '')}}">
+      <!-- <tree data="{{item.children}}"></tree> -->
+      <view bindtap="onClick" data-index="{{index}}" class="{{item.children ? '':'indent'}}">
+    <image wx-if="{{item.children}}"
+      class="{{'triangle-icon ' + (item.expand ? 'rotate' : '')}}"
+      src="../../../assets/imgs/triangle.png"></image>
+    <image wx-if="{{item.children}}"
+      class="folder-icon"
+      src="../../../assets/imgs/folder.png"></image>
+    <text>{{item.name}}</text>
+  </view>
+  <view bindtap="onClick" data-index="{{index}}" class="{{item.children ? '':'indent'}}">
+    <image wx-if="{{item.children}}"
+      class="{{'triangle-icon ' + (item.expand ? 'rotate' : '')}}"
+      src="../../../assets/imgs/triangle.png"></image>
+    <image wx-if="{{item.children}}"
+      class="folder-icon"
+      src="../../../assets/imgs/folder.png"></image>
+    <text>{{item.name}}</text>
+  </view>
+  </view>
 </view>

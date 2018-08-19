@@ -4,10 +4,30 @@ Component({
     data: {
       type: Array,
       value: []
+    },
+    treeData: {
+      type: Array,
+      value: []
     }
+  },
+  data: {
+  },
+  ready () {
   },
   methods: {
     // 这里是一个自定义方法
-    customMethod: function () {}
+    onClick (e) {
+      const treeData = this.data.treeData
+      const index = e.currentTarget.dataset['index']
+      treeData[index].expand = !treeData[index].expand
+      this.setData({
+        treeData
+      })
+      const data = this.data.data
+      console.log(data[index].content)
+      if (data[index].content && data[index].content.type === 'blob') {
+        this.triggerEvent('viewFile', { url: data[index].content.url })
+      }
+    }
   }
 })

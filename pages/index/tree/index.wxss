@@ -1,4 +1,23 @@
-/* 这里的样式只应用于这个自定义组件 */
-.inner {
-  color: red;
+.indent {
+  padding-left: 50rpx;
+}
+.folder-icon{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: bottom;
+}
+.triangle-icon {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: bottom;
+}
+.rotate {
+  transform: rotate(90deg);
+}
+.sub-tree{
+  display: none;
+  padding-left: 50rpx;
+}
+.show {
+  display: block;
 }

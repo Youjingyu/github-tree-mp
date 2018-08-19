@@ -27,6 +27,6 @@
             src="../../assets/imgs/arrow-left.png"></image>
     </view>
     <view class="sidebar-main">
-      <tree data="{{tree}}"></tree>
+      <tree data="{{tree}}" treeData="{{treeData}}" bind:viewFile="viewFile"></tree>
     </view>
 </view>

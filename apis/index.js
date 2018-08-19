@@ -8,21 +8,24 @@ const parseTree_1 = __importDefault(require("../utils/parseTree"));
 class Apis {
     constructor() {
         this.baseUrl = 'https://www.whaleyou.club/repos/';
+        // public baseUrl = 'https://api.github.com/repos/'
+        this.reposUrl = '';
         this.sha = '34709373e6157be33748b58344969c318bec9fc1';
         this.branch = 'master';
     }
     setResp(githubUrl, branch = 'master') {
-        this.baseUrl = this.baseUrl + githubUrl.replace('https://github.com/', '');
+        this.reposUrl = this.baseUrl + githubUrl.replace('https://github.com/', '');
         return this.baseUrl;
     }
     // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
     getBlob(path) {
-        return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
+        // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
+        return request(`${this.baseUrl}${path}`).then((res) => {
             return index_1.default.globalUtils.base64.decode(res.content);
         });
     }
     getTree() {
-        return request(`${this.baseUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
+        return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
             return parseTree_1.default(res.tree);
         });
     }
