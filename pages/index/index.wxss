@@ -4,7 +4,7 @@ page {
 .header{
 }
 .float-icon{
-  vertical-align:bottom;
+  vertical-align: middle;
 }
 .container {
   height: 95%;
@@ -16,6 +16,7 @@ page {
   border: 1px solid #ccc;
   padding: 5rpx;
   margin: 10rpx;
+  overflow: auto;
 }
 .code-row{
   white-space:nowrap;
