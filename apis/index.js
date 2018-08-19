@@ -10,12 +10,26 @@ class Apis {
         this.baseUrl = 'https://www.whaleyou.club/repos/';
         // public baseUrl = 'https://api.github.com/repos/'
         this.reposUrl = '';
+        this.reposPath = '';
         this.sha = '34709373e6157be33748b58344969c318bec9fc1';
         this.branch = 'master';
     }
-    setResp(githubUrl, branch = 'master') {
-        this.reposUrl = this.baseUrl + githubUrl.replace('https://github.com/', '');
-        return this.baseUrl;
+    setResp(githubUrl) {
+        this.reposPath = githubUrl.replace('https://github.com/', '');
+        this.reposUrl = this.baseUrl + this.reposPath;
+    }
+    setBranch(branch) {
+        this.branch = branch;
+    }
+    getReopInfo() {
+        return request(`${this.reposUrl.replace(/\/$/, '')}`).then((res) => {
+            return res;
+        });
+    }
+    getBranches() {
+        return request(`${this.reposUrl}branches`).then((res) => {
+            return res;
+        });
     }
     // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
     getBlob(path) {

@@ -10,11 +10,25 @@ class Apis {
   public baseUrl = 'https://www.whaleyou.club/repos/'
   // public baseUrl = 'https://api.github.com/repos/'
   public reposUrl = ''
+  public reposPath = ''
   public sha = '34709373e6157be33748b58344969c318bec9fc1'
   public branch = 'master'
-  public setResp (githubUrl:string, branch:string = 'master'):string {
-    this.reposUrl = this.baseUrl + githubUrl.replace('https://github.com/', '')
-    return this.baseUrl
+  public setResp (githubUrl:string) {
+    this.reposPath = githubUrl.replace('https://github.com/', '')
+    this.reposUrl = this.baseUrl + this.reposPath
+  }
+  public setBranch (branch:string) {
+    this.branch = branch
+  }
+  public getReopInfo ():Promise<object> {
+    return request(`${this.reposUrl.replace(/\/$/, '')}`).then((res) => {
+      return res
+    })
+  }
+  public getBranches ():Promise<object> {
+    return request(`${this.reposUrl}branches`).then((res) => {
+      return res
+    })
   }
   // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
   public getBlob (path:string):Promise<string> {

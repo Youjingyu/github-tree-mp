@@ -3,16 +3,15 @@ import app from '../../utils/index'
 
 Page({
   data: {
-    code: {
-      nodes: []
-    },
     codeRows: [],
     tree: [],
     treeData: [],
     loadCodeError: false,
     animationData: {},
     reposPath: '',
-    filePath: ''
+    filePath: '',
+    branches: [],
+    curBranch: ''
   },
   onLoad () {
     const repos = 'https://github.com/Youjingyu/vue-hap-tools/'
@@ -20,12 +19,20 @@ Page({
     this.setData({
       reposPath: repos.replace('https://github.com/', '').replace(/\/$/, '')
     })
-    apis.getTree().then((tree) => {
-      this.setData({
-        tree,
-        treeData: treeDataSimplify(tree)
+    apis.getReopInfo().then((res) => {
+      return this.changeBranch(res.default_branch)
+    }).catch(() => {
+      this.data.loadCodeError = true
+    })
+    apis.getBranches().then((res) => {
+      // github按照创建时间倒序返回branches
+      // 这里按照时间从旧到新显示
+      const branch = res.reverse().map((item) => {
+        return item.name
       })
-      console.log(this.data.tree)
+      this.setData({
+        branches: branch
+      })
     }).catch(() => {
       this.data.loadCodeError = true
     })
@@ -51,6 +58,26 @@ Page({
     this.setData({
       animationData: this.animation.export()
     })
+  },
+  changeBranch (branch) {
+    apis.setBranch(branch)
+    this.setData({
+      codeRows: [],
+      tree: [],
+      treeData: [],
+      filePath: '',
+      curBranch: branch
+    })
+    return apis.getTree().then((tree) => {
+      this.setData({
+        tree,
+        treeData: treeDataSimplify(tree)
+      })
+      console.log(this.data.tree)
+    })
+  },
+  branchPickerChange (e) {
+    this.changeBranch(this.data.branches[e.detail.value])
   },
   viewFile (e) {
     this.setData({

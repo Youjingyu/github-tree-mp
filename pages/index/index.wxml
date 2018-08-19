@@ -25,8 +25,8 @@
     <view class="sidebar-title">
         <view class="sidebar-title-name">
           <view>{{reposPath}}</view>
-          <picker bindchange="bindPickerChange" value="{{1}}" range="{{treeData}}">
-            <view class="sidebar-title-branch">{{'master'}}</view>
+          <picker bindchange="branchPickerChange" value="{{0}}" range="{{branches}}">
+            <view class="sidebar-title-branch">{{curBranch}}</view>
           </picker>
         </view>
         <view>
