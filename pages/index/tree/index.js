@@ -26,7 +26,10 @@ Component({
       const data = this.data.data
       console.log(data[index].content)
       if (data[index].content && data[index].content.type === 'blob') {
-        this.triggerEvent('viewFile', { url: data[index].content.url })
+        this.triggerEvent('viewFile', {
+          url: data[index].content.url,
+          path: data[index].content.path
+        })
       }
     }
   }

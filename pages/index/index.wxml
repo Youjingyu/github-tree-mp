@@ -1,5 +1,12 @@
 <!--index.wxml-->
 <!-- <import src="../../utils/wxParse/wxParse.wxml"/> -->
+<view class="header">
+  <image
+    bindtap="showMenu"
+    class="float-icon sidebar-icon"
+    src="../../assets/imgs/arrow-right.png"></image>
+  <text>{{filePath}}</text>
+</view>
 <view class="container">
   <scroll-view scroll-x="true" scroll-y="true">
       <!-- <template is="wxParse" data="{{wxParseData:code.nodes}}"/> -->
@@ -14,17 +21,20 @@
       </view>
   </scroll-view>
 </view>
-<image
-    bindtap="showMenu"
-    class="float-icon sidebar-icon"
-    src="../../assets/imgs/arrow-right.png"></image>
 <view class="sidebar" animation="{{animationData}}">
     <view class="sidebar-title">
-        <text>title</text>
-        <image
+        <view class="sidebar-title-name">
+          <view>{{reposPath}}</view>
+          <picker bindchange="bindPickerChange" value="{{1}}" range="{{treeData}}">
+            <view class="sidebar-title-branch">{{'master'}}</view>
+          </picker>
+        </view>
+        <view>
+          <image
             bindtap="hideMenu"
             class="sidebar-icon"
             src="../../assets/imgs/arrow-left.png"></image>
+        </view>
     </view>
     <view class="sidebar-main">
       <tree data="{{tree}}" treeData="{{treeData}}" bind:viewFile="viewFile"></tree>

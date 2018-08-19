@@ -1,8 +1,6 @@
 import apis from '../../apis/index'
 import app from '../../utils/index'
 
-apis.setResp('https://github.com/Youjingyu/vue-hap-tools/')
-
 Page({
   data: {
     code: {
@@ -12,9 +10,16 @@ Page({
     tree: [],
     treeData: [],
     loadCodeError: false,
-    animationData: {}
+    animationData: {},
+    reposPath: '',
+    filePath: ''
   },
   onLoad () {
+    const repos = 'https://github.com/Youjingyu/vue-hap-tools/'
+    apis.setResp(repos)
+    this.setData({
+      reposPath: repos.replace('https://github.com/', '').replace(/\/$/, '')
+    })
     apis.getTree().then((tree) => {
       this.setData({
         tree,
@@ -48,6 +53,9 @@ Page({
     })
   },
   viewFile (e) {
+    this.setData({
+      filePath: e.detail.path
+    })
     const url = e.detail.url.replace('https://api.github.com/repos/', '')
     apis.getBlob(url).then((codeString) => {
       let html = app.globalUtils.hightlight.highlight('javascript', codeString).value
