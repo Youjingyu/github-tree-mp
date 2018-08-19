@@ -1,6 +1,7 @@
 {
   "pages":[
-    "pages/index/index"
+    "pages/index/index",
+    "pages/comp/tree/tree"
   ],
   "window":{
     "backgroundTextStyle":"light",

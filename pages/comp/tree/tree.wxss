@@ -15,7 +15,7 @@
   transform: rotate(90deg);
 }
 .sub-tree{
-  display: none;
+  /* display: none; */
   padding-left: 50rpx;
 }
 .show {

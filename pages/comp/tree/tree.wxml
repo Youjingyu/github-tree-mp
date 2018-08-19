@@ -1,0 +1,14 @@
+<view>
+  <view bindtap="toggle" class="{{model.children ? '':'indent'}}">
+    <image wx-if="{{model.children}}"
+      class="triangle-icon {{(open ? 'rotate' : '')}}"
+      src="../../../assets/imgs/triangle.png"></image>
+    <image wx-if="{{model.children}}"
+      class="folder-icon"
+      src="../../../assets/imgs/folder.png"></image>
+    <text>{{model.name}}</text>
+  </view>
+  <view wx:if="{{model.children}}" class="sub-tree" hidden="{{!open}}">
+    <tree wx:for='{{ model.children }}' wx:key='id' model='{{ item }}'></tree>
+  </view>
+</view>

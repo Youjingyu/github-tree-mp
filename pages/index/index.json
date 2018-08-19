@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "tree": "./tree/index"
+    "tree": "../comp/tree/tree"
   }
 }

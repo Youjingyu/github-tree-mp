@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "tree": "../tree/index"
+    "tree": "../tree/tree"
   }
 }

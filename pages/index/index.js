@@ -7,7 +7,6 @@ Page({
       nodes: []
     },
     codeRows: [],
-    tree: [],
     treeData: [],
     loadCodeError: false,
     animationData: {},
@@ -72,8 +71,6 @@ Page({
   changeBranch (branch) {
     apis.setBranch(branch)
     this.setData({
-      codeRows: [],
-      tree: [],
       treeData: [],
       filePath: '',
       curBranch: branch,
@@ -81,8 +78,7 @@ Page({
     })
     return apis.getTree().then((tree) => {
       this.setData({
-        tree,
-        treeData: treeDataSimplify(tree)
+        treeData: tree
       })
       const readme = getReadme(tree)
       if (readme) {
@@ -93,7 +89,7 @@ Page({
           }
         })
       }
-      console.log(this.data.tree)
+      console.log(this.data.treeData)
     })
   },
   branchPickerChange (e) {
@@ -139,17 +135,17 @@ Page({
   }
 })
 
-function treeDataSimplify (tree) {
-  const res = []
-  tree.forEach((item) => {
-    const treeItem = {name: item.name}
-    res.push(treeItem)
-    if (item.children && item.children.length > 0) {
-      treeItem.children = treeDataSimplify(item.children)
-    }
-  })
-  return res
-}
+// function treeDataSimplify (tree) {
+//   const res = []
+//   tree.forEach((item) => {
+//     const treeItem = {name: item.name}
+//     res.push(treeItem)
+//     if (item.children && item.children.length > 0) {
+//       treeItem.children = treeDataSimplify(item.children)
+//     }
+//   })
+//   return res
+// }
 function getReadme (tree) {
   for (let i = 0; i < tree.length; i++) {
     if (tree[i].content && /^(readme|README)\.md$/.test(tree[i].content.path)) {
