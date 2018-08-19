@@ -60,3 +60,22 @@ page {
   width: 50rpx;
   height: 50rpx;
 }
+.loading {
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  right:0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #ccc;
+  opacity: 0.5;
+  display: none;
+}
+.loading-img{
+  width: 100px;
+  height: 100px;
+}
+.show {
+  display:flex;
+}

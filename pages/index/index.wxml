@@ -7,7 +7,7 @@
     src="../../assets/imgs/arrow-right.png"></image>
   <text>{{filePath}}</text>
 </view>
-<view class="container">
+<view class="container" bindtap="clickCodeView">
   <scroll-view scroll-x="true" scroll-y="true">
       <!-- <template is="wxParse" data="{{wxParseData:code.nodes}}"/> -->
       <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
@@ -39,4 +39,9 @@
     <view class="sidebar-main">
       <tree data="{{tree}}" treeData="{{treeData}}" bind:viewFile="viewFile"></tree>
     </view>
+</view>
+<view class="{{'loading ' + (loading ? 'show' : '')}}">
+  <image
+      class="loading-img"
+      src="../../assets/imgs/loading.gif"></image>
 </view>

@@ -11,7 +11,8 @@ Page({
     reposPath: '',
     filePath: '',
     branches: [],
-    curBranch: ''
+    curBranch: '',
+    loading: true
   },
   onLoad () {
     const repos = 'https://github.com/Youjingyu/vue-hap-tools/'
@@ -59,6 +60,9 @@ Page({
       animationData: this.animation.export()
     })
   },
+  clickCodeView () {
+    this.hideMenu()
+  },
   changeBranch (branch) {
     apis.setBranch(branch)
     this.setData({
@@ -66,12 +70,14 @@ Page({
       tree: [],
       treeData: [],
       filePath: '',
-      curBranch: branch
+      curBranch: branch,
+      loading: true
     })
     return apis.getTree().then((tree) => {
       this.setData({
         tree,
-        treeData: treeDataSimplify(tree)
+        treeData: treeDataSimplify(tree),
+        loading: false
       })
       console.log(this.data.tree)
     })
@@ -84,6 +90,9 @@ Page({
       filePath: e.detail.path
     })
     const url = e.detail.url.replace('https://api.github.com/repos/', '')
+    this.setData({
+      loading: true
+    })
     apis.getBlob(url).then((codeString) => {
       let html = app.globalUtils.hightlight.highlight('javascript', codeString).value
       let codeSegments = html.split(/\n/)
@@ -112,8 +121,10 @@ Page({
         codeRows.push(res)
       })
       this.setData({
-        codeRows: codeRows
+        codeRows: codeRows,
+        loading: false
       })
+      this.hideMenu()
       // app.globalUtils.wxParse('code', 'html', html, this, 5)
     }).catch(() => {
       this.data.loadCodeError = true
