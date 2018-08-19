@@ -2,9 +2,9 @@
  * author: Di (微信小程序开发工程师)
  * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
  *               垂直微信小程序开发交流社区
- * 
+ *
  * github地址: https://github.com/icindy/wxParse
- * 
+ *
  * for: 微信小程序富文本解析
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */-->
@@ -12,7 +12,7 @@
 <!--基础元素-->
 <template name="wxParseVideo">
   <!--增加video标签支持，并循环添加-->
-  <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+  <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
     <video class="{{item.classStr}} wxParse-{{item.tag}}-video" src="{{item.attr.src}}"></video>
   </view>
 </template>
@@ -23,7 +23,7 @@
 </template>
 
 <template name="WxEmojiView">
-  <view class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
+  <view class="wxParse-view WxEmojiView wxParse-inline" style="{{item.styleStr}}">
     <block wx:for="{{item.textArray}}" wx:key="">
       <block class="{{item.text == '\\n' ? 'wxParse-hide':''}}" wx:if="{{item.node == 'text'}}">{{item.text}}</block>
       <block wx:elif="{{item.node == 'element'}}">
@@ -59,12 +59,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse1" data="{{item}}" />
             </block>
@@ -92,7 +92,7 @@
       </view>
     </block>
     <block wx:elif="{{item.tag == 'table'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse1" data="{{item}}" />
         </block>
@@ -104,7 +104,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse1" data="{{item}}" />
         </block>
@@ -144,12 +144,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse2" data="{{item}}" />
             </block>
@@ -182,7 +182,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse2" data="{{item}}" />
         </block>
@@ -221,12 +221,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse3" data="{{item}}" />
             </block>
@@ -259,7 +259,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse3" data="{{item}}" />
         </block>
@@ -297,12 +297,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse4" data="{{item}}" />
             </block>
@@ -335,7 +335,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse4" data="{{item}}" />
         </block>
@@ -373,12 +373,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse5" data="{{item}}" />
             </block>
@@ -411,7 +411,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse5" data="{{item}}" />
         </block>
@@ -449,12 +449,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse6" data="{{item}}" />
             </block>
@@ -487,7 +487,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse6" data="{{item}}" />
         </block>
@@ -525,12 +525,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse7" data="{{item}}" />
             </block>
@@ -563,7 +563,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse7" data="{{item}}" />
         </block>
@@ -600,12 +600,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse8" data="{{item}}" />
             </block>
@@ -638,7 +638,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse8" data="{{item}}" />
         </block>
@@ -676,12 +676,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse9" data="{{item}}" />
             </block>
@@ -714,7 +714,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse9" data="{{item}}" />
         </block>
@@ -752,12 +752,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse10" data="{{item}}" />
             </block>
@@ -790,7 +790,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse10" data="{{item}}" />
         </block>
@@ -828,12 +828,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse11" data="{{item}}" />
             </block>
@@ -866,7 +866,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse11" data="{{item}}" />
         </block>
@@ -904,12 +904,12 @@
     </block>
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
-      <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
-          <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+      <view class="wxParse-view {{item.classStr}} wxParse-li" style="{{item.styleStr}}">
+        <view class="wxParse-view {{item.classStr}} wxParse-li-inner">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
+            <view class="wxParse-view {{item.classStr}} wxParse-li-circle"></view>
           </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          <view class="wxParse-view {{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse12" data="{{item}}" />
             </block>
@@ -942,7 +942,7 @@
     </block>
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
-      <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+      <view class="wxParse-view {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
         <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
           <template is="wxParse12" data="{{item}}" />
         </block>
