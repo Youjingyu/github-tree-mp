@@ -1,13 +1,13 @@
 /**
- * 
+ *
  * showdown: https://github.com/showdownjs/showdown
- * 
+ *
  * author: Di (微信小程序开发工程师)
  * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
  *               垂直微信小程序开发交流社区
- * 
+ *
  * github地址: https://github.com/icindy/wxParse
- * 
+ *
  * for: 微信小程序富文本解析
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */
@@ -134,6 +134,12 @@ showdown.helper = {};
  * @type {{}}
  */
 showdown.extensions = {};
+var __imgBasePath = ''
+showdown.setImgBasePath = function (imgBasePath) {
+  'use strict';
+  __imgBasePath = imgBasePath
+  return this;
+};
 
 /**
  * Set a global option
@@ -1946,6 +1952,9 @@ showdown.subParser('images', function (text, options, globals) {
     altText = altText.replace(/"/g, '&quot;');
     altText = showdown.helper.escapeCharacters(altText, '*_', false);
     url = showdown.helper.escapeCharacters(url, '*_', false);
+    if (!/^http(s)?:\/\//.test(url)) {
+      url = __imgBasePath + url.replace(/^\//, '')
+    }
     var result = '<img src="' + url + '" alt="' + altText + '"';
 
     if (title) {

@@ -123,7 +123,7 @@ Page({
     let dataToUpdate = {}
     if (type === 'md') {
       const that = this
-      app.globalUtils.wxParse('md', 'md', content, that, 5)
+      app.globalUtils.wxParse('md', 'md', content, that, 5, 'https://raw.githubusercontent.com/' + this.data.reposPath + '/' + this.data.curBranch + '/')
     } else if (type === 'language') {
       const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
       dataToUpdate = {
