@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "tree": "../comp/tree/tree"
-  }
+  },
+  "navigationBarTitleText": "查看代码"
 }

@@ -1,0 +1,42 @@
+page {
+  height: 100%;
+}
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.form {
+  width: 700rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+input {
+  width: 500rpx;
+  border-radius: 10rpx;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #dcdfe6;
+  box-sizing: border-box;
+  color: #606266;
+  height: 40px;
+  line-height: 40px;
+  outline: none;
+  padding: 0 15px;
+}
+.placeholder-class {
+  color: #606266;
+  font-size: 14px;
+}
+button {
+  padding: 0;
+  width: 120rpx;
+  font-size: 14px;
+  color: #fff;
+  background-color: #409eff;
+  border-color: #409eff;
+}

@@ -18,12 +18,15 @@ Page({
     viewType: 'md',
     viewText: ''
   },
-  onLoad () {
-    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+  onLoad (option) {
+    const repos = option.repos
+    // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
+    const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
     this.setData({
-      reposPath: repos.replace('https://github.com/', '').replace(/\/$/, '')
+      reposPath: reposPath,
+      filePath: reposPath
     })
     apis.getReopInfo().then((res) => {
       return this.changeBranch(res.default_branch)
@@ -71,13 +74,11 @@ Page({
   changeBranch (branch) {
     apis.setBranch(branch)
     this.setData({
-      treeData: [],
-      filePath: '',
-      curBranch: branch,
       loading: true
     })
     return apis.getTree().then((tree) => {
       this.setData({
+        curBranch: branch,
         treeData: tree
       })
       const readme = getReadme(tree)
@@ -87,6 +88,9 @@ Page({
             url: readme.url,
             path: readme.path
           }
+        })
+        this.setData({
+          filePath: readme.path
         })
       }
       console.log(this.data.treeData)

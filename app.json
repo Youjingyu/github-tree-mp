@@ -1,12 +1,13 @@
 {
   "pages":[
+    "pages/set-repos/set-repos",
     "pages/index/index",
     "pages/comp/tree/tree"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "Github Tree",
     "navigationBarTextStyle":"black"
   }
 }
