@@ -16,7 +16,8 @@ Page({
     curBranch: '',
     loading: true,
     viewType: 'md',
-    viewText: ''
+    viewText: '',
+    viewImgSrc: ''
   },
   onLoad (option) {
     // wx.request({
@@ -113,31 +114,39 @@ Page({
     this.changeBranch(this.data.branches[e.detail.value])
   },
   viewFile (e) {
+    const path = e.detail.path
     this.setData({
-      filePath: e.detail.path,
+      filePath: path,
       loading: true
     })
+    this.hideMenu()
+    const fileInfo = getFileInfo(path)
+    if (fileInfo.type === 'img') {
+      this.setData({
+        viewType: fileInfo.type,
+        loading: false,
+        viewImgSrc: apis.getImgRawPath() + path
+      })
+      return
+    }
     // const url = e.detail.url.replace('https://api.github.com/repos/', '')
     apis.getBlob(e.detail.path).then((res) => {
     // apis.getBlob(url).then((res) => {
-      this.parseFile(res, e.detail.path, () => {
+      this.parseFile(res, fileInfo)
+    }).catch((err) => {
+      if (err.code === 3) {
         this.setData({
-          loading: false
+          viewType: 'nosupport',
         })
-      })
-      this.hideMenu()
-    }).catch(() => {
-      this.data.loadCodeError = true
+      }
     })
   },
-  parseFile (fileInfo, path, cb) {
-    fileInfo = parseContent(fileInfo, path)
-    console.log(fileInfo)
-    const { content, type } = fileInfo
+  parseFile (content, fileInfo, cb) {
+    const { type } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
       const that = this
-      app.globalUtils.wxParse('md', 'md', content, that, 5, 'https://raw.githubusercontent.com/' + this.data.reposPath + '/' + this.data.curBranch + '/')
+      app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath())
     } else if (type === 'language') {
       const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
       dataToUpdate = {
@@ -148,7 +157,10 @@ Page({
         viewText: content
       }
     }
-    this.setData(Object.assign({viewType: fileInfo.type}, dataToUpdate))
+    this.setData(Object.assign({
+      viewType: type,
+      loading: false
+    }, dataToUpdate))
     cb && cb()
   }
 })
@@ -179,19 +191,10 @@ const languageMap = {
   'json': 'json'
 }
 const imgMap = ['png', 'jpeg', 'jpg', 'gif']
-function parseContent (fileInfo, path) {
-  fileInfo = {
-    content: fileInfo
+function getFileInfo (path) {
+  const fileInfo = {
+    path
   }
-  fileInfo.type = 'nosupport'
-  // if (fileInfo.encoding !== 'base64') {
-  //   return fileInfo
-  // }
-  // try {
-  //   fileInfo.content = app.globalUtils.base64.decode(fileInfo.content)
-  // } catch (err) {
-  //   return fileInfo
-  // }
   const matches = path.match(/\.([a-zA-Z]+)$/)
   const type = (matches && matches[1]) || ''
   if (type === 'md') {

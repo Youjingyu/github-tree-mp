@@ -59,15 +59,40 @@ function request (url:string):Promise<githubApiRes>{
       url,
       dataType: 'json',
       success: function(res) {
-        if (res) {
-          reqNum++
-          resolve(res.data)
-        } else {
-          reject(new Error('no data received'))
+        if (!res) {
+          return reject({
+            msg: 'unknown error',
+            code: 5
+          })
         }
+        const { data, statusCode, header} = res
+        console.log(res, statusCode, header)
+        reqNum++
+        if (statusCode === 403) {
+          return reject({
+            msg: 'max call exceed',
+            code: 1
+          })
+        }
+        if (statusCode !== 200) {
+          return reject({
+            msg: 'no data received',
+            code: 2
+          })
+        }
+        if (!/^(application\/json|text\/plain)/.test(header['Content-Type'])) {
+          return reject({
+            msg: 'nosupport file type',
+            code: 3
+          })
+        }
+        res && resolve(data)
       },
-      fail: function(err){
-        reject(err)
+      fail: function(err:any){
+        reject({
+          msg: err.message,
+          code: 4
+        })
       }
     })
     // resolve({

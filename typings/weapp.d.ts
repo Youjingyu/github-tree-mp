@@ -164,6 +164,8 @@ declare namespace wx {
          * 开发者服务器返回的内容
          */
         data: any;
+        statusCode: number;
+        header: any;
     }
 
     export interface RequestOptions extends BaseOptions {

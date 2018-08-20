@@ -11,6 +11,9 @@
   <view hidden="{{viewType !== 'nosupport'}}">
     <text>不支持的文件类型</text>
   </view>
+  <view hidden="{{viewType !== 'img'}}">
+    <image src="{{viewImgSrc}}" aspectFit></image>
+  </view>
   <view hidden="{{viewType !== 'text'}}">
     <text>{{viewText}}</text>
   </view>
