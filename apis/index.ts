@@ -66,7 +66,6 @@ function request (url:string):Promise<githubApiRes>{
           })
         }
         const { data, statusCode, header} = res
-        console.log(res, statusCode, header)
         reqNum++
         if (statusCode === 403) {
           return reject({
