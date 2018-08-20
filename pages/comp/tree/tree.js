@@ -20,6 +20,9 @@ Component({
           path: data.content.path
         })
       }
+    },
+    viewFile (e) {
+      this.triggerEvent('viewFile', e.detail)
     }
   }
 })

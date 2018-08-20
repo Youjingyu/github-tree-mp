@@ -9,6 +9,6 @@
     <text>{{model.name}}</text>
   </view>
   <view wx:if="{{model.children}}" class="sub-tree" hidden="{{!open}}">
-    <tree wx:for='{{ model.children }}' wx:key='id' model='{{ item }}'></tree>
+    <tree wx:for='{{ model.children }}' wx:key='id' model='{{ item }}' bind:viewFile="viewFile"></tree>
   </view>
 </view>

@@ -45,7 +45,7 @@
         </view>
     </view>
     <view class="sidebar-main">
-      <tree wx:for="{{treeData}}" wx:key="{{index}}" model='{{ treeData[index] }}'></tree>
+      <tree wx:for="{{treeData}}" wx:key="{{index}}" model='{{ treeData[index] }}' bind:viewFile="viewFile"></tree>
     </view>
 </view>
 <view class="{{'loading ' + (loading ? 'show' : '')}}">

@@ -21,6 +21,12 @@ class Apis {
   public setBranch (branch:string) {
     this.branch = branch
   }
+  public getImgRawPath () {
+    return 'https://raw.githubusercontent.com/' + this.reposPath + '/' + this.branch + '/'
+  }
+  public getRawPath () {
+    return apiServer + 'myraw/' + this.reposPath + '/' + this.branch + '/'
+  }
   public searchRepo (query:string, page:string, per_page:string):Promise<object> {
     return request(`${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`)
   }
@@ -33,7 +39,8 @@ class Apis {
   // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
   public getBlob (path:string):Promise<object> {
     // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
-    return request(`${this.baseUrl}${path}`)
+    // return request(`${this.baseUrl}${path}`)
+    return request(`${this.getRawPath()}${path}`)
   }
   public getTree ():Promise<object> {
     return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {

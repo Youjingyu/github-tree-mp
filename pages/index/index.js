@@ -19,8 +19,21 @@ Page({
     viewText: ''
   },
   onLoad (option) {
-    const repos = option.repos
-    // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+    // wx.request({
+    //   url: 'https://raw.githubusercontent.com/houdunwang/video/master/ThinkPHP3.1.3%E5%AE%9E%E4%BE%8B%E5%BC%80%E5%8F%91%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B/%E5%90%8E%E7%9B%BE%E7%BD%91Thinkphp%E8%A7%86%E9%A2%91%E8%B5%84%E6%96%99(BLog%E6%A8%A1%E6%9D%BF_%E5%9B%BE%E7%89%87%E7%B1%BB_%E5%AD%97%E4%BD%93)/font.ttf',
+    //   dataType: 'json',
+    //   header: {
+    //     'Accept': 'text/html'
+    //   },
+    //   success: function(res) {
+    //     console.log(res)
+    //   },
+    //   fail: function(err){
+    //     console.log(err)
+    //   }
+    // })
+    // const repos = option.repos
+    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
     const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
@@ -104,8 +117,9 @@ Page({
       filePath: e.detail.path,
       loading: true
     })
-    const url = e.detail.url.replace('https://api.github.com/repos/', '')
-    apis.getBlob(url).then((res) => {
+    // const url = e.detail.url.replace('https://api.github.com/repos/', '')
+    apis.getBlob(e.detail.path).then((res) => {
+    // apis.getBlob(url).then((res) => {
       this.parseFile(res, e.detail.path, () => {
         this.setData({
           loading: false
@@ -166,15 +180,18 @@ const languageMap = {
 }
 const imgMap = ['png', 'jpeg', 'jpg', 'gif']
 function parseContent (fileInfo, path) {
+  fileInfo = {
+    content: fileInfo
+  }
   fileInfo.type = 'nosupport'
-  if (fileInfo.encoding !== 'base64') {
-    return fileInfo
-  }
-  try {
-    fileInfo.content = app.globalUtils.base64.decode(fileInfo.content)
-  } catch (err) {
-    return fileInfo
-  }
+  // if (fileInfo.encoding !== 'base64') {
+  //   return fileInfo
+  // }
+  // try {
+  //   fileInfo.content = app.globalUtils.base64.decode(fileInfo.content)
+  // } catch (err) {
+  //   return fileInfo
+  // }
   const matches = path.match(/\.([a-zA-Z]+)$/)
   const type = (matches && matches[1]) || ''
   if (type === 'md') {

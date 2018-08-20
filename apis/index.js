@@ -21,6 +21,12 @@ class Apis {
     setBranch(branch) {
         this.branch = branch;
     }
+    getImgRawPath() {
+        return 'https://raw.githubusercontent.com/' + this.reposPath + '/' + this.branch + '/';
+    }
+    getRawPath() {
+        return apiServer + 'myraw/' + this.reposPath + '/' + this.branch + '/';
+    }
     searchRepo(query, page, per_page) {
         return request(`${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`);
     }
@@ -33,7 +39,8 @@ class Apis {
     // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
     getBlob(path) {
         // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
-        return request(`${this.baseUrl}${path}`);
+        // return request(`${this.baseUrl}${path}`)
+        return request(`${this.getRawPath()}${path}`);
     }
     getTree() {
         return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
