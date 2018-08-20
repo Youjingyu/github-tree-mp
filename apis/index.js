@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const parseTree_1 = __importDefault(require("../utils/parseTree"));
+const apiServer = 'https://www.whaleyou.club/';
 class Apis {
     constructor() {
-        this.baseUrl = 'https://www.whaleyou.club/repos/';
+        this.baseUrl = apiServer + 'repos/';
         // public baseUrl = 'https://api.github.com/repos/'
         this.reposUrl = '';
         this.reposPath = '';
@@ -19,6 +20,9 @@ class Apis {
     }
     setBranch(branch) {
         this.branch = branch;
+    }
+    searchRepo(query, page, per_page) {
+        return request(`${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`);
     }
     getReopInfo() {
         return request(`${this.reposUrl.replace(/\/$/, '')}`);

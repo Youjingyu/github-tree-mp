@@ -5,8 +5,10 @@ interface githubApiRes {
   tree: Array<TreeApiItem>
 }
 
+const apiServer = 'https://www.whaleyou.club/'
+
 class Apis {
-  public baseUrl = 'https://www.whaleyou.club/repos/'
+  public baseUrl = apiServer + 'repos/'
   // public baseUrl = 'https://api.github.com/repos/'
   public reposUrl = ''
   public reposPath = ''
@@ -18,6 +20,9 @@ class Apis {
   }
   public setBranch (branch:string) {
     this.branch = branch
+  }
+  public searchRepo (query:string, page:string, per_page:string):Promise<object> {
+    return request(`${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`)
   }
   public getReopInfo ():Promise<object> {
     return request(`${this.reposUrl.replace(/\/$/, '')}`)

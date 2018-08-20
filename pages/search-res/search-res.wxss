@@ -1,0 +1,42 @@
+.container{
+  padding: 5rpx;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 30rpx;
+  line-height: 1.2;
+  word-break: break-all;
+  border-bottom: 1px solid #e1e4e8;
+  padding: 15rpx 0;
+}
+.left {
+  flex: 5;
+  padding: 0 5rpx;
+}
+.center{
+  flex: 2;
+}
+.right {
+  flex: 1.5;
+}
+.name {
+  font-size: 35rpx;
+  color: #0366d6;
+}
+.description {
+  font-size: 30rpx;
+}
+.update{
+  font-size: 25rpx;
+}
+.star {
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: bottom;
+}
+.no-data{
+  margin-top: 100rpx;
+  text-align: center;
+}

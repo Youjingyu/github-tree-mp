@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/set-repos/set-repos",
+    "pages/search-res/search-res",
     "pages/index/index",
     "pages/comp/tree/tree"
   ],

@@ -1,0 +1,2 @@
+@import "./weui-tips/weui-loadmore.wxss";
+@import "./weui-loading/weui-loading.wxss";

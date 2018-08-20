@@ -22,6 +22,10 @@ Page({
           url: '/pages/index/index?repos=' + val
         })
       }
+    } else {
+      wx.navigateTo({
+        url: '/pages/search-res/search-res?query=' + val
+      })
     }
   }
 })
