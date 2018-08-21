@@ -2,7 +2,7 @@ import apis from '../../apis/index'
 
 let query = ''
 let page = 1
-let perPage = 10
+let perPage = 30
 
 Page({
   data: {
@@ -52,7 +52,7 @@ function filterData (data) {
       full_name: item.full_name,
       description: item.description,
       html_url: item.html_url,
-      updated_at: item.updated_at.replace(/T.*/, ''),
+      // updated_at: item.updated_at.replace(/T.*/, ''),
       language: item.language || '',
       stargazers_count: star > 999 ? ((star / 1000).toFixed(1) + 'k') : star
     })

@@ -6,7 +6,7 @@
     <view class="left">
       <view><text class="name">{{item.full_name}}</text></view>
       <view><text class="description">{{item.description}}</text></view>
-      <view><text class="update">Updated on {{item.updated_at}}</text></view>
+      <!-- <view><text class="update">Updated on {{item.updated_at}}</text></view> -->
     </view>
     <view class="center">
       <text>{{item.language}}</text>
