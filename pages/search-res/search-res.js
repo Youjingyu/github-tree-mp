@@ -8,7 +8,7 @@ Page({
   data: {
     loading: true,
     list: [],
-    loadMore: true,
+    loadMore: false,
     noData: false
   },
   onLoad (option) {

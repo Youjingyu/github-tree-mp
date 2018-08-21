@@ -35,8 +35,11 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
     transData = HtmlToJson.html2json(data, bindName);
     // console.log(JSON.stringify(transData, ' ', ' '));
   } else if (type == 'md' || type == 'markdown') {
+    showdown.setFlavor('github');
     var converter = new showdown.Converter();
     showdown.setImgBasePath(imgBasePath)
+    converter.setOption('table', true);
+    converter.setOption('simpleLineBreaks', true);
     var html = converter.makeHtml(data);
     transData = HtmlToJson.html2json(html, bindName);
     // console.log(JSON.stringify(transData, ' ', ' '));
