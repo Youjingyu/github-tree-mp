@@ -20,6 +20,7 @@ Page({
     this.getList()
   },
   getList () {
+    if (this.data.loadMore === true) return
     this.setData({
       loadMore: true
     })
