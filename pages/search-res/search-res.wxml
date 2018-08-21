@@ -8,12 +8,12 @@
       <view><text class="description">{{item.description}}</text></view>
       <!-- <view><text class="update">Updated on {{item.updated_at}}</text></view> -->
     </view>
-    <view class="center">
-      <text>{{item.language}}</text>
-    </view>
     <view class="right">
-      <image src="../../assets/imgs/star.png" class="star"></image>
-      <text>{{item.stargazers_count}}</text>
+      <view><text>{{item.language}}</text></view>
+      <view>
+        <image src="../../assets/imgs/star.png" class="star"></image>
+        <text>{{item.stargazers_count}}</text>
+      </view>
     </view>
   </view>
   <view class="weui-loadmore" hidden="{{!loadMore}}">
