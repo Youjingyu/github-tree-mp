@@ -1,6 +1,6 @@
 <view class="container">
   <view class="form">
-    <input bindinput="bindKeyInput" placeholder-class="placeholder-class" placeholder="输入项目地址或搜索关键字"/>
+    <input value="{{inputValue}}" bindinput="bindKeyInput" placeholder-class="placeholder-class" placeholder="输入项目地址或搜索关键字"/>
     <button bindtap="confirm">确定</button>
   </view>
 </view>
