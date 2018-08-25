@@ -5,11 +5,12 @@ interface githubApiRes {
   tree: Array<TreeApiItem>
 }
 
-const apiServer = 'https://www.whaleyou.club/'
+// const apiServer = 'https://www.whaleyou.club/'
+// const apiServer = 'https://api.github.com/'
+const apiServer = 'https://github.whaleyou.club/'
 
 class Apis {
   public baseUrl = apiServer + 'repos/'
-  // public baseUrl = 'https://api.github.com/repos/'
   public reposUrl = ''
   public reposPath = ''
   public sha = '34709373e6157be33748b58344969c318bec9fc1'
@@ -40,7 +41,7 @@ class Apis {
   public getBlob (path:string):Promise<object> {
     // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
     // return request(`${this.baseUrl}${path}`)
-    return request(`${this.getRawPath()}${path}`)
+    return request(`${this.getRawPath()}${path}`, false)
   }
   public getTree ():Promise<object> {
     return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
@@ -52,12 +53,12 @@ class Apis {
 export default new Apis()
 
 let reqNum = 0
-function request (url:string):Promise<githubApiRes>{
+function request (url:string, isJson:boolean=true):Promise<githubApiRes>{
   return new Promise((resolve, reject) => {
     if (reqNum > 200) return reject({code: 1, message: 'API rate limit exceeded.'})
     wx.request({
       url,
-      dataType: 'json',
+      dataType: isJson ? 'json': 'text',
       success: function(res) {
         if (!res) {
           return reject({

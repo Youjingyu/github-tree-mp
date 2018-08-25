@@ -4,11 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const parseTree_1 = __importDefault(require("../utils/parseTree"));
-const apiServer = 'https://www.whaleyou.club/';
+// const apiServer = 'https://www.whaleyou.club/'
+// const apiServer = 'https://api.github.com/'
+const apiServer = 'https://github.whaleyou.club/';
 class Apis {
     constructor() {
         this.baseUrl = apiServer + 'repos/';
-        // public baseUrl = 'https://api.github.com/repos/'
         this.reposUrl = '';
         this.reposPath = '';
         this.sha = '34709373e6157be33748b58344969c318bec9fc1';
@@ -40,7 +41,7 @@ class Apis {
     getBlob(path) {
         // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
         // return request(`${this.baseUrl}${path}`)
-        return request(`${this.getRawPath()}${path}`);
+        return request(`${this.getRawPath()}${path}`, false);
     }
     getTree() {
         return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
@@ -50,13 +51,13 @@ class Apis {
 }
 exports.default = new Apis();
 let reqNum = 0;
-function request(url) {
+function request(url, isJson = true) {
     return new Promise((resolve, reject) => {
         if (reqNum > 200)
             return reject({ code: 1, message: 'API rate limit exceeded.' });
         wx.request({
             url,
-            dataType: 'json',
+            dataType: isJson ? 'json' : 'text',
             success: function (res) {
                 if (!res) {
                     return reject({
