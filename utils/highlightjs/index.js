@@ -3,10 +3,10 @@ const html2json = require('../wxParse/html2json.js').html2json
 
 module.exports = function (codeString, type) {
   let html = ''
-  if (type) {
-    html = hightlight.highlight(type, codeString).value
-  } else {
+  if (!type || type === 'auto') {
     html = hightlight.highlightAuto(type, codeString).value
+  } else {
+    html = hightlight.highlight(type, codeString).value
   }
   let codeSegments = html.split(/\n/)
   const codeRows = []

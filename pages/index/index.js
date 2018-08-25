@@ -21,6 +21,13 @@ Page({
     stargazers_count: '',
     forks: ''
   },
+  toast (toastText) {
+    wx.showToast({
+      icon: 'none',
+      title: toastText,
+      duration: 1500
+    })
+  },
   loading (show = true) {
     show ? wx.showLoading({
       title: '正在加载'
@@ -130,15 +137,24 @@ Page({
     })
   },
   parseFile (content, fileInfo, cb) {
-    const { type } = fileInfo
+    let { type } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
       const that = this
       app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath())
     } else if (type === 'language') {
-      const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
-      dataToUpdate = {
-        codeRows: codeRows
+      try {
+        const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
+        dataToUpdate = {
+          codeRows: codeRows
+        }
+      } catch (err) {
+        console.log(err)
+        this.toast('代码解析失败，将以纯文本展示')
+        type = 'text'
+        dataToUpdate = {
+          viewText: content
+        }
       }
     } else if (type === 'text') {
       dataToUpdate = {
@@ -175,6 +191,7 @@ const languageMap = {
   'js': 'javascript',
   'css': 'css',
   'html': 'html',
+  'vue': 'auto',
   'ts': 'typescript',
   'json': 'json'
 }
