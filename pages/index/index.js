@@ -1,6 +1,8 @@
 import apis from '../../apis/index'
 import app from '../../utils/index'
 
+const hightlight = app.globalUtils.hightlight
+
 Page({
   data: {
     md: {
@@ -137,14 +139,14 @@ Page({
     })
   },
   parseFile (content, fileInfo, cb) {
-    let { type } = fileInfo
+    let { type, languageType } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
       const that = this
       app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath())
     } else if (type === 'language') {
       try {
-        const codeRows = app.globalUtils.hightlight(content, fileInfo.languageType)
+        const codeRows = hightlight(content, languageType)
         dataToUpdate = {
           codeRows: codeRows
         }
@@ -191,7 +193,7 @@ const languageMap = {
   'js': 'javascript',
   'css': 'css',
   'html': 'html',
-  'vue': 'auto',
+  'vue': 'markup',
   'ts': 'typescript',
   'json': 'json'
 }
