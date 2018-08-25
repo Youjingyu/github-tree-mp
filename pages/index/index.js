@@ -17,11 +17,13 @@ Page({
     loading: true,
     viewType: 'md',
     viewText: '',
-    viewImgSrc: ''
+    viewImgSrc: '',
+    stargazers_count: '',
+    forks: ''
   },
   onLoad (option) {
-    const repos = option.repos
-    // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+    // const repos = option.repos
+    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
     const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
@@ -30,6 +32,10 @@ Page({
       filePath: reposPath
     })
     apis.getReopInfo().then((res) => {
+      this.setData({
+        stargazers_count: res.stargazers_count,
+        forks: res.forks
+      })
       return this.changeBranch(res.default_branch)
     }).catch(() => {
       this.data.loadCodeError = true
@@ -80,7 +86,8 @@ Page({
     return apis.getTree().then((tree) => {
       this.setData({
         curBranch: branch,
-        treeData: tree
+        treeData: tree,
+        loading: false
       })
       this.showMenu()
       console.log(this.data.treeData)

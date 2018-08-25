@@ -8,7 +8,6 @@ module.exports = function (codeString, type) {
   } else {
     html = hightlight.highlightAuto(type, codeString).value
   }
-  console.log(html2json(html))
   let codeSegments = html.split(/\n/)
   const codeRows = []
   codeSegments.forEach((segment) => {

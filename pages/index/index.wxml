@@ -36,8 +36,17 @@
     <view class="sidebar-title">
         <view class="sidebar-title-name">
           <view>{{reposPath}}</view>
+          <view class="icon-container">
+            <image src="../../assets/imgs/star.png" class="start-icon"></image>
+            <text class="icon-num">{{stargazers_count}}</text>
+          </view>
+          <view class="icon-container">
+            <image src="../../assets/imgs/fork.png" class="fork-icon"></image>
+            <text class="icon-num">{{forks}}</text>
+          </view>
           <picker bindchange="branchPickerChange" value="{{0}}" range="{{branches}}">
-            <view class="sidebar-title-branch">{{curBranch}}</view>
+            <text class="sidebar-title-branch">{{curBranch}}</text>
+            <image src="../../assets/imgs/triangle-down.png" class="triangle-icon"></image>
           </picker>
         </view>
         <view>
