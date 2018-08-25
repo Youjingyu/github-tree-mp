@@ -60,8 +60,8 @@
       <tree wx:for="{{treeData}}" wx:key="{{index}}" model='{{ treeData[index] }}' bind:viewFile="viewFile"></tree>
     </view>
 </view>
-<view class="{{'loading ' + (loading ? 'show' : '')}}">
+<!-- <view class="{{'loading ' + (loading ? 'show' : '')}}">
   <image
       class="loading-img"
       src="../../assets/imgs/loading.gif"></image>
-</view>
+</view> -->

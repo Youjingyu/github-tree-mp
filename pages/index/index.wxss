@@ -2,15 +2,23 @@ page {
   height: 100%;
 }
 .header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50rpx;
   border-bottom: 1px solid #ccc;
+  z-index: 99;
+  background-color: #fff;
 }
 .float-icon, .header-title{
   vertical-align: middle;
 }
 .container{
-  padding: 5rpx;
-  margin: 10rpx;
-  height: 95%;
+  padding: 0 10rpx;
+  /* margin: 10rpx; */
+  padding-top: 52rpx;
+  height: 100%;
   overflow: auto;
 }
 .code-container {
@@ -19,6 +27,8 @@ page {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box; */
+  /* height: 100%; */
+  overflow: auto;
 }
 .code-row{
   white-space:nowrap;
@@ -42,6 +52,7 @@ page {
   border-top:1px solid #ccc;
   height: 100%;
   background: #fff;
+  z-index: 999;
 }
 .sidebar-title {
   display: flex;

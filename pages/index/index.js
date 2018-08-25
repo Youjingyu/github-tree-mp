@@ -14,14 +14,20 @@ Page({
     filePath: '',
     branches: [],
     curBranch: '',
-    loading: true,
+    // loading: true,
     viewType: 'md',
     viewText: '',
     viewImgSrc: '',
     stargazers_count: '',
     forks: ''
   },
+  loading (show = true) {
+    show ? wx.showLoading({
+      title: '正在加载'
+    }) : wx.hideLoading()
+  },
   onLoad (option) {
+    this.loading()
     // const repos = option.repos
     const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
@@ -80,15 +86,14 @@ Page({
   },
   changeBranch (branch) {
     apis.setBranch(branch)
-    this.setData({
-      loading: true
-    })
+    this.loading()
     return apis.getTree().then((tree) => {
       this.setData({
         curBranch: branch,
         treeData: tree,
         loading: false
       })
+      this.loading(false)
       this.showMenu()
       console.log(this.data.treeData)
     })
@@ -97,19 +102,19 @@ Page({
     this.changeBranch(this.data.branches[e.detail.value])
   },
   viewFile (e) {
+    this.loading()
     const path = e.detail.path
     this.setData({
-      filePath: path,
-      loading: true
+      filePath: path
     })
     this.hideMenu()
     const fileInfo = getFileInfo(path)
     if (fileInfo.type === 'img') {
       this.setData({
         viewType: fileInfo.type,
-        loading: false,
         viewImgSrc: apis.getImgRawPath() + path
       })
+      this.loading(false)
       return
     }
     // const url = e.detail.url.replace('https://api.github.com/repos/', '')
@@ -141,9 +146,9 @@ Page({
       }
     }
     this.setData(Object.assign({
-      viewType: type,
-      loading: false
+      viewType: type
     }, dataToUpdate))
+    this.loading(false)
     cb && cb()
   }
 })
