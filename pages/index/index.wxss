@@ -10,6 +10,9 @@ page {
   border-bottom: 1px solid #ccc;
   z-index: 99;
   background-color: #fff;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
 .float-icon, .header-title{
   vertical-align: middle;
