@@ -24,6 +24,8 @@ page {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
+}
+.center {
   text-align: center;
 }
 .code-container {
