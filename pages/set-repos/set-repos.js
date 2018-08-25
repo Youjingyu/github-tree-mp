@@ -27,7 +27,6 @@ Page({
       const repos = parseGithubUrl(val)
       if (!repos) {
         wx.showModal({
-          title: '提示',
           content: '请输入正确的github项目地址',
           showCancel: false
         })
