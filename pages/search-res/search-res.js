@@ -11,23 +11,34 @@ Page({
     loadMore: false,
     noData: false
   },
+  loading (show = true) {
+    show ? wx.showLoading({
+      title: '正在加载'
+    }) : wx.hideLoading()
+  },
   onLoad (option) {
     page = 1
     query = option.query
-    this.getList()
+    this.loading()
+    this.getList(() => {
+      this.loading(false)
+    })
   },
   onReachBottom () {
-    this.getList()
-  },
-  getList () {
     if (this.data.loadMore === true) return
     this.setData({
       loadMore: true
     })
+    this.getList(() => {
+      this.setData({
+        loadMore: false
+      })
+    })
+  },
+  getList (cb) {
     apis.searchRepo(query, page, perPage).then((res) => {
       this.setData({
-        list: this.data.list.concat(filterData(res.items)),
-        loadMore: false
+        list: this.data.list.concat(filterData(res.items))
       })
       if (this.data.list.length === 0) {
         this.setData({
@@ -35,6 +46,7 @@ Page({
         })
       }
       page++
+      cb && cb()
     })
   },
   choose (e) {
