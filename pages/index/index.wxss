@@ -20,6 +20,7 @@ page {
   padding-top: 52rpx;
   height: 100%;
   overflow: auto;
+  box-sizing: border-box;
 }
 .code-container {
   /* display: flex;
