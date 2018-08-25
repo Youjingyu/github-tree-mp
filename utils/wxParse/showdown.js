@@ -1676,6 +1676,7 @@ showdown.subParser('githubCodeBlocks', function (text, options, globals) {
     codeblock = showdown.subParser('detab')(codeblock);
     codeblock = codeblock.replace(/^\n+/g, ''); // trim leading newlines
     codeblock = codeblock.replace(/\n+$/g, ''); // trim trailing whitespace
+    codeblock = codeblock.replace(/\n/g, '<brrr/>')
 
     codeblock = '<pre><code' + (language ? ' class="' + language + ' language-' + language + '"' : '') + '>' + codeblock + end + '</code></pre>';
 

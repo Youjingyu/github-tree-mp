@@ -219,24 +219,50 @@ function html2json(html, bindName) {
             }
         },
         chars: function (text) {
-            //debug(text);
-            var node = {
-                node: 'text',
-                text: text,
-                textArray:transEmojiStr(text)
-            };
-
+          let codeNodes
+          if (/<brrr\/>/.test(text)) {
+            codeNodes = text.split('<brrr/>').map((item) => {
+              return {
+                attr: {},
+                index: '0',
+                node: 'element',
+                tag: 'div',
+                tagType: 'block',
+                nodes: [
+                  {
+                    index: '0.0',
+                    node: 'text',
+                    text: item,
+                    textArray:transEmojiStr(item)
+                  }
+                ]
+              }
+            })
+          }
+          let node = {
+            node: 'text',
+            text: text,
+            textArray:transEmojiStr(text)
+          };
             if (bufArray.length === 0) {
                 node.index = index.toString()
                 index += 1
-                results.nodes.push(node);
+                if (codeNodes) {
+                  results.nodes = results.nodes.concat(codeNodes);
+                } else {
+                  results.nodes.push(node)
+                }
             } else {
                 var parent = bufArray[0];
                 if (parent.nodes === undefined) {
                     parent.nodes = [];
                 }
                 node.index = parent.index + '.' + parent.nodes.length
-                parent.nodes.push(node);
+                if (codeNodes) {
+                  parent.nodes = parent.nodes.concat(codeNodes);
+                } else {
+                  parent.nodes.push(node)
+                }
             }
         },
         comment: function (text) {
