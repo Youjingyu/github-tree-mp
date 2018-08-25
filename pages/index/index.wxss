@@ -24,6 +24,7 @@ page {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
+  text-align: center;
 }
 .code-container {
   /* display: flex;

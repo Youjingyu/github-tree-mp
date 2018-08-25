@@ -12,7 +12,7 @@
     <text>不支持的文件类型</text>
   </view>
   <view hidden="{{viewType !== 'img'}}">
-    <image src="{{viewImgSrc}}" aspectFit></image>
+    <image src="{{viewImgSrc}}" data-src="{{viewImgSrc}}" bindtap="preViewImg" bindload="imgOnLoad" style="{{imgStyle}}"></image>
   </view>
   <view hidden="{{viewType !== 'text'}}">
     <text>{{viewText}}</text>

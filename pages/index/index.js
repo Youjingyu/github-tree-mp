@@ -21,7 +21,8 @@ Page({
     viewText: '',
     viewImgSrc: '',
     stargazers_count: '',
-    forks: ''
+    forks: '',
+    imgStyle: ''
   },
   toast (toastText) {
     wx.showToast({
@@ -168,6 +169,18 @@ Page({
     }, dataToUpdate))
     this.loading(false)
     cb && cb()
+  },
+  imgOnLoad (e) {
+    const ratio = parseFloat(e.detail.height) / parseFloat(e.detail.width)
+    this.setData({
+      imgStyle: `width:700rpx;height:${650 * ratio}rpx;`
+    })
+  },
+  preViewImg (e) {
+    console.log(e)
+    wx.previewImage({
+      urls: [e.target.dataset.src]
+    })
   }
 })
 
