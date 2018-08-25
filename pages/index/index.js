@@ -20,19 +20,6 @@ Page({
     viewImgSrc: ''
   },
   onLoad (option) {
-    // wx.request({
-    //   url: 'https://raw.githubusercontent.com/houdunwang/video/master/ThinkPHP3.1.3%E5%AE%9E%E4%BE%8B%E5%BC%80%E5%8F%91%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B/%E5%90%8E%E7%9B%BE%E7%BD%91Thinkphp%E8%A7%86%E9%A2%91%E8%B5%84%E6%96%99(BLog%E6%A8%A1%E6%9D%BF_%E5%9B%BE%E7%89%87%E7%B1%BB_%E5%AD%97%E4%BD%93)/font.ttf',
-    //   dataType: 'json',
-    //   header: {
-    //     'Accept': 'text/html'
-    //   },
-    //   success: function(res) {
-    //     console.log(res)
-    //   },
-    //   fail: function(err){
-    //     console.log(err)
-    //   }
-    // })
     const repos = option.repos
     // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
@@ -95,18 +82,7 @@ Page({
         curBranch: branch,
         treeData: tree
       })
-      const readme = getReadme(tree)
-      if (readme) {
-        this.viewFile({
-          detail: {
-            url: readme.url,
-            path: readme.path
-          }
-        })
-        this.setData({
-          filePath: readme.path
-        })
-      }
+      this.showMenu()
       console.log(this.data.treeData)
     })
   },
@@ -136,7 +112,7 @@ Page({
     }).catch((err) => {
       if (err.code === 3) {
         this.setData({
-          viewType: 'nosupport',
+          viewType: 'nosupport'
         })
       }
     })
@@ -176,13 +152,13 @@ Page({
 //   })
 //   return res
 // }
-function getReadme (tree) {
-  for (let i = 0; i < tree.length; i++) {
-    if (tree[i].content && /^(readme|README)\.md$/.test(tree[i].content.path)) {
-      return tree[i].content
-    }
-  }
-}
+// function getReadme (tree) {
+//   for (let i = 0; i < tree.length; i++) {
+//     if (tree[i].content && /^(readme|README)\.md$/.test(tree[i].content.path)) {
+//       return tree[i].content
+//     }
+//   }
+// }
 const languageMap = {
   'js': 'javascript',
   'css': 'css',
