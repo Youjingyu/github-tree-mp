@@ -31,7 +31,7 @@ page {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box; */
-  /* height: 100%; */
+  height: 100%;
   overflow: auto;
 }
 .code-row{
@@ -106,6 +106,7 @@ page {
   margin-left: 5px;
   width:  8px;
   height: 6px;
+  vertical-align:middle;
 }
 .start-icon {
   width:  10px;
