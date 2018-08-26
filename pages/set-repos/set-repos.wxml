@@ -1,6 +1,23 @@
 <view class="container">
   <view class="form">
-    <input value="{{inputValue}}" bindinput="bindKeyInput" placeholder-class="placeholder-class" placeholder="输入项目地址或搜索关键字"/>
+    <input value="{{inputValue}}" bindconfirm="confirm" bindinput="bindKeyInput" placeholder-class="placeholder-class" placeholder="输入项目地址或搜索关键字"/>
     <button bindtap="confirm">确定</button>
+  </view>
+  <view class="history-container" wx:if="{{history.length > 0}}">
+    <view wx:for="{{history}}" wx:key="{{index}}" data-index="{{index}}"
+      bindlongpress="longpress"
+      bindtap="clickHistory"
+      class="history-item {{index < history.length -1 ? 'history-border' : ''}}">
+      <view class="history-text">
+        <text>{{item}}</text>
+      </view>
+      <icon hidden="{{iconIndex !== index}}" class="history-icon"
+        bindtap="delete"
+        data-index="{{index}}"
+        type="clear" color="#dcdfe6"size="18"></icon>
+    </view>
+    <!-- <view bindtap="emptyHistory" v-if="{{history.length > 0}}" class="history-item history-empty">
+      清空历史记录
+    </view> -->
   </view>
 </view>

@@ -1,6 +1,8 @@
 Page({
   data: {
-    inputValue: ''
+    inputValue: '',
+    history: [],
+    iconIndex: -1
   },
   onReady () {
     const that = this
@@ -15,9 +17,47 @@ Page({
       }
     })
   },
+  onShow () {
+    const that = this
+    wx.getStorage({
+      key: 'history',
+      success: function (res) {
+        that.setData({
+          history: res.data
+        })
+      }
+    })
+  },
+  longpress (e) {
+    let index = e.currentTarget.dataset.index
+    if (index === this.data.iconIndex) {
+      index = -1
+    }
+    this.setData({
+      iconIndex: index
+    })
+  },
+  delete (e) {
+    let index = e.currentTarget.dataset.index
+    this.data.history.splice(index, 1)
+    const history = this.data.history
+    this.setData({
+      history
+    })
+    wx.setStorageSync('history', history)
+  },
+  // emptyHistory () {
+  //   wx.setStorageSync('history', [])
+  // },
   bindKeyInput (e) {
     this.setData({
       inputValue: e.detail.value
+    })
+  },
+  clickHistory (e) {
+    let index = e.currentTarget.dataset.index
+    wx.navigateTo({
+      url: '/pages/index/index?repos=' + this.data.history[index]
     })
   },
   confirm () {

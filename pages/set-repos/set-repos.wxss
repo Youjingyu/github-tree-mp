@@ -3,6 +3,7 @@ page {
 }
 .container{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 80%;
@@ -44,3 +45,34 @@ button {
   background-color: #409eff;
   border-color: #409eff;
 }
+.history-container{
+  margin-top: 20rpx;
+  border-top: 1px solid #dcdfe6;
+  width:100%;
+  font-size: 14px;
+}
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 20rpx;
+  padding: 20rpx;
+}
+.history-text {
+  flex: 8;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.history-border{
+  border-bottom: 1px solid rgb(241,241,241);
+}
+.history-icon {
+  flex: 1;
+  vertical-align: middle;
+}
+/* .history-empty{
+  padding: 15rpx;
+  background: rgb(248,248,248);
+  color: rgb(161,161,161)
+} */
