@@ -66,10 +66,7 @@ Page({
     if (/^http(s)?:\/\//.test(val)) {
       const repos = parseGithubUrl(val)
       if (!repos) {
-        wx.showModal({
-          content: '请输入正确的github项目地址',
-          showCancel: false
-        })
+        this.toast('请输入正确的github项目地址')
         return
       }
       wx.navigateTo({
@@ -80,6 +77,22 @@ Page({
         url: '/pages/search-res/search-res?query=' + val
       })
     }
+  },
+  toast (toastText, duration = 1500) {
+    wx.showToast({
+      icon: 'none',
+      title: toastText,
+      duration
+    })
+  },
+  copylink () {
+    const that = this
+    wx.setClipboardData({
+      data: 'https://github.com/Youjingyu/github-tree-mp/issues',
+      success: function (res) {
+        that.toast('反馈链接已复制到剪贴板', 1000)
+      }
+    })
   }
 })
 

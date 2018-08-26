@@ -1,2 +1,3 @@
 @import "./weui-tips/weui-loadmore.wxss";
 @import "./weui-loading/weui-loading.wxss";
+@import "./weui-footer/weui-footer.wxss";
