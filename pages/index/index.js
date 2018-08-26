@@ -52,15 +52,20 @@ Page({
   },
   onLoad (option) {
     this.loading()
+    this.createAnimation()
     const repos = option.repos
     // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
     wx.getStorage({
       key: 'history',
-      success: function(res) {
+      success: function (res) {
         let history = res.data
-        if (history.indexOf(repos) < 0) {
+        const index = history.indexOf(repos)
+        if (index < 0) {
+          history.unshift(repos)
+        } else if (index > 0) {
+          history.splice(index, 1)
           history.unshift(repos)
         }
         if (history.length > 10) {
@@ -95,7 +100,7 @@ Page({
       })
     })
   },
-  onReady () {
+  createAnimation () {
     const animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease'
@@ -144,7 +149,7 @@ Page({
     if (size > 512 || (fileInfo.type === 'language' && size > 50)) {
       const that = this
       wx.showModal({
-        content: `文件过大（${size}）kb，可能造成手机卡顿，是否查看？`,
+        content: `文件过大（${size}kb），可能造成手机卡顿，是否查看？`,
         success: function (res) {
           if (res.confirm) {
             that.doViewFile(path, fileInfo)

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const parseTree_1 = __importDefault(require("../utils/parseTree"));
+const cache_1 = require("./cache");
 // const apiServer = 'https://www.whaleyou.club/'
 // const apiServer = 'https://api.github.com/'
 const apiServer = 'https://github.whaleyou.club/';
@@ -29,22 +30,39 @@ class Apis {
         return apiServer + 'myraw/' + this.reposPath + '/' + this.branch + '/';
     }
     searchRepo(query, page, per_page) {
-        return request(`${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`);
+        const url = `${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`;
+        return requestWithCache(url, cache_1.cacheConfig.search);
     }
     getReopInfo() {
-        return request(`${this.reposUrl.replace(/\/$/, '')}`);
+        const url = `${this.reposUrl.replace(/\/$/, '')}`;
+        return requestWithCache(url, cache_1.cacheConfig.reposInfo);
     }
     getBranches() {
-        return request(`${this.reposUrl}branches`);
+        const url = `${this.reposUrl}branches`;
+        return requestWithCache(url, cache_1.cacheConfig.reposBranch);
     }
     // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
     getBlob(path) {
         // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
         // return request(`${this.baseUrl}${path}`)
-        return request(`${this.getRawPath()}${path}`, false);
+        const url = `${this.getRawPath()}${path}`;
+        const cacheConf = cache_1.cacheConfig.raw;
+        const cacheData = cache_1.getCache(url, cacheConf);
+        return new Promise((resolve, reject) => {
+            if (cacheData)
+                return resolve(cacheData);
+            request(url, false).then((data) => {
+                // 只缓存30kb以下的文件
+                if (data.length < 1024 * 30) {
+                    cache_1.setCache(url, data, cacheConf);
+                }
+                resolve(data);
+            }).catch(reject);
+        });
     }
     getTree() {
-        return request(`${this.reposUrl}git/trees/${this.branch}?recursive=1`).then((res) => {
+        const url = `${this.reposUrl}git/trees/${this.branch}?recursive=1`;
+        return requestWithCache(url, cache_1.cacheConfig.reposTree).then((res) => {
             return parseTree_1.default(res.tree);
         });
     }
@@ -100,5 +118,16 @@ function request(url, isJson = true) {
         // resolve({
         //   content: 'Ly8gaHR0cHM6Ly9lc2xpbnQub3JnL2RvY3MvdXNlci1ndWlkZS9jb25maWd1\ncmluZwoKbW9kdWxlLmV4cG9ydHMgPSB7CiAgcm9vdDogdHJ1ZSwKICBwYXJz\nZXJPcHRpb25zOiB7CiAgICBwYXJzZXI6ICdiYWJlbC1lc2xpbnQnCiAgfSwK\nICBlbnY6IHsKICAgIGJyb3dzZXI6IHRydWUsCiAgfSwKICBleHRlbmRzOiBb\nCiAgICAvLyBodHRwczovL2dpdGh1Yi5jb20vc3RhbmRhcmQvc3RhbmRhcmQv\nYmxvYi9tYXN0ZXIvZG9jcy9SVUxFUy1lbi5tZAogICAgJ3N0YW5kYXJkJwog\nIF0sCiAgLy8gYWRkIHlvdXIgY3VzdG9tIHJ1bGVzIGhlcmUKICBydWxlczog\newogICAgLy8gYWxsb3cgYXN5bmMtYXdhaXQKICAgICdnZW5lcmF0b3Itc3Rh\nci1zcGFjaW5nJzogJ29mZicsCiAgICAvLyBhbGxvdyBkZWJ1Z2dlciBkdXJp\nbmcgZGV2ZWxvcG1lbnQKICAgICduby1kZWJ1Z2dlcic6IHByb2Nlc3MuZW52\nLk5PREVfRU5WID09PSAncHJvZHVjdGlvbicgPyAnZXJyb3InIDogJ29mZics\nCiAgICAic2VtaSI6IDAsCiAgICAib25lLXZhciI6IDAKICB9Cn0K'
         // })
+    });
+}
+function requestWithCache(url, cacheConf) {
+    const cache = cache_1.getCache(url, cacheConf);
+    return new Promise((resolve, reject) => {
+        if (cache)
+            return resolve(cache);
+        request(url).then((data) => {
+            cache_1.setCache(url, data, cacheConf);
+            resolve(data);
+        }).catch(reject);
     });
 }
