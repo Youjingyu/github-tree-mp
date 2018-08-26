@@ -54,6 +54,16 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
   that.setData(bindData)
   that.wxParseImgLoad = wxParseImgLoad;
   that.wxParseImgTap = wxParseImgTap;
+  that.wxParseTagATap = wxParseTagATap;
+}
+function wxParseTagATap (e) {
+  const that = this
+  wx.setClipboardData({
+    data: e.currentTarget.dataset.src,
+    success: function (res) {
+      that.toast && that.toast('链接已复制到剪贴板', 1000)
+    }
+  })
 }
 // 图片点击事件
 function wxParseImgTap(e) {
