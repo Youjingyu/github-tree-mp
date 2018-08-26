@@ -2,6 +2,8 @@ import apis from '../../apis/index'
 import app from '../../utils/index'
 
 const hightlight = app.globalUtils.hightlight
+// let codeRowsCache = []
+// let allowRender = true
 
 Page({
   data: {
@@ -179,10 +181,17 @@ Page({
       app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath())
     } else if (type === 'language') {
       try {
-        const codeRows = hightlight(content, languageType)
+        let codeRowsCache = hightlight(content, languageType)
         dataToUpdate = {
-          codeRows: codeRows
+          // 初始时，只显示150行
+          codeRows: codeRowsCache.slice(0, 150)
         }
+        // 延迟渲染，避免卡顿
+        setTimeout(() => {
+          this.setData({
+            codeRows: codeRowsCache
+          })
+        }, 1500)
       } catch (err) {
         console.log(err)
         this.toast('代码解析失败，将以纯文本展示')
@@ -201,6 +210,19 @@ Page({
     }, dataToUpdate))
     this.loading(false)
     cb && cb()
+  },
+  scrollBottom (e) {
+    // if (allowRender && e.detail.direction === 'bottom' && codeRowsCache.length > 0) {
+    //   allowRender = false
+    //   this.toast('努力渲染代码中...')
+    //   this.setData({
+    //     // 一次渲染100行
+    //     codeRows: this.data.codeRows.concat(codeRowsCache.splice(0, 100))
+    //   })
+    //   setTimeout(() => {
+    //     allowRender = true
+    //   }, 1000)
+    // }
   },
   imgOnLoad (e) {
     const ratio = parseFloat(e.detail.height) / parseFloat(e.detail.width)

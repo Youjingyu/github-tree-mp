@@ -20,7 +20,8 @@
   <view hidden="{{viewType !== 'md'}}">
     <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
   </view>
-  <view class="code-container" hidden="{{viewType !== 'language'}}">
+  <scroll-view class="code-container" scroll-y scroll-x bindscrolltolower="scrollBottom"
+    hidden="{{viewType !== 'language'}}">
     <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
       <text wx:for="{{item}}"
             wx:key="{{index}}"
@@ -30,7 +31,7 @@
             decode="true"
         >{{item.text}}</text>
     </view>
-  </view>
+  </scroll-view>
 </view>
 <view class="sidebar" animation="{{animationData}}">
     <view class="sidebar-title">

@@ -36,7 +36,7 @@ page {
   justify-content: space-between;
   box-sizing: border-box; */
   height: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
   font-size: 14px;
   line-height: 18px;
