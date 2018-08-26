@@ -24,7 +24,7 @@
     <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
       <text wx:for="{{item}}"
             wx:key="{{index}}"
-            class="{{'code-text ' + (item.class ? item.class : '')}}"
+            class="{{(index === 0 ? 'line-num' : '') + ' code-text ' + (item.class ? item.class : '')}}"
             selectable="true"
             space="ensp"
             decode="true"

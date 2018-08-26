@@ -1,15 +1,16 @@
 const Prism = require('./prism')
 const htmlParser = require('../wxParse/htmlparser')
 
-module.exports = function (codeString, type) {
+module.exports = function (codeString, type, line = 1) {
   let html = Prism.highlight(codeString, Prism.languages[type], type)
   let codeSegments = html.split(/\n/)
   const codeRows = []
   codeSegments.forEach((segment) => {
+    const res = [{text: line}]
     if (segment === '') {
-      return codeRows.push([{text: ''}])
+      res.push({text: ''})
+      return codeRows.push(res)
     }
-    const res = []
     const spaces = segment.match(/^(\s+)/)
     if (spaces) {
       res.push({
@@ -38,6 +39,7 @@ module.exports = function (codeString, type) {
       }
     })
     codeRows.push(res)
+    line++
   })
   return codeRows
 }
