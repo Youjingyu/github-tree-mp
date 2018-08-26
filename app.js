@@ -6,6 +6,13 @@ const base64 = require('./utils/base64.js').Base64
 App({
   onLaunch: function () {
   },
+  onError (error) {
+    wx.showToast({
+      icon: 'none',
+      title: error,
+      duration: 200
+    })
+  },
   globalUtils: {
     wxParse,
     hightlight,
