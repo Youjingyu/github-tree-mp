@@ -51,17 +51,20 @@ class Apis {
 }
 exports.default = new Apis();
 let reqNum = 0;
+setTimeout(() => {
+    reqNum = 0;
+}, 1000 * 60 * 60);
 function request(url, isJson = true) {
     return new Promise((resolve, reject) => {
         if (reqNum > 200)
-            return reject({ code: 1, message: 'API rate limit exceeded.' });
+            return reject({ code: 1, message: '已超过最大请求次数，请稍后重试' });
         wx.request({
             url,
             dataType: isJson ? 'json' : 'text',
             success: function (res) {
                 if (!res) {
                     return reject({
-                        msg: 'unknown error',
+                        message: '未知错误',
                         code: 5
                     });
                 }
@@ -69,19 +72,19 @@ function request(url, isJson = true) {
                 reqNum++;
                 if (statusCode === 403) {
                     return reject({
-                        msg: 'max call exceed',
+                        message: `服务器受到github请求次数限制，请稍后重试`,
                         code: 1
                     });
                 }
                 if (statusCode !== 200) {
                     return reject({
-                        msg: 'no data received',
+                        message: data.message,
                         code: 2
                     });
                 }
                 if (!/^(application\/json|text\/plain)/.test(header['Content-Type'])) {
                     return reject({
-                        msg: 'nosupport file type',
+                        message: '不支持的文件类型',
                         code: 3
                     });
                 }
@@ -89,7 +92,7 @@ function request(url, isJson = true) {
             },
             fail: function (err) {
                 reject({
-                    msg: err.message,
+                    message: err.message,
                     code: 4
                 });
             }

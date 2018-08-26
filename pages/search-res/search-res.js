@@ -47,10 +47,20 @@ Page({
       }
       page++
       cb && cb()
+    }).catch((error) => {
+      let msg = error.message
+      if (error.code === 1) {
+        msg = '服务器受到github请求次数限制，请1分钟后重试'
+      }
+      this.loading(false)
+      wx.showToast({
+        icon: 'none',
+        title: msg,
+        duration: 2000
+      })
     })
   },
   choose (e) {
-    console.log(e)
     wx.navigateTo({
       url: '/pages/index/index?repos=' + e.currentTarget.dataset.repos
     })
