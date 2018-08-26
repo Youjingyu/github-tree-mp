@@ -18,14 +18,15 @@ page {
   vertical-align: middle;
 }
 .container{
-  padding: 0 10rpx;
+  padding: 0 10rpx 10rpx;
   /* margin: 10rpx; */
   padding-top: 52rpx;
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
 }
-.center {
+.simple-view {
+  margin-top: 10rpx;
   text-align: center;
 }
 .code-container {
@@ -60,6 +61,7 @@ page {
   height: 100%;
   background: #fff;
   z-index: 999;
+  box-sizing:border-box;
 }
 .sidebar-title {
   display: flex;

@@ -226,7 +226,7 @@ function html2json(html, bindName) {
                 attr: {},
                 index: '0',
                 node: 'element',
-                tag: 'div',
+                tag: 'code-line',
                 tagType: 'block',
                 nodes: [
                   {

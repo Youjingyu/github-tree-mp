@@ -8,10 +8,10 @@
   <text class="header-title">{{filePath}}</text>
 </view>
 <view class="container" bindtap="clickCodeView">
-  <view class="center" hidden="{{viewType !== 'nosupport'}}">
+  <view class="simple-view" hidden="{{viewType !== 'nosupport'}}">
     <text>不支持的文件类型</text>
   </view>
-  <view class="center" hidden="{{viewType !== 'img'}}">
+  <view class="simple-view" hidden="{{viewType !== 'img'}}">
     <image src="{{viewImgSrc}}" data-src="{{viewImgSrc}}" bindtap="preViewImg" bindload="imgOnLoad" style="{{imgStyle}}"></image>
   </view>
   <view hidden="{{viewType !== 'text'}}">

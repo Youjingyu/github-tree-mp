@@ -3,7 +3,6 @@ const htmlParser = require('../wxParse/htmlparser')
 
 module.exports = function (codeString, type) {
   let html = Prism.highlight(codeString, Prism.languages[type], type)
-  console.log(html)
   let codeSegments = html.split(/\n/)
   const codeRows = []
   codeSegments.forEach((segment) => {
