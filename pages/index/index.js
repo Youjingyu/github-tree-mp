@@ -24,11 +24,23 @@ Page({
     forks: '',
     imgStyle: ''
   },
-  toast (toastText) {
+  proxyApi (method, arg = []) {
+    const that = this
+    return new Promise((resolve, reject) => {
+      apis[method].apply(apis, arg)
+        .then(resolve)
+        .catch((error) => {
+          that.loading(false)
+          that.toast(error.message, 2000)
+          reject(error)
+        })
+    })
+  },
+  toast (toastText, duration = 1500) {
     wx.showToast({
       icon: 'none',
       title: toastText,
-      duration: 1500
+      duration
     })
   },
   loading (show = true) {
@@ -38,25 +50,39 @@ Page({
   },
   onLoad (option) {
     this.loading()
-    // const repos = option.repos
-    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+    const repos = option.repos
+    // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
+    wx.getStorage({
+      key: 'history',
+      success: function(res) {
+        let history = res.data
+        if (history.indexOf(repos) < 0) {
+          history.unshift(repos)
+        }
+        if (history.length > 10) {
+          history.splice(10, 1)
+        }
+        wx.setStorageSync('history', history)
+      },
+      fail: function () {
+        wx.setStorageSync('history', [repos])
+      }
+    })
     const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
     this.setData({
       reposPath: reposPath,
       filePath: reposPath
     })
-    apis.getReopInfo().then((res) => {
+    this.proxyApi('getReopInfo').then((res) => {
       this.setData({
         stargazers_count: res.stargazers_count,
         forks: res.forks
       })
       return this.changeBranch(res.default_branch)
-    }).catch(() => {
-      this.data.loadCodeError = true
     })
-    apis.getBranches().then((res) => {
+    this.proxyApi('getBranches').then((res) => {
       // github按照创建时间倒序返回branches
       // 这里按照时间从旧到新显示
       const branch = res.reverse().map((item) => {
@@ -65,8 +91,6 @@ Page({
       this.setData({
         branches: branch
       })
-    }).catch(() => {
-      this.data.loadCodeError = true
     })
   },
   onReady () {
@@ -97,7 +121,7 @@ Page({
   changeBranch (branch) {
     apis.setBranch(branch)
     this.loading()
-    return apis.getTree().then((tree) => {
+    return this.proxyApi('getTree').then((tree) => {
       this.setData({
         curBranch: branch,
         treeData: tree,
@@ -112,13 +136,29 @@ Page({
     this.changeBranch(this.data.branches[e.detail.value])
   },
   viewFile (e) {
+    let { path, size } = e.detail
+    const fileInfo = getFileInfo(path)
+    size = (size / 1024).toFixed(2)
+    if (size > 512 || (fileInfo.type === 'language' && size > 50)) {
+      const that = this
+      wx.showModal({
+        content: `文件过大（${size}）kb，可能造成手机卡顿，是否查看？`,
+        success: function (res) {
+          if (res.confirm) {
+            that.doViewFile(path, fileInfo)
+          }
+        }
+      })
+    } else {
+      this.doViewFile(path, fileInfo)
+    }
+  },
+  doViewFile (path, fileInfo) {
     this.loading()
-    const path = e.detail.path
     this.setData({
       filePath: path
     })
     this.hideMenu()
-    const fileInfo = getFileInfo(path)
     if (fileInfo.type === 'img') {
       this.setData({
         viewType: fileInfo.type,
@@ -127,16 +167,8 @@ Page({
       this.loading(false)
       return
     }
-    // const url = e.detail.url.replace('https://api.github.com/repos/', '')
-    apis.getBlob(e.detail.path).then((res) => {
-    // apis.getBlob(url).then((res) => {
+    this.proxyApi('getBlob', [path]).then((res) => {
       this.parseFile(res, fileInfo)
-    }).catch((err) => {
-      if (err.code === 3) {
-        this.setData({
-          viewType: 'nosupport'
-        })
-      }
     })
   },
   parseFile (content, fileInfo, cb) {
@@ -205,10 +237,27 @@ Page({
 const languageMap = {
   'js': 'javascript',
   'css': 'css',
-  'html': 'html',
+  'html': 'markup',
   'vue': 'markup',
+  'jsx': 'markup',
+  'tsx': 'typescript',
   'ts': 'typescript',
-  'json': 'json'
+  'json': 'json',
+  'dart': 'dart',
+  'go': 'go',
+  'less': 'less',
+  'scss': 'sass',
+  'java': 'java',
+  'py': 'python',
+  'php': 'php',
+  'kt': 'kotlin',
+  'swift': 'swift',
+  'c': 'c',
+  'h': 'c',
+  'm': 'c',
+  'cpp': 'clike',
+  'cs': 'clike',
+  'sh': 'bash'
 }
 const imgMap = ['png', 'jpeg', 'jpg', 'gif']
 function getFileInfo (path) {

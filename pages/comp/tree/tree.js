@@ -17,7 +17,8 @@ Component({
       if (data.content && data.content.type === 'blob') {
         this.triggerEvent('viewFile', {
           url: data.content.url,
-          path: data.content.path
+          path: data.content.path,
+          size: data.content.size
         })
       }
     },
