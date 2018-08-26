@@ -6,8 +6,11 @@ module.exports = function (codeString, type) {
   let codeSegments = html.split(/\n/)
   const codeRows = []
   codeSegments.forEach((segment) => {
+    if (segment === '') {
+      return codeRows.push([{text: ''}])
+    }
     const res = []
-    const spaces = segment.match(/^(\s+)</)
+    const spaces = segment.match(/^(\s+)/)
     if (spaces) {
       res.push({
         text: spaces[1]
