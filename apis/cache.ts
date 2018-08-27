@@ -11,7 +11,7 @@ const cacheConfig:any =  {
     key: '_repos_info'
   },
   reposTree: {
-    size: 20,
+    size: 30,
     time: hour,
     key: '_repos_tree'
   },
@@ -21,7 +21,7 @@ const cacheConfig:any =  {
     key: '_repos_branch'
   },
   raw: {
-    size: 10,
+    size: 20,
     time: hour,
     key: '_raw'
   }
