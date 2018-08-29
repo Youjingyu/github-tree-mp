@@ -39,19 +39,20 @@ input {
   color: #606266;
   font-size: 14px;
 }
-button {
+.form-button {
   flex: 1;
   /* margin-left: 30rpx; */
   height: 100rpx;
   line-height: 100rpx;
-  padding: 0;
+  /* padding: 0; */
   font-size: 14px;
   color: #fff;
   background-color: #FFC039;
   /* border-color: #409eff; */
-  border: none;
-  border-radius: 0;
-  box-sizing: border-box;
+  /* border: none; */
+  /* border-radius: 0; */
+  /* box-sizing: border-box; */
+  text-align: center;
 }
 .history-container{
   color: #fff;

@@ -1,7 +1,7 @@
 <view class="container">
   <view class="form">
     <input value="{{inputValue}}" bindconfirm="confirm" bindinput="bindKeyInput" placeholder-class="placeholder-class" placeholder="输入项目地址或搜索关键字"/>
-    <button bindtap="confirm">确定</button>
+    <view class="form-button" bindtap="confirm">确定</view>
   </view>
   <view class="history-container" wx:if="{{history.length > 0}}">
     <view wx:for="{{history}}" wx:key="{{index}}" data-index="{{index}}"
