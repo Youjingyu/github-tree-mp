@@ -22,7 +22,7 @@
   </view>
 </view>
 <view class="weui-footer weui-footer_fixed-bottom" bindtap="copylink">
-    <view class="weui-footer__links">
-        <text url="" class="weui-footer__link">反馈建议</text>
+    <view class="footer-button">
+        <image class="footer-button-icon" src="../../assets/imgs/menu.png"></image>
     </view>
 </view>
