@@ -10,7 +10,7 @@ App({
     wx.showToast({
       icon: 'none',
       title: error,
-      duration: 200
+      duration: 2000
     })
   },
   globalUtils: {

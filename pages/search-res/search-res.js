@@ -1,3 +1,4 @@
+/* global Page, wx */
 import apis from '../../apis/index'
 
 let query = ''
@@ -9,7 +10,8 @@ Page({
     loading: true,
     list: [],
     loadMore: false,
-    noData: false
+    noData: false,
+    noMoreData: false
   },
   loading (show = true) {
     show ? wx.showLoading({
@@ -25,7 +27,7 @@ Page({
     })
   },
   onReachBottom () {
-    if (this.data.loadMore === true) return
+    if (this.data.loadMore === true || this.data.noMoreData) return
     this.setData({
       loadMore: true
     })
@@ -43,6 +45,10 @@ Page({
       if (this.data.list.length === 0) {
         this.setData({
           noData: true
+        })
+      } else if (res.items.length === 0) {
+        this.setData({
+          noMoreData: true
         })
       }
       page++

@@ -1,3 +1,4 @@
+/* global Page, wx */
 import apis from '../../apis/index'
 import app from '../../utils/index'
 
@@ -264,7 +265,9 @@ Page({
 const languageMap = {
   'js': 'javascript',
   'css': 'css',
+  'wxss': 'css',
   'html': 'markup',
+  'wxml': 'markup',
   'vue': 'markup',
   'jsx': 'markup',
   'tsx': 'typescript',

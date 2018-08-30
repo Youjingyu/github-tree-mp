@@ -1,3 +1,6 @@
+/* global Page, wx */
+let isInDeleting = false
+
 Page({
   data: {
     inputValue: '',
@@ -38,11 +41,13 @@ Page({
     })
   },
   delete (e) {
+    isInDeleting = true
     let index = e.currentTarget.dataset.index
     this.data.history.splice(index, 1)
     const history = this.data.history
     this.setData({
-      history
+      history,
+      iconIndex: -1
     })
     wx.setStorageSync('history', history)
   },
@@ -55,6 +60,10 @@ Page({
     })
   },
   clickHistory (e) {
+    if (isInDeleting) {
+      isInDeleting = false
+      return
+    }
     let index = e.currentTarget.dataset.index
     wx.navigateTo({
       url: '/pages/index/index?repos=https://github.com/' + this.data.history[index]
@@ -90,7 +99,7 @@ Page({
     wx.setClipboardData({
       data: 'https://github.com/Youjingyu/github-tree-mp/issues',
       success: function (res) {
-        that.toast('反馈链接已复制到剪贴板', 1000)
+        that.toast('反馈链接已复制到剪贴板', 2000)
       }
     })
   }

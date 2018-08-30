@@ -1,3 +1,4 @@
+/* global Component */
 Component({
   properties: {
     model: Object,
