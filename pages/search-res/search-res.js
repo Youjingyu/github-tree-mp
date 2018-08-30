@@ -77,7 +77,10 @@ function filterData (data) {
       html_url: item.html_url,
       // updated_at: item.updated_at.replace(/T.*/, ''),
       language: item.language || '',
-      stargazers_count: star > 999 ? ((star / 1000).toFixed(1) + 'k') : star
+      stargazers_count: star > 999 ? ((star / 1000).toFixed(1) + 'k') : star,
+      login: item.owner.login,
+      avatar_url: item.owner.avatar_url,
+      forks_count:item.forks_count
     })
   })
   return res

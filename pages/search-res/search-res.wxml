@@ -3,16 +3,26 @@
   <view wx:for="{{list}}" wx:key="{{index}}"
     bindtap="choose"
     data-repos="{{item.html_url}}" class="row">
-    <view class="left">
-      <view><text class="name">{{item.full_name}}</text></view>
-      <view><text class="description">{{item.description}}</text></view>
-      <!-- <view><text class="update">Updated on {{item.updated_at}}</text></view> -->
+    <view class="head">
+      <view class="head-user">
+        <image class="head-img" src="{{item.avatar_url}}"></image>
+        <text class="head-text">{{item.login}}</text>
+      </view>
+      <view class="head-language" wx-if="{{!!item.language}}">
+        <view class="header-icon"></view>
+        <text class="head-text head-lanuage-text">{{item.language}}</text>
+      </view>
     </view>
-    <view class="right">
-      <view><text>{{item.language}}</text></view>
+    <view class="repos-title"><text>{{item.full_name}}</text></view>
+    <view class="repos-describe"><text>{{item.description}}</text></view>
+    <view  class="footer">
+      <view class="footer-item">
+        <image src="../../assets/imgs/star.png" class="footer-icon"></image>
+        <text class="footer-text">{{item.stargazers_count}}</text>
+      </view>
       <view>
-        <image src="../../assets/imgs/star.png" class="star"></image>
-        <text>{{item.stargazers_count}}</text>
+        <image src="../../assets/imgs/fork.png" class="footer-icon"></image>
+        <text class="footer-text">{{item.forks_count}}</text>
       </view>
     </view>
   </view>

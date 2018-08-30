@@ -5,6 +5,6 @@
 @import "./utils/weui/weui.wxss";
 
 page {
-  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+  font-family: -apple-system-font,DroidSans,Droid Sans Fallback,Helvetica Neue,Helvetica,sans-serif;
   font-size:35rpx;
 }

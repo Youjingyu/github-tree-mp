@@ -57,7 +57,7 @@ Page({
   clickHistory (e) {
     let index = e.currentTarget.dataset.index
     wx.navigateTo({
-      url: '/pages/index/index?repos=' + this.data.history[index]
+      url: '/pages/index/index?repos=https://github.com/' + this.data.history[index]
     })
   },
   confirm () {

@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "搜索结果"
+  "navigationBarTitleText": "搜索结果",
+  "navigationBarBackgroundColor": "#024156",
+  "backgroundColor": "#024B64",
+  "navigationBarTextStyle": "white"
 }

@@ -57,16 +57,17 @@ Page({
     // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
+    const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
     wx.getStorage({
       key: 'history',
       success: function (res) {
         let history = res.data
-        const index = history.indexOf(repos)
+        const index = history.indexOf(reposPath)
         if (index < 0) {
-          history.unshift(repos)
+          history.unshift(reposPath)
         } else if (index > 0) {
           history.splice(index, 1)
-          history.unshift(repos)
+          history.unshift(reposPath)
         }
         if (history.length > 10) {
           history.splice(10, 1)
@@ -74,10 +75,9 @@ Page({
         wx.setStorageSync('history', history)
       },
       fail: function () {
-        wx.setStorageSync('history', [repos])
+        wx.setStorageSync('history', [reposPath])
       }
     })
-    const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
     this.setData({
       reposPath: reposPath,
       filePath: reposPath

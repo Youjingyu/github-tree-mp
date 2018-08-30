@@ -45,7 +45,7 @@ input {
   height: 100rpx;
   line-height: 100rpx;
   /* padding: 0; */
-  font-size: 14px;
+  font-size: 40rpx;
   color: #fff;
   background-color: #FFC039;
   /* border-color: #409eff; */
@@ -55,12 +55,11 @@ input {
   text-align: center;
 }
 .history-container{
-  color: #fff;
+  color: #DBD5D5;
   /* margin-top: 20rpx; */
   /* border-top: 1px solid #dcdfe6; */
   width:100%;
-  min-height: 200rpx;
-  font-size: 14px;
+  font-size: 35rpx;
 }
 .history-item {
   display: flex;
@@ -76,7 +75,7 @@ input {
   white-space:nowrap;
 }
 .history-border{
-  border-bottom: 2px solid #5D8998;
+  border-bottom: 1px solid #5D8998;
 }
 .history-icon {
   flex: 1;
@@ -91,10 +90,13 @@ input {
   display: inline-block;
   background-color: #618F9F;
   border-radius: 50rpx;
-  width: 150rpx;
-  height: 100rpx;
+  width: 130rpx;
+  height: 80rpx;
 }
 .footer-button-icon {
-  width: 100rpx;
-  height: 100rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+.weui-footer_fixed-bottom{
+  bottom: 30rpx;
 }
