@@ -1,14 +1,27 @@
+/* .container{
+  padding-left: 50rpx;
+  border-bottom: 1px solid #04485D;
+} */
+.tree-item{
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+}
+/* .first-level {
+  padding-left: 15rpx;
+} */
 .indent {
   padding-left: 50rpx;
 }
 .folder-icon{
+  margin: 0 20rpx 0 10rpx;
   width: 50rpx;
   height: 50rpx;
   vertical-align: bottom;
 }
 .triangle-icon {
-  width: 50rpx;
-  height: 50rpx;
+  width: 30rpx;
+  height: 30rpx;
   vertical-align: bottom;
 }
 .rotate {

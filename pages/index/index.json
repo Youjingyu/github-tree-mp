@@ -2,5 +2,8 @@
   "usingComponents": {
     "tree": "../comp/tree/tree"
   },
-  "navigationBarTitleText": "查看代码"
+  "navigationBarTitleText": "查看代码",
+  "navigationBarBackgroundColor": "#25363C",
+  "backgroundColor": "#25363C",
+  "navigationBarTextStyle": "white"
 }

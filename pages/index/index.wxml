@@ -2,67 +2,61 @@
 <import src="../../utils/wxParse/wxParse.wxml"/>
 <view class="header">
   <image
-    bindtap="showMenu"
-    class="float-icon sidebar-icon"
-    src="../../assets/imgs/arrow-right.png"></image>
+    bindtap="toggleMenu"
+    class="sidebar-icon"
+    src="../../assets/imgs/sidebar.png"></image>
   <text class="header-title">{{filePath}}</text>
 </view>
-<view class="container" bindtap="clickCodeView">
-  <view class="simple-view" hidden="{{viewType !== 'nosupport'}}">
-    <text>不支持的文件类型</text>
-  </view>
-  <view class="simple-view" hidden="{{viewType !== 'img'}}">
-    <image src="{{viewImgSrc}}" data-src="{{viewImgSrc}}" bindtap="preViewImg" bindload="imgOnLoad" style="{{imgStyle}}"></image>
-  </view>
-  <view hidden="{{viewType !== 'text'}}">
-    <text>{{viewText}}</text>
-  </view>
-  <view hidden="{{viewType !== 'md'}}">
-    <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
-  </view>
-  <scroll-view class="code-container" scroll-y scroll-x bindscrolltolower="scrollBottom"
-    hidden="{{viewType !== 'language'}}">
-    <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
-      <text wx:for="{{item}}"
-            wx:key="{{index}}"
-            class="{{(index === 0 ? 'line-num' : '') + ' code-text ' + (item.class ? item.class : '')}}"
-            selectable="true"
-            space="ensp"
-            decode="true"
-        >{{item.text}}</text>
+<view class="container">
+  <view class="viewer">
+    <view class="simple-view" hidden="{{viewType !== 'nosupport'}}">
+      <text>不支持的文件类型</text>
     </view>
-  </scroll-view>
-</view>
-<view class="sidebar" animation="{{animationData}}">
-    <view class="sidebar-title">
-        <view class="sidebar-title-name">
-          <view>{{reposPath}}</view>
-          <view class="icon-container">
-            <image src="../../assets/imgs/star.png" class="start-icon"></image>
-            <text class="icon-num">{{stargazers_count}}</text>
-          </view>
-          <view class="icon-container">
-            <image src="../../assets/imgs/fork.png" class="fork-icon"></image>
-            <text class="icon-num">{{forks}}</text>
-          </view>
-          <picker bindchange="branchPickerChange" value="{{0}}" range="{{branches}}">
-            <text class="sidebar-title-branch">{{curBranch}}</text>
-            <image src="../../assets/imgs/triangle-down.png" class="triangle-icon"></image>
-          </picker>
+    <view class="simple-view" hidden="{{viewType !== 'img'}}">
+      <image src="{{viewImgSrc}}" data-src="{{viewImgSrc}}" bindtap="preViewImg" bindload="imgOnLoad" style="{{imgStyle}}"></image>
+    </view>
+    <view hidden="{{viewType !== 'text'}}">
+      <text>{{viewText}}</text>
+    </view>
+    <view hidden="{{viewType !== 'md'}}">
+      <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
+    </view>
+    <scroll-view class="code-container" scroll-y scroll-x bindscrolltolower="scrollBottom"
+      hidden="{{viewType !== 'language'}}">
+      <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
+        <text wx:for="{{item}}"
+              wx:key="{{index}}"
+              class="{{(index === 0 ? 'line-num' : '') + ' code-text ' + (item.class ? item.class : '')}}"
+              selectable="true"
+              space="ensp"
+              decode="true"
+          >{{item.text}}</text>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="sidebar" animation="{{animationData}}">
+    <view class="sidebar-title"><text>{{reposPath}}</text></view>
+    <view class="sidebar-head">
+      <view>
+        <view>
+          <image src="../../assets/imgs/star.png" class="start-icon"></image>
+          <text class="icon-num">{{stargazers_count}}</text>
         </view>
         <view>
-          <image
-            bindtap="hideMenu"
-            class="sidebar-icon"
-            src="../../assets/imgs/arrow-left.png"></image>
+          <image src="../../assets/imgs/fork.png" class="fork-icon"></image>
+          <text class="icon-num fork-num">{{forks}}</text>
         </view>
+      </view>
+      <picker class="branch-picker"
+        bindchange="branchPickerChange" value="{{0}}" range="{{branches}}">
+        <text class="sidebar-title-branch">{{curBranch}}</text>
+      </picker>
     </view>
     <view class="sidebar-main">
-      <tree wx:for="{{treeData}}" wx:key="{{index}}" model='{{ treeData[index] }}' bind:viewFile="viewFile"></tree>
+      <view wx:for="{{treeData}}" wx:key="{{index}}" class="tree-item-1-level {{index%2 === 1 ? 'light' : ''}}">
+        <tree  model='{{item}}' firstlevel="{{true}}" bind:viewFile="viewFile"></tree>
+      </view>
     </view>
+  </view>
+  <view class="sidebar-back" hidden="{{!showSidebarBack}}"  bindtap="clickCodeView"></view>
 </view>
-<!-- <view class="{{'loading ' + (loading ? 'show' : '')}}">
-  <image
-      class="loading-img"
-      src="../../assets/imgs/loading.gif"></image>
-</view> -->

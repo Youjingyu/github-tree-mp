@@ -2,6 +2,7 @@
 Component({
   properties: {
     model: Object,
+    firstlevel: Boolean
   },
   data: {
     open: false

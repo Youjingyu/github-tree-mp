@@ -25,7 +25,8 @@ Page({
     viewImgSrc: '',
     stargazers_count: '',
     forks: '',
-    imgStyle: ''
+    imgStyle: '',
+    showSidebarBack: false
   },
   proxyApi (method, arg = []) {
     const that = this
@@ -54,8 +55,8 @@ Page({
   onLoad (option) {
     this.loading()
     this.createAnimation()
-    const repos = option.repos
-    // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+    // const repos = option.repos
+    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
     const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')
@@ -111,16 +112,25 @@ Page({
       animationData: this.animation.export()
     })
   },
+  toggleMenu () {
+    if (this.data.showSidebarBack) {
+      this.hideMenu()
+    } else {
+      this.showMenu()
+    }
+  },
   showMenu () {
     this.animation.left('0rpx').step()
     this.setData({
-      animationData: this.animation.export()
+      animationData: this.animation.export(),
+      showSidebarBack: true
     })
   },
   hideMenu () {
     this.animation.left('-600rpx').step()
     this.setData({
-      animationData: this.animation.export()
+      animationData: this.animation.export(),
+      showSidebarBack: false
     })
   },
   clickCodeView () {

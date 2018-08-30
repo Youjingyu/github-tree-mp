@@ -8,3 +8,6 @@ page {
   font-family: -apple-system-font,DroidSans,Droid Sans Fallback,Helvetica Neue,Helvetica,sans-serif;
   font-size:35rpx;
 }
+view {
+  box-sizing: border-box;
+}

@@ -1,5 +1,5 @@
 <view>
-  <view bindtap="toggle" class="{{model.children ? '':'indent'}}">
+  <view bindtap="toggle" class="tree-item {{model.children ? '':'indent'}}">
     <image wx-if="{{model.children}}"
       class="triangle-icon {{(open ? 'rotate' : '')}}"
       src="../../../assets/imgs/triangle.png"></image>
