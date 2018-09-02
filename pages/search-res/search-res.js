@@ -86,8 +86,29 @@ function filterData (data) {
       stargazers_count: star > 999 ? ((star / 1000).toFixed(1) + 'k') : star,
       login: item.owner.login,
       avatar_url: item.owner.avatar_url,
-      forks_count:item.forks_count
+      forks_count:item.forks_count,
+      langColor: getLanguageColor(item.language)
     })
   })
   return res
+}
+
+function getLanguageColor (lang) {
+  const languageColorMap = {
+    'C': '555',
+    'C++': 'f34b7d',
+    'CSS': '563d7c',
+    'Dart': '00b4ab',
+    'Go': '375eab',
+    'HTML': 'e34c26',
+    'Java': 'b07219',
+    'JavaScript': 'f1e05a',
+    'Object-C': '438eff',
+    'PHP': '4f5d95',
+    'Python': '3572a5',
+    'TypeScript': '2b7489',
+    'Vue': '0298c3',
+    'default': 'db901e'
+  }
+  return '#' + (languageColorMap[lang] || languageColorMap.default)
 }

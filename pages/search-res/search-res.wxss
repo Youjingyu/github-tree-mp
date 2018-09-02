@@ -34,16 +34,19 @@
 }
 .head-text{
   margin-left: 20rpx;
+  vertical-align:middle
 }
-.header-language-text{
+.head-language-text{
   font-size: 32rpx;
+  vertical-align:middle
 }
-.header-icon{
+.head-icon{
   display: inline-block;
   width: 30rpx;
   height: 30rpx;
   background-color: #F5A623;
   border-radius: 50%;
+  vertical-align:middle
 }
 .repos-title{
   margin: 10rpx 0;

@@ -55,8 +55,8 @@ Page({
   onLoad (option) {
     this.loading()
     this.createAnimation()
-    // const repos = option.repos
-    const repos = 'https://github.com/Youjingyu/vue-hap-tools'
+    const repos = option.repos
+    // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
     const reposPath = repos.replace('https://github.com/', '').replace(/\/$/, '')

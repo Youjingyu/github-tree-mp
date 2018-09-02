@@ -9,8 +9,8 @@
         <text class="head-text">{{item.login}}</text>
       </view>
       <view class="head-language" wx-if="{{!!item.language}}">
-        <view class="header-icon"></view>
-        <text class="head-text head-lanuage-text">{{item.language}}</text>
+        <view class="head-icon" style="background-color:{{item.langColor}};"></view>
+        <text class="head-text head-language-text">{{item.language}}</text>
       </view>
     </view>
     <view class="repos-title"><text>{{item.full_name}}</text></view>

@@ -20,8 +20,8 @@
   vertical-align: bottom;
 }
 .triangle-icon {
-  width: 30rpx;
-  height: 30rpx;
+  width: 28rpx;
+  height: 28rpx;
   vertical-align: bottom;
 }
 .rotate {
