@@ -8,7 +8,7 @@
       src="../../../assets/imgs/folder.png"></image>
     <text>{{model.name}}</text>
   </view>
-  <view wx:if="{{model.children}}" class="sub-tree" hidden="{{!open}}">
-    <tree wx:for='{{ model.children }}' wx:key='id' model='{{ item }}' bind:viewFile="viewFile"></tree>
+  <view wx:if="{{model.children && render}}" class="sub-tree" hidden="{{!open}}">
+    <tree render="{{renderChild}}" wx:for='{{ model.children }}' wx:key='id' model='{{ item }}' bind:viewFile="viewFile"></tree>
   </view>
 </view>

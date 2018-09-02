@@ -92,7 +92,7 @@ Page({
         stargazers_count: star,
         forks: forks
       })
-      return this.changeBranch(branch)
+      this.changeBranch(branch)
     } else {
       this.proxyApi('getReopInfo').then((res) => {
         this.setData({

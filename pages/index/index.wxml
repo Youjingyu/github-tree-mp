@@ -58,7 +58,7 @@
     </view>
     <view class="sidebar-main">
       <view wx:for="{{treeData}}" wx:key="{{index}}" class="tree-item-1-level {{index%2 === 1 ? 'light' : ''}}">
-        <tree  model='{{item}}' firstlevel="{{true}}" bind:viewFile="viewFile"></tree>
+        <tree render="{{true}}}" model='{{item}}' bind:viewFile="viewFile"></tree>
       </view>
     </view>
   </view>

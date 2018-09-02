@@ -2,10 +2,11 @@
 Component({
   properties: {
     model: Object,
-    firstlevel: Boolean
+    render: Boolean
   },
   data: {
-    open: false
+    open: false,
+    renderChild: false
   },
   ready () {
   },
@@ -13,7 +14,8 @@ Component({
     // 这里是一个自定义方法
     toggle (e) {
       this.setData({
-        open: !this.data.open
+        open: !this.data.open,
+        renderChild: true
       })
       const data = this.data.model
       if (data.content && data.content.type === 'blob') {
