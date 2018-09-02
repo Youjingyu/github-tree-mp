@@ -1,7 +1,7 @@
 const hour = 1000*60*60
 let catchTime = 24
 try {
-  catchTime = wx.getStorageSync('cacheTime')
+  catchTime = wx.getStorageSync('cacheTime') || 24
 } catch (err) {
   console.log(err)
 }

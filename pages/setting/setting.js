@@ -23,7 +23,7 @@ Page({
     })
   },
   changeCache (e) {
-    const value = e.detail.value
+    const value = parseInt(e.detail.value)
     this.setData({
       cacheTime: value
     })
