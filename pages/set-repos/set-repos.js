@@ -8,17 +8,7 @@ Page({
     iconIndex: -1
   },
   onReady () {
-    const that = this
-    wx.getClipboardData({
-      success (res) {
-        const repos = parseGithubUrl(res.data)
-        if (repos) {
-          that.setData({
-            inputValue: repos
-          })
-        }
-      }
-    })
+
   },
   onShow () {
     const that = this
@@ -28,6 +18,17 @@ Page({
         that.setData({
           history: res.data
         })
+      }
+    })
+    wx.getClipboardData({
+      success (res) {
+        const repos = parseGithubUrl(res.data)
+        if (repos) {
+          that.setData({
+            inputValue: repos
+          })
+          that.toast('链接已复制到输入框')
+        }
       }
     })
   },
