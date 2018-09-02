@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<import src="../../utils/wxParse/wxParse.wxml"/>
+<!-- <import src="../../utils/wxParse/wxParse.wxml"/> -->
 <view class="header">
   <view class="sidebar-icon-container">
     <image
@@ -23,7 +23,8 @@
       <text>{{viewText}}</text>
     </view>
     <view hidden="{{viewType !== 'md'}}">
-      <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
+      <!-- <template is="wxParse" data="{{wxParseData:md.nodes}}"/> -->
+      <rich-text nodes="{{mdNodes}}"></rich-text>
     </view>
     <scroll-view class="code-container" scroll-y scroll-x bindscrolltolower="scrollBottom"
       hidden="{{viewType !== 'language'}}">

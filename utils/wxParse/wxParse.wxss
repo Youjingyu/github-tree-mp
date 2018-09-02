@@ -12,8 +12,8 @@
 
 .wxParse{
     margin: 0 5px;
-    font-family: Helvetica,sans-serif;
-    font-size: 28rpx;
+    /* font-family: Helvetica,sans-serif; */
+    font-size: 25rpx;
     color: #666;
     line-height: 1.8;
 }
@@ -102,7 +102,7 @@
 .wxParse-blockquote {
     margin: 0;
     padding:10px 0 10px 5px;
-    font-family:Courier, Calibri,"宋体";
+    /* font-family:Courier, Calibri,"宋体"; */
     background:#f5f5f5;
     border-left: 3px solid #dbdbdb;
 }

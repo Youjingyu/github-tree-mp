@@ -24,7 +24,8 @@ Page({
     stargazers_count: '',
     forks: '',
     imgStyle: '',
-    showSidebar: false
+    showSidebar: false,
+    mdNodes: ''
   },
   proxyApi (method, arg = []) {
     const that = this
@@ -205,8 +206,11 @@ Page({
     let { type, languageType } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
-      const that = this
-      app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath())
+      const mdNodes = app.globalUtils.marked(content)
+      // console.log(mdNodes)
+      this.setData({
+        mdNodes
+      })
     } else if (type === 'language') {
       try {
         let codeRowsCache = hightlight(content, languageType)
@@ -284,34 +288,9 @@ function getReadme (tree) {
     }
   }
 }
-const languageMap = {
-  'js': 'javascript',
-  'css': 'css',
-  'wxss': 'css',
-  'html': 'markup',
-  'wxml': 'markup',
-  'vue': 'markup',
-  'jsx': 'markup',
-  'tsx': 'typescript',
-  'ts': 'typescript',
-  'json': 'json',
-  'dart': 'dart',
-  'go': 'go',
-  'less': 'less',
-  'scss': 'sass',
-  'java': 'java',
-  'py': 'python',
-  'php': 'php',
-  'kt': 'kotlin',
-  'swift': 'swift',
-  'c': 'c',
-  'h': 'c',
-  'm': 'c',
-  'cpp': 'clike',
-  'cs': 'clike',
-  'sh': 'bash'
-}
+
 const imgMap = ['png', 'jpeg', 'jpg', 'gif']
+const languageMap = app.globalUtils.languageMap
 function getFileInfo (path) {
   const fileInfo = {
     path
@@ -324,7 +303,7 @@ function getFileInfo (path) {
     fileInfo.type = 'img'
   } else if (languageMap[type]) {
     fileInfo.type = 'language'
-    fileInfo.languageType = languageMap[type]
+    fileInfo.languageType = languageMap[type].render
   } else {
     fileInfo.type = 'text'
   }
