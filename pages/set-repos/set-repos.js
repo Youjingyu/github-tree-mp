@@ -23,7 +23,8 @@ Page({
     wx.getClipboardData({
       success (res) {
         const repos = parseGithubUrl(res.data)
-        if (repos) {
+        const inputValue = that.data.inputValue
+        if (repos && inputValue !== repos) {
           that.setData({
             inputValue: repos
           })

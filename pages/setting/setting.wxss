@@ -1,4 +1,6 @@
 page{
+  padding-top: 30rpx;
+  box-sizing: border-box;
   min-height: 100%;
   background-color: #024B64;
 }
@@ -10,7 +12,7 @@ page{
   height: 100rpx;
   background-color: #618F9F;
   color: #fff;
-  font-size: 35rpx;
+  font-size: 32rpx;
   padding: 0 50rpx 0 30rpx;
   border-bottom: 1px solid #4F8293;
 }
