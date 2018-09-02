@@ -1,11 +1,15 @@
 <!--index.wxml-->
 <import src="../../utils/wxParse/wxParse.wxml"/>
 <view class="header">
-  <image
+  <view class="sidebar-icon-container">
+    <image
     bindtap="toggleMenu"
     class="sidebar-icon"
     src="../../assets/imgs/sidebar.png"></image>
-  <text class="header-title">{{filePath}}</text>
+  </view>
+  <view class="header-title">
+    <text>{{filePath}}</text>
+  </view>
 </view>
 <view class="container">
   <view class="viewer">
@@ -42,7 +46,7 @@
           <image src="../../assets/imgs/star.png" class="start-icon"></image>
           <text class="icon-num">{{stargazers_count}}</text>
         </view>
-        <view>
+        <view class="fork-container">
           <image src="../../assets/imgs/fork.png" class="fork-icon"></image>
           <text class="icon-num fork-num">{{forks}}</text>
         </view>

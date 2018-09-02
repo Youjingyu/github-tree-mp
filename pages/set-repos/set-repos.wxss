@@ -53,6 +53,7 @@ input {
   /* border-radius: 0; */
   /* box-sizing: border-box; */
   text-align: center;
+  font-weight:500;
 }
 .history-container{
   color: #DBD5D5;
@@ -90,12 +91,13 @@ input {
   display: inline-block;
   background-color: #618F9F;
   border-radius: 50rpx;
-  width: 130rpx;
-  height: 80rpx;
+  width: 140rpx;
+  height: 90rpx;
+  padding: 10rpx 0;
 }
 .footer-button-icon {
-  width: 80rpx;
-  height: 80rpx;
+  width: 70rpx;
+  height: 70rpx;
 }
 .weui-footer_fixed-bottom{
   bottom: 30rpx;

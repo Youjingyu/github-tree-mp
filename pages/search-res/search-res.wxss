@@ -11,7 +11,7 @@
   font-size: 35rpx;
   line-height: 1.5;
   word-break: break-all;
-  border-bottom: 1px solid #064B61;
+  border-bottom: 1px solid #266275;
   padding: 40rpx 0 30rpx;
   color: #fff;
 }
@@ -38,7 +38,8 @@
 }
 .head-language-text{
   font-size: 32rpx;
-  vertical-align:middle
+  vertical-align:middle;
+  font-weight:300
 }
 .head-icon{
   display: inline-block;
@@ -65,8 +66,8 @@
   margin-right: 100rpx;
 }
 .footer-icon{
-  width: 45rpx;
-  height: 45rpx;
+  width: 40rpx;
+  height: 40rpx;
   vertical-align:middle;
   margin-right: 20rpx;
 }
@@ -74,4 +75,27 @@
   vertical-align:middle;
   /* color: #CECBCB; */
   color: #4B8FA8;
+}
+.no-data{
+  padding-top: 80rpx;
+  color: #fff;
+  text-align: center;
+}
+.weui-loadmore__tips{
+  color: #fff;
+}
+.weui-loadmore__tips_in-line{
+  color: #fff;
+  background-color: #266275;
+}
+.weui-loadmore_line{
+  border-top:1px solid #266275;
+}
+.custom-loading{
+  margin: 0 auto;
+  padding: 30rpx 0;
+}
+.custom-no-data{
+  margin: 0 auto;
+  margin-top: 50rpx;
 }

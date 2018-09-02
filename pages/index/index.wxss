@@ -2,6 +2,7 @@ page {
   height: 100%;
 }
 .header{
+  direction: flex;
   position: absolute;
   display: flex;
   align-items: center;
@@ -13,19 +14,22 @@ page {
   box-sizing: border-box;
   z-index: 99;
   background-color: #30474F;
-  text-overflow:ellipsis;
-  overflow:hidden;
-  white-space:nowrap;
   color: #E2DEDE;
   font-size: 35rpx;
 }
-.sidebar-icon, .header-title{
-  vertical-align: middle;
+.sidebar-icon-container{
+  flex: 1;
+  text-align: center;
 }
 .sidebar-icon{
-  width: 40rpx;
-  height: 40rpx;
-  padding: 0 45rpx;
+  width: 45rpx;
+  height: 36rpx;
+}
+.header-title{
+  flex: 5;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
 .container{
   position: relative;
@@ -86,7 +90,7 @@ page {
   bottom: 0;
   left: -600rpx;
   max-width: 600rpx;
-  min-width: 400rpx;
+  min-width: 450rpx;
   padding: 30rpx 0;
   /* border-right:1px solid #ccc; */
   /* border-top:1px solid #ccc; */
@@ -109,13 +113,16 @@ page {
   border-bottom: 1px solid #04485D;
 }
 .start-icon {
-  width: 40rpx;
-  height: 40rpx;
+  width: 35rpx;
+  height: 35rpx;
   vertical-align: middle
 }
+.fork-container{
+  margin-top: 10rpx;
+}
 .fork-icon{
-  width:  40rpx;
-  height: 40rpx;
+  width:  35rpx;
+  height: 35rpx;
   vertical-align: middle
 }
 .icon-num {
@@ -127,13 +134,14 @@ page {
   color: #A6FFFD;
 }
 .branch-picker{
+  padding:8rpx 0;
   min-width: 130rpx;
   height: 50rpx;
-  border: 1px solid #F5A623;
+  border: 1px solid #003D51;
   border-radius: 20rpx;
   text-align: center;
   color: #024B64;
-  background-color: #fff;
+  background-color: #618F9F;
 }
 .sidebar-title-branch {
   color: #03536F;

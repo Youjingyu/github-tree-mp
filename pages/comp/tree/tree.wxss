@@ -12,6 +12,7 @@
 } */
 .indent {
   padding-left: 50rpx;
+  padding-right: 10rpx;
 }
 .folder-icon{
   margin: 0 20rpx 0 10rpx;
@@ -20,8 +21,8 @@
   vertical-align: bottom;
 }
 .triangle-icon {
-  width: 28rpx;
-  height: 28rpx;
+  width: 20rpx;
+  height: 20rpx;
   vertical-align: bottom;
 }
 .rotate {
