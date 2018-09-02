@@ -1,0 +1,28 @@
+<picker bindchange="changeCache" value="{{cacheTime}}" range="{{cacheTimes}}">
+  <view class="item">
+    <view class="item-left">
+    接口缓存时间
+    </view>
+    <view class="item-right">
+      {{cacheTimes[cacheTime]}}
+    </view>
+  </view>
+</picker>
+<view class="item" bindtap="changeOpenReadme">
+  <view class="item-left">
+    默认加载readme
+  </view>
+  <view class="item-right">
+    {{openReadme ? '是' : '否'}}
+  </view>
+</view>
+<view class="item" bindtap="clearCache">
+  <view class="item-left">
+    清空缓存
+  </view>
+</view>
+<view class="item" bindtap="feedback">
+  <view class="item-left">
+    反馈建议
+  </view>
+</view>

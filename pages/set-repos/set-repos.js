@@ -94,13 +94,9 @@ Page({
       duration
     })
   },
-  copylink () {
-    const that = this
-    wx.setClipboardData({
-      data: 'https://github.com/Youjingyu/github-tree-mp/issues',
-      success: function (res) {
-        that.toast('反馈链接已复制到剪贴板', 2000)
-      }
+  setting () {
+    wx.navigateTo({
+      url: '/pages/setting/setting'
     })
   }
 })

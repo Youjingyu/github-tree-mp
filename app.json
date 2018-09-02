@@ -3,12 +3,14 @@
     "pages/set-repos/set-repos",
     "pages/search-res/search-res",
     "pages/index/index",
+    "pages/setting/setting",
     "pages/comp/tree/tree"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Github Tree",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#024156",
+    "navigationBarTitleText": "GithubTree",
+    "backgroundColor": "#024B64",
+    "navigationBarTextStyle":"white"
   }
 }

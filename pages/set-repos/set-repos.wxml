@@ -21,7 +21,7 @@
     </view> -->
   </view>
 </view>
-<view class="weui-footer weui-footer_fixed-bottom" bindtap="copylink">
+<view class="weui-footer weui-footer_fixed-bottom" bindtap="setting">
     <view class="footer-button">
         <image class="footer-button-icon" src="../../assets/imgs/menu.png"></image>
     </view>

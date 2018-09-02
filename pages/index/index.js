@@ -5,6 +5,7 @@ import app from '../../utils/index'
 const hightlight = app.globalUtils.hightlight
 // let codeRowsCache = []
 // let allowRender = true
+let openReadme = false
 
 Page({
   data: {
@@ -53,6 +54,11 @@ Page({
     }) : wx.hideLoading()
   },
   onLoad (option) {
+    try {
+      openReadme = wx.getStorageSync('openReadme')
+    } catch (err) {
+      console.log(err)
+    }
     this.loading()
     this.createAnimation()
     const repos = option.repos
@@ -145,8 +151,24 @@ Page({
         treeData: tree,
         loading: false
       })
-      this.loading(false)
-      this.showMenu()
+      if (openReadme) {
+        const readme = getReadme(tree)
+        console.log(readme)
+        if (!readme) {
+          this.loading(false)
+          this.showMenu()
+        } else {
+          this.viewFile({
+            detail: {
+              path: readme.path,
+              size: readme.size
+            }
+          })
+        }
+      } else {
+        this.loading(false)
+        this.showMenu()
+      }
       console.log(this.data.treeData)
     })
   },
@@ -265,13 +287,13 @@ Page({
 //   })
 //   return res
 // }
-// function getReadme (tree) {
-//   for (let i = 0; i < tree.length; i++) {
-//     if (tree[i].content && /^(readme|README)\.md$/.test(tree[i].content.path)) {
-//       return tree[i].content
-//     }
-//   }
-// }
+function getReadme (tree) {
+  for (let i = 0; i < tree.length; i++) {
+    if (tree[i].content && /^(readme|README)\.md$/.test(tree[i].content.path)) {
+      return tree[i].content
+    }
+  }
+}
 const languageMap = {
   'js': 'javascript',
   'css': 'css',
