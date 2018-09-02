@@ -14,20 +14,17 @@ Page({
     },
     codeRows: [],
     treeData: [],
-    loadCodeError: false,
-    animationData: {},
     reposPath: '',
     filePath: '',
     branches: [],
     curBranch: '',
-    // loading: true,
     viewType: 'md',
     viewText: '',
     viewImgSrc: '',
     stargazers_count: '',
     forks: '',
     imgStyle: '',
-    showSidebarBack: false
+    showSidebar: false
   },
   proxyApi (method, arg = []) {
     const that = this
@@ -60,7 +57,6 @@ Page({
       console.log(err)
     }
     this.loading()
-    this.createAnimation()
     const { repos } = option
     // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
@@ -117,35 +113,21 @@ Page({
       })
     })
   },
-  createAnimation () {
-    const animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease'
-    })
-    this.animation = animation
-    this.setData({
-      animationData: this.animation.export()
-    })
-  },
   toggleMenu () {
-    if (this.data.showSidebarBack) {
+    if (this.data.showSidebar) {
       this.hideMenu()
     } else {
       this.showMenu()
     }
   },
   showMenu () {
-    this.animation.left('0rpx').step()
     this.setData({
-      animationData: this.animation.export(),
-      showSidebarBack: true
+      showSidebar: true
     })
   },
   hideMenu () {
-    this.animation.left('-600rpx').step()
     this.setData({
-      animationData: this.animation.export(),
-      showSidebarBack: false
+      showSidebar: false
     })
   },
   clickCodeView () {

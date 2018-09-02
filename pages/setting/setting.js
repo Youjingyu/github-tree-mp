@@ -51,7 +51,7 @@ Page({
   feedback () {
     const that = this
     wx.setClipboardData({
-      data: 'https://github.com/Youjingyu/github-tree-mp/issues',
+      data: 'https://github.com/Youjingyu/github-tree-mp',
       success: function (res) {
         that.toast('反馈链接已复制到剪贴板', 2000)
       }

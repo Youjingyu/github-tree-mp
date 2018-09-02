@@ -88,7 +88,6 @@ page {
   left: 0;
   top: 70rpx;
   bottom: 0;
-  left: -600rpx;
   max-width: 600rpx;
   min-width: 450rpx;
   padding: 30rpx 0;
@@ -98,6 +97,11 @@ page {
   background: #044C65;
   z-index: 999;
   box-sizing:border-box;
+  transform: translate3d(-600rpx, 0rpx, 0rpx);
+  transition: transform 0.2s ease 0s;
+}
+.show-sidebar {
+  transform: translate3d(0rpx, 0rpx, 0rpx);
 }
 .sidebar-title {
   color: #fff;
