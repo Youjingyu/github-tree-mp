@@ -1,30 +1,38 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const hour = 1000 * 60 * 60;
+let catchTime = 24;
+try {
+    catchTime = wx.getStorageSync('cacheTime');
+}
+catch (err) {
+    console.log(err);
+}
+let cacheHour = catchTime * hour;
 const cacheConfig = {
     search: {
         size: 30,
-        time: hour,
+        time: cacheHour,
         key: '_search'
     },
     reposInfo: {
         size: 30,
-        time: hour,
+        time: cacheHour,
         key: '_repos_info'
     },
     reposTree: {
         size: 30,
-        time: hour,
+        time: cacheHour,
         key: '_repos_tree'
     },
     reposBranch: {
         size: 30,
-        time: hour,
+        time: cacheHour,
         key: '_repos_branch'
     },
     raw: {
         size: 20,
-        time: hour,
+        time: cacheHour,
         key: '_raw'
     }
 };

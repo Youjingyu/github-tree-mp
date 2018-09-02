@@ -32,8 +32,14 @@ function objTreeToArray (treeObj:TreeObj, children:Array<TreeItem> = []) {
     const treeItem:TreeItem = {
       name: key
     }
-    if (treeObj[key].type) {
-      treeItem.content = treeObj[key]
+    const item = treeObj[key]
+    if (item.type) {
+      // 只写入必要的数据，优化setData性能
+      treeItem.content ={
+        path: item.path,
+        type: item.type,
+        size: item.size
+      }
     } else {
       treeItem.children = []
       objTreeToArray(treeObj[key], treeItem.children)
