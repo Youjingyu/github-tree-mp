@@ -1,8 +1,11 @@
 <view class="container">
   <view hidden="{{!noData}}" class="no-data"><text>没有匹配的结果</text></view>
   <view wx:for="{{list}}" wx:key="{{index}}"
-    bindtap="choose"
-    data-repos="{{item.html_url}}" class="row">
+    bindtap="choose" class="row"
+    data-repos="{{item.html_url}}"
+    data-star="{{item.stargazers_count}}"
+    data-forks="{{item.forks_count}}"
+    data-branch="{{item.default_branch}}">
     <view class="head">
       <view class="head-user">
         <image class="head-img" src="{{item.avatar_url}}"></image>

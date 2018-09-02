@@ -67,8 +67,9 @@ Page({
     })
   },
   choose (e) {
+    const { repos, star, forks, branch } = e.currentTarget.dataset
     wx.navigateTo({
-      url: '/pages/index/index?repos=' + e.currentTarget.dataset.repos
+      url: `/pages/index/index?repos=${repos}&star=${star}&forks=${forks}&branch=${branch}`
     })
   }
 })
@@ -86,7 +87,8 @@ function filterData (data) {
       stargazers_count: star > 999 ? ((star / 1000).toFixed(1) + 'k') : star,
       login: item.owner.login,
       avatar_url: item.owner.avatar_url,
-      forks_count:item.forks_count,
+      forks_count: item.forks_count,
+      default_branch: item.default_branch,
       langColor: getLanguageColor(item.language)
     })
   })

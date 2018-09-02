@@ -61,7 +61,7 @@ Page({
     }
     this.loading()
     this.createAnimation()
-    const repos = option.repos
+    const { repos } = option
     // const repos = 'https://github.com/Youjingyu/vue-hap-tools'
     // const repos = 'https://github.com/vuejs/vue'
     apis.setResp(repos)
@@ -90,13 +90,22 @@ Page({
       reposPath: reposPath,
       filePath: reposPath
     })
-    this.proxyApi('getReopInfo').then((res) => {
+    const { star, forks, branch } = option
+    if (branch) {
       this.setData({
-        stargazers_count: res.stargazers_count,
-        forks: res.forks
+        stargazers_count: star,
+        forks: forks
       })
-      return this.changeBranch(res.default_branch)
-    })
+      return this.changeBranch(branch)
+    } else {
+      this.proxyApi('getReopInfo').then((res) => {
+        this.setData({
+          stargazers_count: res.stargazers_count,
+          forks: res.forks
+        })
+        return this.changeBranch(res.default_branch)
+      })
+    }
     this.proxyApi('getBranches').then((res) => {
       // github按照创建时间倒序返回branches
       // 这里按照时间从旧到新显示
@@ -153,7 +162,6 @@ Page({
       })
       if (openReadme) {
         const readme = getReadme(tree)
-        console.log(readme)
         if (!readme) {
           this.loading(false)
           this.showMenu()
