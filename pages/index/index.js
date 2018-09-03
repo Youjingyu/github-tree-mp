@@ -205,34 +205,34 @@ Page({
   parseFile (content, fileInfo, cb) {
     let { type, languageType } = fileInfo
     let dataToUpdate = {}
-    if (type === 'md') {
-      const mdNodes = app.globalUtils.marked(content)
-      // console.log(mdNodes)
-      this.setData({
-        mdNodes
-      })
-    } else if (type === 'language') {
-      try {
-        let codeRowsCache = hightlight(content, languageType)
-        dataToUpdate = {
-          // 初始时，只显示150行
-          codeRows: codeRowsCache.slice(0, 150)
-        }
-        // 延迟渲染，避免卡顿
-        setTimeout(() => {
-          this.setData({
-            codeRows: codeRowsCache
-          })
-        }, 1500)
-      } catch (err) {
-        console.log(err)
-        this.toast('代码解析失败，将以纯文本展示')
-        type = 'text'
+    try {
+      if (type === 'md') {
+        const mdNodes = app.globalUtils.marked(content)
+        // console.log(mdNodes)
+        this.setData({
+          mdNodes
+        })
+      } else if (type === 'language') {
+          let codeRowsCache = hightlight(content, languageType)
+          dataToUpdate = {
+            // 初始时，只显示150行
+            codeRows: codeRowsCache.slice(0, 150)
+          }
+          // 延迟渲染，避免卡顿
+          setTimeout(() => {
+            this.setData({
+              codeRows: codeRowsCache
+            })
+          }, 1500)
+      } else if (type === 'text') {
         dataToUpdate = {
           viewText: content
         }
       }
-    } else if (type === 'text') {
+    } catch (err) {
+      console.log(err)
+      this.toast('代码解析失败，将以纯文本展示')
+      type = 'text'
       dataToUpdate = {
         viewText: content
       }

@@ -26,8 +26,9 @@ renderer.html = function (html) {
 }
 renderer.code = function (code, type, escaped) {
   let html
-  if (supportLanguage.indexOf(type) > -1) {
-    html = Prism.highlight(code, Prism.languages[type], type)
+  const render = supportLanguage[type]
+  if (render) {
+    html = Prism.highlight(code, Prism.languages[render], render)
   } else {
     html = escapedHtml(code)
   }

@@ -25,10 +25,10 @@ const map = {
   'cs': { lang: 'c#', render: 'clike' },
   'sh': { lang: 'bash', render: 'bash' }
 }
-const supportLanguage = Object.keys(map).reduce((all, key) => {
-  all.push(map[key].lang)
-  return all
-}, [])
+const supportLanguage = Object.keys(map).reduce((obj, key) => {
+  obj[map[key].lang] = map[key].render
+  return obj
+}, {})
 module.exports = {
   languageMap: map,
   supportLanguage
