@@ -206,7 +206,22 @@ Page({
     let dataToUpdate = {}
     if (type === 'md') {
       const that = this
-      app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath())
+      app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath(), (href) => {
+        if (!href) return
+        const filePath = getHrefPath(href, that.reposPath, that.curBranch)
+        if (filePath) {
+          this.viewFile({
+            detail: {path: filePath, size: 1}
+          })
+        } else {
+          wx.setClipboardData({
+            data: href,
+            success: function (res) {
+              that.toast && that.toast('链接已复制到剪贴板', 1000)
+            }
+          })
+        }
+      })
     } else if (type === 'language') {
       try {
         let codeRowsCache = hightlight(content, languageType)
@@ -329,4 +344,16 @@ function getFileInfo (path) {
     fileInfo.type = 'text'
   }
   return fileInfo
+}
+
+function getHrefPath (href, reposPath, branch) {
+  if (!/^http(s)?:\/\//.test(href) && !/\.com/.test(href)) {
+    return href
+  }
+  href = href.replace('https://github.com/', '')
+  const reg = new RegExp('\^' + reposPath + '/blob/' + branch + '/(\.\+)')
+  const matches = href.match(reg)
+  if (matches) {
+    return matches[1]
+  }
 }

@@ -28,7 +28,8 @@ wx.getSystemInfo({
 /**
  * 主函数入口区
  **/
-function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:red;">数据不能为空</div>', target, imagePadding, imgBasePath = '') {
+let clickACallback
+function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:red;">数据不能为空</div>', target, imagePadding, imgBasePath = '', clickA=()=>{}) {
   var that = target;
   var transData = {};//存放转化后的数据
   if (type == 'html') {
@@ -44,6 +45,7 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
     transData = HtmlToJson.html2json(html, bindName);
     // console.log(JSON.stringify(transData, ' ', ' '));
   }
+  clickACallback = clickA
   transData.view = {};
   transData.view.imagePadding = 0;
   if(typeof(imagePadding) != 'undefined'){
@@ -57,13 +59,7 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
   that.wxParseTagATap = wxParseTagATap;
 }
 function wxParseTagATap (e) {
-  const that = this
-  wx.setClipboardData({
-    data: e.currentTarget.dataset.src,
-    success: function (res) {
-      that.toast && that.toast('链接已复制到剪贴板', 1000)
-    }
-  })
+  clickACallback.call(this, e.currentTarget.dataset.src)
 }
 // 图片点击事件
 function wxParseImgTap(e) {
