@@ -1,5 +1,6 @@
 /* global Page, wx */
 let isInDeleting = false
+let hasSetInput = false
 
 Page({
   data: {
@@ -24,11 +25,12 @@ Page({
       success (res) {
         const repos = parseGithubUrl(res.data)
         const inputValue = that.data.inputValue
-        if (repos && inputValue !== repos) {
+        if (repos && inputValue !== repos && !hasSetInput) {
           that.setData({
             inputValue: repos
           })
           that.toast('链接已复制到输入框')
+          hasSetInput = true
         }
       }
     })
