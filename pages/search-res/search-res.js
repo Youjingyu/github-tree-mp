@@ -33,7 +33,7 @@ Page({
     })
   },
   onReachBottom () {
-    if (this.data.loadMore === true || this.data.noMoreData) return
+    if (this.data.loadMore === true || this.data.noMoreData || this.data.noData) return
     this.setData({
       loadMore: true
     })
@@ -52,7 +52,7 @@ Page({
         this.setData({
           noData: true
         })
-      } else if (res.items.length === 0) {
+      } else if (res.items.length < 30) {
         this.setData({
           noMoreData: true
         })

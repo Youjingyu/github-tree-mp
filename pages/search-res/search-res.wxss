@@ -1,7 +1,10 @@
+page {
+  min-height: 100%;
+  background-color: #024B64;
+}
 .container{
   padding: 0 20rpx;
   min-height: 100%;
-  background-color: #024B64;
 }
 .row {
   /* display: flex; */
