@@ -50,7 +50,13 @@ Page({
       title: '正在加载'
     }) : wx.hideLoading()
   },
+  onReady () {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+  },
   onLoad (option) {
+    option = decodeOption(option)
     try {
       openReadme = wx.getStorageSync('openReadme')
     } catch (err) {
@@ -356,4 +362,10 @@ function getHrefPath (href, reposPath, branch) {
   if (matches) {
     return matches[1]
   }
+}
+function decodeOption (option) {
+  Object.keys(option).forEach((key) => {
+    option[key] = decodeURIComponent(option[key])
+  })
+  return option
 }

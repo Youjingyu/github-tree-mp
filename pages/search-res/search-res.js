@@ -18,7 +18,13 @@ Page({
       title: '正在加载'
     }) : wx.hideLoading()
   },
+  onReady () {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+  },
   onLoad (option) {
+    option = decodeOption(option)
     page = 1
     query = option.query
     this.loading()
@@ -113,4 +119,10 @@ function getLanguageColor (lang) {
     'default': 'db901e'
   }
   return '#' + (languageColorMap[lang] || languageColorMap.default)
+}
+function decodeOption (option) {
+  Object.keys(option).forEach((key) => {
+    option[key] = decodeURIComponent(option[key])
+  })
+  return option
 }

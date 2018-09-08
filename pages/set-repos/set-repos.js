@@ -9,7 +9,9 @@ Page({
     iconIndex: -1
   },
   onReady () {
-
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
   onShow () {
     const that = this
