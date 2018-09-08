@@ -15,6 +15,6 @@ App({
   },
   globalUtils: {
     wxParse,
-    hightlight,
+    hightlight
   }
 })

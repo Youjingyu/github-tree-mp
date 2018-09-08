@@ -214,7 +214,7 @@ Page({
       const that = this
       app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath(), (href) => {
         if (!href) return
-        const filePath = getHrefPath(href, that.reposPath, that.curBranch)
+        const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
         if (filePath) {
           this.viewFile({
             detail: {path: filePath, size: 1}
@@ -357,7 +357,7 @@ function getHrefPath (href, reposPath, branch) {
     return href
   }
   href = href.replace('https://github.com/', '')
-  const reg = new RegExp('\^' + reposPath + '/blob/' + branch + '/(\.\+)')
+  const reg = new RegExp('^' + reposPath + '/blob/' + branch + '/(.+)')
   const matches = href.match(reg)
   if (matches) {
     return matches[1]
