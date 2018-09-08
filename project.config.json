@@ -11,8 +11,8 @@
         "value": "node_modules"
       },
       {
-        "type": "utils/marked",
-        "value": "node_modules"
+        "type": "folder",
+        "value": "utils/marked"
       }
     ]
 	},
