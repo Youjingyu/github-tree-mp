@@ -18,6 +18,9 @@ Page({
       title: '正在加载'
     }) : wx.hideLoading()
   },
+  onShareAppMessage () {
+    return {}
+  },
   onReady () {
     wx.showShareMenu({
       withShareTicket: true

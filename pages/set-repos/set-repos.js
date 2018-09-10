@@ -8,6 +8,9 @@ Page({
     history: [],
     iconIndex: -1
   },
+  onShareAppMessage () {
+    return {}
+  },
   onReady () {
     wx.showShareMenu({
       withShareTicket: true
