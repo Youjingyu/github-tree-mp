@@ -12,7 +12,7 @@
   </view>
 </view>
 <view class="container">
-  <view class="viewer">
+  <view class="viewer {{viewType !== 'language'? '' : 'language-viewer'}}">
     <view class="simple-view" hidden="{{viewType !== 'nosupport'}}">
       <text>不支持的文件类型</text>
     </view>

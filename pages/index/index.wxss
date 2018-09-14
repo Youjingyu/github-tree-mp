@@ -43,6 +43,9 @@ page {
   height: 100%;
   overflow: auto;
 }
+.language-viewer{
+	background: #2d2d2d;
+}
 .simple-view {
   margin-top: 10rpx;
   text-align: center;
@@ -55,13 +58,13 @@ page {
   box-sizing: border-box; */
   height: 100%;
   /* overflow: auto; */
-  font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  /* font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace; */
   font-size: 14px;
-  line-height: 18px;
+  /* line-height: 18px; */
 }
 .line-num {
   min-width: 28px;
-  color: rgba(27,31,35,0.3);
+  /* color: rgba(27,31,35,0.3); */
 }
 .code-row{
   white-space:nowrap;
