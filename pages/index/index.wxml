@@ -1,9 +1,8 @@
 <!--index.wxml-->
 <import src="../../utils/wxParse/wxParse.wxml"/>
 <view class="header">
-  <view class="sidebar-icon-container">
+  <view class="sidebar-icon-container" bindtap="toggleMenu">
     <image
-    bindtap="toggleMenu"
     class="sidebar-icon"
     src="../../assets/imgs/sidebar.png"></image>
   </view>

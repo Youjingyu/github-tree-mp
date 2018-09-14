@@ -9,7 +9,7 @@ page {
   top: 0;
   left: 0;
   right: 0;
-  height: 70rpx;
+  height: 80rpx;
   /* border-bottom: 1px solid #ccc; */
   box-sizing: border-box;
   z-index: 99;
@@ -22,8 +22,9 @@ page {
   text-align: center;
 }
 .sidebar-icon{
-  width: 45rpx;
-  height: 36rpx;
+  width: 50rpx;
+  height: 40rpx;
+  vertical-align: middle;
 }
 .header-title{
   flex: 5;
@@ -77,7 +78,7 @@ page {
 }
 .sidebar-back{
   position: absolute;
-  top: 70rpx;
+  top: 80rpx;
   bottom: 0;
   right: 0;
   left: 0;
@@ -89,7 +90,7 @@ page {
   overflow: auto;
   position: absolute;
   left: 0;
-  top: 70rpx;
+  top: 80rpx;
   bottom: 0;
   max-width: 600rpx;
   min-width: 450rpx;
