@@ -4,8 +4,12 @@ interface TreeItem {
   content?: object
 }
 interface TreeObj {
-  [propName: string]: TreeObj
+  [propName: string]: any
 }
+
+// 判断目录树是否超过setData的上限
+let treeSize = 0
+let maxTreeSize = 1024 * 1000
 
 function parseIntoObjTree(tree:Array<TreeApiItem>):TreeObj {
   const treeObj:TreeObj = {}
@@ -29,21 +33,26 @@ function parseIntoObjTree(tree:Array<TreeApiItem>):TreeObj {
 
 function objTreeToArray (treeObj:TreeObj, children:Array<TreeItem> = []) {
   sortTreeKey(treeObj).forEach((key: string) => {
+    if (treeSize > maxTreeSize) return
     const treeItem:TreeItem = {
       name: key
     }
+    treeSize += (key + 'name').length + 2
     const item = treeObj[key]
-    if (item.type) {
+    if (item.type && item.mode) {
+      treeSize += getSize(item) + ('content').length + 2
       // 只写入必要的数据，优化setData性能
-      treeItem.content ={
+      treeItem.content = {
         path: item.path,
         type: item.type,
         size: item.size
       }
     } else {
+      treeSize += ('children').length + 2
       treeItem.children = []
       objTreeToArray(treeObj[key], treeItem.children)
     }
+    if (treeSize > maxTreeSize) return
     children.push(treeItem)
   })
   return children
@@ -63,7 +72,23 @@ function sortTreeKey (treeObj:TreeObj):Array<string> {
   return treeArr.concat(fileArr)
 }
 
+function getSize (item:any) {
+  let size = 0
+  if (item.path)  {
+    size += (item.path + 'path').length
+  }
+  if (item.type)  {
+    size += (item.type + 'type').length
+  }
+  if (item.size)  {
+    size += (item.size + 'size').length
+  }
+  return size
+}
+
 export default function (tree:Array<TreeApiItem>):Array<TreeItem> {
+  treeSize = 0
   const objTree = parseIntoObjTree(tree)
-  return objTreeToArray(objTree)
+  const res = objTreeToArray(objTree)
+  return res
 }

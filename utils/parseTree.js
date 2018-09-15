@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// 判断目录树是否超过setData的上限
+let treeSize = 0;
+let maxTreeSize = 1024 * 1000;
 function parseIntoObjTree(tree) {
     const treeObj = {};
     tree.forEach((item) => {
@@ -22,11 +25,15 @@ function parseIntoObjTree(tree) {
 }
 function objTreeToArray(treeObj, children = []) {
     sortTreeKey(treeObj).forEach((key) => {
+        if (treeSize > maxTreeSize)
+            return;
         const treeItem = {
             name: key
         };
+        treeSize += (key + 'name').length + 2;
         const item = treeObj[key];
-        if (item.type) {
+        if (item.type && item.mode) {
+            treeSize += getSize(item) + ('content').length + 2;
             // 只写入必要的数据，优化setData性能
             treeItem.content = {
                 path: item.path,
@@ -35,9 +42,12 @@ function objTreeToArray(treeObj, children = []) {
             };
         }
         else {
+            treeSize += ('children').length + 2;
             treeItem.children = [];
             objTreeToArray(treeObj[key], treeItem.children);
         }
+        if (treeSize > maxTreeSize)
+            return;
         children.push(treeItem);
     });
     return children;
@@ -56,8 +66,23 @@ function sortTreeKey(treeObj) {
     });
     return treeArr.concat(fileArr);
 }
+function getSize(item) {
+    let size = 0;
+    if (item.path) {
+        size += (item.path + 'path').length;
+    }
+    if (item.type) {
+        size += (item.type + 'type').length;
+    }
+    if (item.size) {
+        size += (item.size + 'size').length;
+    }
+    return size;
+}
 function default_1(tree) {
+    treeSize = 0;
     const objTree = parseIntoObjTree(tree);
-    return objTreeToArray(objTree);
+    const res = objTreeToArray(objTree);
+    return res;
 }
 exports.default = default_1;
