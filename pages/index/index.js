@@ -217,26 +217,9 @@ Page({
     let { type, languageRender } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
-      // const that = this
       dataToUpdate = {
         markdownNodes: marked(content, apis.getImgRawPath())
       }
-      // app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath(), (href) => {
-      //   if (!href) return
-      //   const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
-      //   if (filePath) {
-      //     this.viewFile({
-      //       detail: {path: filePath, size: 1}
-      //     })
-      //   } else {
-      //     wx.setClipboardData({
-      //       data: href,
-      //       success: function (res) {
-      //         that.toast && that.toast('链接已复制到剪贴板', 1000)
-      //       }
-      //     })
-      //   }
-      // })
     } else if (type === 'language') {
       try {
         let codeRowsCache = hightlight(content, languageRender)
@@ -282,14 +265,32 @@ Page({
     //   }, 1000)
     // }
   },
-  imgOnLoad (e) {
-    const ratio = parseFloat(e.detail.height) / parseFloat(e.detail.width)
-    this.setData({
-      imgStyle: `width:700rpx;height:${650 * ratio}rpx;`
-    })
+  // imgOnLoad (e) {
+  //   const ratio = parseFloat(e.detail.height) / parseFloat(e.detail.width)
+  //   this.setData({
+  //     imgStyle: `width:700rpx;height:${650 * ratio}rpx;`
+  //   })
+  // },
+  mdtap (e) {
+    const href = e.target.dataset.href
+    if (href !== undefined && href !== '') {
+      const that = this
+      const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
+      if (filePath) {
+        this.viewFile({
+          detail: {path: filePath, size: 1}
+        })
+      } else {
+        wx.setClipboardData({
+          data: href,
+          success: function (res) {
+            that.toast && that.toast('链接已复制到剪贴板', 1000)
+          }
+        })
+      }
+    }
   },
   preViewImg (e) {
-    console.log(e)
     wx.previewImage({
       urls: [e.target.dataset.src]
     })

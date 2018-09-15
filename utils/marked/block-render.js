@@ -153,9 +153,11 @@ function getBlockValue (blockString) {
         value.push(tag)
         tag = null
       } else if (tagName === 'img') {
-        tag.src = getImgSrc(attrs)
+        tag.src = getAttr(attrs, 'src')
         value.push(tag)
         tag = null
+      } else if (tagName === 'a') {
+        tag.href = getAttr(attrs, 'href')
       }
     },
     chars (text) {
@@ -168,9 +170,9 @@ function getBlockValue (blockString) {
   return value
 }
 
-function getImgSrc (attrs) {
+function getAttr (attrs, attr) {
   for (var i = 0; i < attrs.length; i++) {
-    if (attrs[i].name === 'src') {
+    if (attrs[i].name === attr) {
       return attrs[i].escaped
     }
   }

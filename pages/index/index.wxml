@@ -1,6 +1,4 @@
-<!--index.wxml-->
-<!-- <import src="../../utils/wxParse/md-tpl.wxml"/> -->
-<import src="./md-tpl.wxml"/>>
+<import src="./md-tpl.wxml"/>
 <view class="header">
   <view class="sidebar-icon-container" bindtap="toggleMenu">
     <image
