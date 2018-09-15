@@ -4,6 +4,7 @@ const map = {
   'wxss': { lang: 'wxss', render: 'css' },
   'html': { lang: 'html', render: 'markup' },
   'wxml': { lang: 'wxml', render: 'markup' },
+  'xml': { lang: 'xml', render: 'markup' },
   'vue': { lang: 'vue', render: 'markup' },
   'jsx': { lang: 'jsx', render: 'markup' },
   'tsx': { lang: 'typescript', render: 'typescript' },

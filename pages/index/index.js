@@ -265,12 +265,12 @@ Page({
     //   }, 1000)
     // }
   },
-  // imgOnLoad (e) {
-  //   const ratio = parseFloat(e.detail.height) / parseFloat(e.detail.width)
-  //   this.setData({
-  //     imgStyle: `width:700rpx;height:${650 * ratio}rpx;`
-  //   })
-  // },
+  imgOnLoad (e) {
+    const ratio = parseFloat(e.detail.height) / parseFloat(e.detail.width)
+    this.setData({
+      imgStyle: `width:700rpx;height:${650 * ratio}rpx;`
+    })
+  },
   mdtap (e) {
     const href = e.target.dataset.href
     if (href !== undefined && href !== '') {
