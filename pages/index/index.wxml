@@ -37,7 +37,8 @@
       </view>
     </scroll-view>
   </view>
-  <view class="sidebar {{showSidebar ?  'show-sidebar' : ''}}">
+</view>
+<view class="sidebar {{showSidebar ?  'show-sidebar' : ''}}">
     <view class="sidebar-title"><text>{{reposPath}}</text></view>
     <view class="sidebar-head">
       <view>
@@ -62,4 +63,3 @@
     </view>
   </view>
   <view class="sidebar-back" hidden="{{!showSidebar}}"  bindtap="clickCodeView"></view>
-</view>

@@ -11,7 +11,7 @@ page {
   top: 0;
   left: 0;
   right: 0;
-  height: 80rpx;
+  height: 82rpx;
   /* border-bottom: 1px solid #ccc; */
   box-sizing: border-box;
   z-index: 99;
@@ -37,12 +37,12 @@ page {
 .container{
   position: relative;
   /* margin: 10rpx; */
-  padding-top: 70rpx;
+  padding-top: 80rpx;
   height: 100%;
   box-sizing: border-box;
 }
 .viewer{
-  padding: 20rpx 10rpx;
+  padding: 0 10rpx 20rpx 10rpx;
   height: 100%;
   overflow: auto;
 }
