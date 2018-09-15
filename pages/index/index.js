@@ -2,7 +2,9 @@
 import apis from '../../apis/index'
 import app from '../../utils/index'
 
-const hightlight = app.globalUtils.hightlight
+const hightlight = require('../../utils/prism/index')
+const { languageMap } = require('../../utils/prism/language')
+
 // let codeRowsCache = []
 // let allowRender = true
 let openReadme = false
@@ -211,7 +213,7 @@ Page({
     })
   },
   parseFile (content, fileInfo, cb) {
-    let { type, languageType } = fileInfo
+    let { type, languageRender } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
       const that = this
@@ -233,7 +235,7 @@ Page({
       })
     } else if (type === 'language') {
       try {
-        let codeRowsCache = hightlight(content, languageType)
+        let codeRowsCache = hightlight(content, languageRender)
         dataToUpdate = {
           // 初始时，只显示150行
           codeRows: codeRowsCache.slice(0, 150)
@@ -308,33 +310,7 @@ function getReadme (tree) {
     }
   }
 }
-const languageMap = {
-  'js': 'javascript',
-  'css': 'css',
-  'wxss': 'css',
-  'html': 'markup',
-  'wxml': 'markup',
-  'vue': 'markup',
-  'jsx': 'markup',
-  'tsx': 'typescript',
-  'ts': 'typescript',
-  'json': 'json',
-  'dart': 'dart',
-  'go': 'go',
-  'less': 'less',
-  'scss': 'sass',
-  'java': 'java',
-  'py': 'python',
-  'php': 'php',
-  'kt': 'kotlin',
-  'swift': 'swift',
-  'c': 'c',
-  'h': 'c',
-  'm': 'c',
-  'cpp': 'clike',
-  'cs': 'clike',
-  'sh': 'bash'
-}
+
 const imgMap = ['png', 'jpeg', 'jpg', 'gif']
 function getFileInfo (path) {
   const fileInfo = {
@@ -348,7 +324,7 @@ function getFileInfo (path) {
     fileInfo.type = 'img'
   } else if (languageMap[type]) {
     fileInfo.type = 'language'
-    fileInfo.languageType = languageMap[type]
+    fileInfo.languageRender = languageMap[type].render
   } else {
     fileInfo.type = 'text'
   }
