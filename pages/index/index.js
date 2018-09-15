@@ -28,7 +28,8 @@ Page({
     stargazers_count: '',
     forks: '',
     imgStyle: '',
-    showSidebar: false
+    showSidebar: false,
+    query: {}
   },
   proxyApi (method, arg = []) {
     const that = this
@@ -55,7 +56,14 @@ Page({
     }) : wx.hideLoading()
   },
   onShareAppMessage () {
-    return {}
+    const query = this.data.query
+    query.filePath = this.data.filePath
+    const queryString = Object.keys(query).map((key) => {
+      return key + '=' + query[key]
+    }).join('&')
+    return {
+      path: `/pages/index/index?${queryString}`
+    }
   },
   onReady () {
     wx.showShareMenu({
@@ -63,6 +71,9 @@ Page({
     })
   },
   onLoad (option) {
+    this.setData({
+      query: option
+    })
     option = decodeOption(option)
     try {
       openReadme = wx.getStorageSync('openReadme')
@@ -96,10 +107,14 @@ Page({
       }
     })
     this.setData({
-      reposPath: reposPath,
-      filePath: reposPath
+      reposPath: reposPath
     })
-    const { star, forks, branch } = option
+    const { star, forks, branch, filePath } = option
+    if (filePath) {
+      this.setData({
+        filePath: filePath
+      })
+    }
     if (branch) {
       this.setData({
         stargazers_count: star,
@@ -155,7 +170,13 @@ Page({
         curBranch: branch,
         treeData: parsedTree.tree
       })
-      if (openReadme) {
+      if (this.data.filePath !== '') {
+        this.viewFile({
+          detail: {
+            path: this.data.filePath
+          }
+        })
+      } else if (openReadme) {
         const readme = getReadme(parsedTree.tree)
         if (!readme) {
           this.loading(false)
@@ -182,7 +203,7 @@ Page({
     this.changeBranch(this.data.branches[e.detail.value])
   },
   viewFile (e) {
-    let { path, size } = e.detail
+    let { path, size = 0 } = e.detail
     const fileInfo = getFileInfo(path)
     size = (size / 1024).toFixed(2)
     if (size > 512 || (fileInfo.type === 'language' && size > 50)) {
