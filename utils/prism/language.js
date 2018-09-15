@@ -23,7 +23,8 @@ const map = {
   'm': { lang: 'm', render: 'm' },
   'cpp': { lang: 'c++', render: 'clike' },
   'cs': { lang: 'c#', render: 'clike' },
-  'sh': { lang: 'bash', render: 'bash' }
+  'sh': { lang: 'bash', render: 'bash' },
+  'bash': { lang: 'bash', render: 'bash' }
 }
 const supportLanguage = Object.keys(map).reduce((obj, key) => {
   obj[map[key].lang] = map[key].render

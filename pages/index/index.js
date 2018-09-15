@@ -1,9 +1,9 @@
 /* global Page, wx */
 import apis from '../../apis/index'
-import app from '../../utils/index'
 
 const hightlight = require('../../utils/prism/index')
 const { languageMap } = require('../../utils/prism/language')
+const marked = require('../../utils/marked/index')
 
 // let codeRowsCache = []
 // let allowRender = true
@@ -15,6 +15,7 @@ Page({
       nodes: []
     },
     codeRows: [],
+    markdownNodes: [],
     treeData: [],
     reposPath: '',
     filePath: '',
@@ -216,23 +217,26 @@ Page({
     let { type, languageRender } = fileInfo
     let dataToUpdate = {}
     if (type === 'md') {
-      const that = this
-      app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath(), (href) => {
-        if (!href) return
-        const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
-        if (filePath) {
-          this.viewFile({
-            detail: {path: filePath, size: 1}
-          })
-        } else {
-          wx.setClipboardData({
-            data: href,
-            success: function (res) {
-              that.toast && that.toast('链接已复制到剪贴板', 1000)
-            }
-          })
-        }
-      })
+      // const that = this
+      dataToUpdate = {
+        markdownNodes: marked(content, apis.getImgRawPath())
+      }
+      // app.globalUtils.wxParse('md', 'md', content, that, 5, apis.getImgRawPath(), (href) => {
+      //   if (!href) return
+      //   const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
+      //   if (filePath) {
+      //     this.viewFile({
+      //       detail: {path: filePath, size: 1}
+      //     })
+      //   } else {
+      //     wx.setClipboardData({
+      //       data: href,
+      //       success: function (res) {
+      //         that.toast && that.toast('链接已复制到剪贴板', 1000)
+      //       }
+      //     })
+      //   }
+      // })
     } else if (type === 'language') {
       try {
         let codeRowsCache = hightlight(content, languageRender)

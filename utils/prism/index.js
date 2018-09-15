@@ -9,6 +9,7 @@ module.exports = function (codeString, type, line = 1) {
     const res = [{text: line}]
     if (segment === '') {
       res.push({text: ''})
+      line++
       return codeRows.push(res)
     }
     const spaces = segment.match(/^(\s+)/)

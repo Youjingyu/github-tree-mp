@@ -1,5 +1,6 @@
 <!--index.wxml-->
-<import src="../../utils/wxParse/wxParse.wxml"/>
+<!-- <import src="../../utils/wxParse/md-tpl.wxml"/> -->
+<import src="./md-tpl.wxml"/>>
 <view class="header">
   <view class="sidebar-icon-container" bindtap="toggleMenu">
     <image
@@ -22,7 +23,8 @@
       <text>{{viewText}}</text>
     </view>
     <view hidden="{{viewType !== 'md'}}">
-      <template is="wxParse" data="{{wxParseData:md.nodes}}"/>
+      <!-- <template is="wxParse" data="{{wxParseData:md.nodes}}"/> -->
+      <template is="markdown" data="{{markdownNodes}}"/>
     </view>
     <scroll-view class="code-container" scroll-y scroll-x bindscrolltolower="scrollBottom"
       hidden="{{viewType !== 'language'}}">

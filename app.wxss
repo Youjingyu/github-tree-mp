@@ -1,6 +1,5 @@
 /**app.wxss**/
-@import "./utils/wxParse/wxParse.wxss";
-/* @import "./utils/highlightjs/default.wxss"; */
+/* @import "./utils/wxParse/wxParse.wxss"; */
 @import "./utils/prism/prism.wxss";
 @import "./utils/weui/weui.wxss";
 
