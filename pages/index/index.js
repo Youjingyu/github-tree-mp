@@ -1,5 +1,6 @@
 /* global Page, wx */
 import apis from '../../apis/index'
+import parseTree from '../../utils/parseTree'
 
 const hightlight = require('../../utils/prism/index')
 const { languageMap } = require('../../utils/prism/language')
@@ -149,13 +150,13 @@ Page({
     apis.setBranch(branch)
     this.loading()
     return this.proxyApi('getTree').then((tree) => {
+      const parsedTree = parseTree(tree)
       this.setData({
         curBranch: branch,
-        treeData: tree,
-        loading: false
+        treeData: parsedTree.tree
       })
       if (openReadme) {
-        const readme = getReadme(tree)
+        const readme = getReadme(parsedTree.tree)
         if (!readme) {
           this.loading(false)
           this.showMenu()
@@ -170,6 +171,9 @@ Page({
       } else {
         this.loading(false)
         this.showMenu()
+      }
+      if (parsedTree.exceed) {
+        this.toast('目录树过大，只进行部分渲染')
       }
       console.log(this.data.treeData)
     })

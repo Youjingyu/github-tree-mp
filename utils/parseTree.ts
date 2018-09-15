@@ -86,9 +86,11 @@ function getSize (item:any) {
   return size
 }
 
-export default function (tree:Array<TreeApiItem>):Array<TreeItem> {
+export default function (tree:Array<TreeApiItem>):any {
   treeSize = 0
   const objTree = parseIntoObjTree(tree)
-  const res = objTreeToArray(objTree)
-  return res
+  return {
+    tree: objTreeToArray(objTree),
+    exceed: treeSize > maxTreeSize
+  }
 }

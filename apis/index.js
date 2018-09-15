@@ -1,9 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const parseTree_1 = __importDefault(require("../utils/parseTree"));
 const cache_1 = require("./cache");
 // const apiServer = 'https://www.whaleyou.club/'
 // const apiServer = 'https://api.github.com/'
@@ -63,7 +59,7 @@ class Apis {
     getTree() {
         const url = `${this.reposUrl}git/trees/${this.branch}?recursive=1`;
         return requestWithCache(url, cache_1.cacheConfig.reposTree).then((res) => {
-            return parseTree_1.default(res.tree);
+            return res.tree;
         });
     }
 }

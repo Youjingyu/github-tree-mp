@@ -1,4 +1,3 @@
-import parseTree from '../utils/parseTree'
 import { cacheConfig, getCache, setCache } from './cache'
 
 interface githubApiRes {
@@ -62,7 +61,7 @@ class Apis {
   public getTree ():Promise<object> {
     const url = `${this.reposUrl}git/trees/${this.branch}?recursive=1`
     return requestWithCache(url, cacheConfig.reposTree).then((res:any) => {
-      return parseTree(res.tree)
+      return res.tree
     })
   }
 }

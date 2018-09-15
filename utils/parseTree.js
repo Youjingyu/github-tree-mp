@@ -82,7 +82,9 @@ function getSize(item) {
 function default_1(tree) {
     treeSize = 0;
     const objTree = parseIntoObjTree(tree);
-    const res = objTreeToArray(objTree);
-    return res;
+    return {
+        tree: objTreeToArray(objTree),
+        exceed: treeSize > maxTreeSize
+    };
 }
 exports.default = default_1;
