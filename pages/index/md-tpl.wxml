@@ -3,7 +3,6 @@
     <rich-text wx:if="{{item.type === 'html'}}" nodes="{{item.value}}"></rich-text>
     <view wx:else class="{{item.class}}"><text wx:for="{{item.value}}"
         wx:key="index" selectable decode
-        class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}">{{item.text}}</text>
-    </view>
+        class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}">{{item.text}}</text></view>
   </view>
 </template>

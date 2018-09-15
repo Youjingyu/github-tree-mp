@@ -101,9 +101,17 @@ module.exports = {
       return ''
     }
     renderer.paragraph = function (string) {
+      let type = 'view'
+      let value = ''
+      if (/<img/.test(string) && /src="/.test(string)) {
+        type = 'html'
+        value = string
+      } else {
+        value = getBlockValue(string)
+      }
       nodes.push({
-        type: 'view',
-        value: getBlockValue(string),
+        type,
+        value,
         class: 'markdown-body-paragraph'
       })
       return ''
@@ -136,22 +144,35 @@ function escapedHtml (html) {
 
 function getBlockValue (blockString) {
   const value = []
-  let tag
+  let tag = null
   htmlParser(blockString, {
     start (tagName, attrs, unary) {
       tag = { tagName }
       if (tagName === 'br') {
         tag.text = '\n'
         value.push(tag)
-        tag = {}
+        tag = null
+      } else if (tagName === 'img') {
+        tag.src = getImgSrc(attrs)
+        value.push(tag)
+        tag = null
       }
     },
     chars (text) {
       tag = tag || {}
       tag.text = strDiscode(text)
       value.push(tag)
-      tag = {}
+      tag = null
     }
   })
   return value
+}
+
+function getImgSrc (attrs) {
+  for (var i = 0; i < attrs.length; i++) {
+    if (attrs[i].name === 'src') {
+      return attrs[i].escaped
+    }
+  }
+  return ''
 }
