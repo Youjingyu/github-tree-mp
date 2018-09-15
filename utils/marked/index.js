@@ -11,6 +11,7 @@ module.exports = function (md, imgPath) {
     renderer,
     headerIds: false,
     baseUrl: imgPath
+    // breaks: true
   })
   return blockRender.getNodes()
 }

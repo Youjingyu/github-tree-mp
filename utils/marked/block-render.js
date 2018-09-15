@@ -92,10 +92,11 @@ module.exports = {
       return ''
     }
     renderer.listitem = function (string) {
+      const value = [{tagName: 'listdot', text: '•  '}]
       nodes.push({
         type: 'view',
-        value: getBlockValue(string),
-        tagname: 'markdown-body-li'
+        value: value.concat(getBlockValue(string)),
+        class: 'markdown-body-li'
       })
       return ''
     }
@@ -139,6 +140,11 @@ function getBlockValue (blockString) {
   htmlParser(blockString, {
     start (tagName, attrs, unary) {
       tag = { tagName }
+      if (tagName === 'br') {
+        tag.text = '\n'
+        value.push(tag)
+        tag = {}
+      }
     },
     chars (text) {
       tag = tag || {}
