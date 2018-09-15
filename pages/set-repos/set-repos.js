@@ -87,10 +87,16 @@ Page({
         this.toast('请输入正确的github项目地址')
         return
       }
+      this.setData({
+        inputValue: ''
+      })
       wx.navigateTo({
         url: '/pages/index/index?repos=' + val
       })
     } else {
+      this.setData({
+        inputValue: ''
+      })
       wx.navigateTo({
         url: '/pages/search-res/search-res?query=' + val
       })
