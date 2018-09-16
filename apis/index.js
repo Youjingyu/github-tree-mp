@@ -47,9 +47,10 @@ class Apis {
         return new Promise((resolve, reject) => {
             if (cacheData)
                 return resolve(cacheData);
-            request(url, false).then((data) => {
+            request(url, false).then((res) => {
+                const { length, data } = res;
                 // 只缓存30kb以下的文件
-                if (data.length < 1024 * 30) {
+                if (length < 1024 * 30) {
                     cache_1.setCache(url, data, cacheConf);
                 }
                 resolve(data);
@@ -74,7 +75,7 @@ function request(url, isJson = true) {
             return reject({ code: 1, message: '已超过最大请求次数，请稍后重试' });
         wx.request({
             url,
-            dataType: isJson ? 'json' : 'text',
+            dataType: 'text',
             success: function (res) {
                 if (!res) {
                     return reject({
@@ -82,7 +83,11 @@ function request(url, isJson = true) {
                         code: 5
                     });
                 }
-                const { data, statusCode, header } = res;
+                let { data, statusCode, header } = res;
+                const length = data.length;
+                if (isJson) {
+                    data = JSON.parse(data);
+                }
                 reqNum++;
                 if (statusCode === 403) {
                     return reject({
@@ -102,7 +107,10 @@ function request(url, isJson = true) {
                         code: 3
                     });
                 }
-                res && resolve(data);
+                res && resolve({
+                    data,
+                    length
+                });
             },
             fail: function (err) {
                 reject({
@@ -121,8 +129,12 @@ function requestWithCache(url, cacheConf) {
     return new Promise((resolve, reject) => {
         if (cache)
             return resolve(cache);
-        request(url).then((data) => {
-            cache_1.setCache(url, data, cacheConf);
+        request(url).then((res) => {
+            const { length, data } = res;
+            // 只缓存500kb以下的接口
+            if (length < 500 * 1024) {
+                cache_1.setCache(url, data, cacheConf);
+            }
             resolve(data);
         }).catch(reject);
     });
