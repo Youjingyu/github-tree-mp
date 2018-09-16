@@ -17,14 +17,14 @@
     <view class="simple-view" hidden="{{viewType !== 'img'}}">
       <image src="{{viewImgSrc}}" data-src="{{viewImgSrc}}" bindtap="preViewImg" bindload="imgOnLoad" style="{{imgStyle}}"></image>
     </view>
-    <view hidden="{{viewType !== 'text'}}">
+    <scroll-view hidden="{{viewType !== 'text'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
       <text>{{viewText}}</text>
-    </view>
-    <view hidden="{{viewType !== 'md'}}">
+    </scroll-view>
+    <scroll-view hidden="{{viewType !== 'md'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
       <!-- <template is="wxParse" data="{{wxParseData:md.nodes}}"/> -->
       <template is="markdown" data="{{markdownNodes}}"/>
-    </view>
-    <scroll-view class="code-container" scroll-y scroll-x bindscrolltolower="scrollBottom"
+    </scroll-view>
+    <scroll-view class="code-container" scroll-y scroll-x scroll-top="{{scrollTop}}"
       hidden="{{viewType !== 'language'}}">
       <view wx:for="{{codeRows}}" wx:key="{{index}}" class="code-row">
         <text wx:for="{{item}}"

@@ -29,7 +29,8 @@ Page({
     forks: '',
     imgStyle: '',
     showSidebar: false,
-    query: {}
+    query: {},
+    scrollTop: 0
   },
   proxyApi (method, arg = []) {
     const that = this
@@ -272,7 +273,8 @@ Page({
       }
     }
     this.setData(Object.assign({
-      viewType: type
+      viewType: type,
+      scrollTop: 0
     }, dataToUpdate))
     this.loading(false)
     cb && cb()
