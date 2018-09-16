@@ -28,6 +28,9 @@ class Apis {
   public getRawPath () {
     return apiServer + 'myraw/' + this.reposPath + '/' + this.branch + '/'
   }
+  public getRawPathNoBranch () {
+    return apiServer + 'myraw/' + this.reposPath + '/'
+  }
   public searchRepo (query:string, page:number, per_page:number):Promise<object> {
     const url = `${apiServer}search/repositories?q=${query}&page=${page}&per_page=${per_page}`
     return requestWithCache(url, cacheConfig.search)
@@ -41,10 +44,13 @@ class Apis {
     return requestWithCache(url, cacheConfig.reposBranch)
   }
   // https://api.github.com/repos/Youjingyu/vue-hap-tools/contents/.eslintignore
-  public getBlob (path:string):Promise<object> {
+  public getBlob (path:string, noBranch?:boolean):Promise<object> {
     // return request(`${this.baseUrl}contents/${path}?ref=${this.branch}`).then((res) => {
     // return request(`${this.baseUrl}${path}`)
-    const url = `${this.getRawPath()}${path}`
+    let url = `${this.getRawPath()}${path}`
+    if (noBranch) {
+      url = `${this.getRawPathNoBranch()}${path}`
+    }
     const cacheConf = cacheConfig.raw
     const cacheData = getCache(url, cacheConf)
     return new Promise((resolve, reject) => {

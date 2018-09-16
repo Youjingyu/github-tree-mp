@@ -204,7 +204,7 @@ Page({
     this.changeBranch(this.data.branches[e.detail.value])
   },
   viewFile (e) {
-    let { path, size = 0 } = e.detail
+    let { path, size = 0, noBranch = false } = e.detail
     const fileInfo = getFileInfo(path)
     size = (size / 1024).toFixed(2)
     if (size > 512 || (fileInfo.type === 'language' && size > 50)) {
@@ -218,10 +218,10 @@ Page({
         }
       })
     } else {
-      this.doViewFile(path, fileInfo)
+      this.doViewFile(path, fileInfo, noBranch)
     }
   },
-  doViewFile (path, fileInfo) {
+  doViewFile (path, fileInfo, noBranch) {
     this.loading()
     this.setData({
       filePath: path
@@ -235,7 +235,7 @@ Page({
       this.loading(false)
       return
     }
-    this.proxyApi('getBlob', [path]).then((res) => {
+    this.proxyApi('getBlob', [path, noBranch]).then((res) => {
       this.parseFile(res, fileInfo)
     })
   },
@@ -305,7 +305,7 @@ Page({
       const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
       if (filePath) {
         this.viewFile({
-          detail: {path: filePath, size: 1}
+          detail: {path: filePath, size: 1, noBranch: true}
         })
       } else {
         wx.setClipboardData({
@@ -365,10 +365,10 @@ function getFileInfo (path) {
 
 function getHrefPath (href, reposPath, branch) {
   if (!/^http(s)?:\/\//.test(href) && !/\.com/.test(href)) {
-    return href
+    return 'branch' + href
   }
   href = href.replace('https://github.com/', '')
-  const reg = new RegExp('^' + reposPath + '/blob/' + branch + '/(.+)')
+  const reg = new RegExp('^' + reposPath + '/blob/(.+)')
   const matches = href.match(reg)
   if (matches) {
     return matches[1]

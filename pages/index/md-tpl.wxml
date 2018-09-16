@@ -7,12 +7,12 @@
             wx:key="index" selectable decode
             data-href="{{item.href}}"
             bindtap="mdtap"
-            class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}">{{item.text}}</text></view>
+            class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}" selectable="{{true}}">{{item.text}}</text></view>
     </view>
     <view wx:else class="{{item.class}}"><text wx:for="{{item.value}}"
         wx:key="index" selectable decode
         data-href="{{item.href}}"
         bindtap="mdtap"
-        class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}">{{item.text}}</text></view>
+        class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}" selectable="{{true}}">{{item.text}}</text></view>
   </view>
 </template>

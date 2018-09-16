@@ -18,7 +18,7 @@
       <image src="{{viewImgSrc}}" data-src="{{viewImgSrc}}" bindtap="preViewImg" bindload="imgOnLoad" style="{{imgStyle}}"></image>
     </view>
     <scroll-view hidden="{{viewType !== 'text'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
-      <text>{{viewText}}</text>
+      <text selectable="{{true}}">{{viewText}}</text>
     </scroll-view>
     <scroll-view hidden="{{viewType !== 'md'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
       <!-- <template is="wxParse" data="{{wxParseData:md.nodes}}"/> -->
@@ -30,7 +30,7 @@
         <text wx:for="{{item}}"
               wx:key="{{index}}"
               class="{{(index === 0 ? 'line-num' : '') + ' code-text ' + (item.class ? item.class : '')}}"
-              selectable="true"
+              selectable="{{true}}"
               space="ensp"
               decode="true"
           >{{item.text}}</text>
