@@ -214,6 +214,10 @@
   margin-bottom: 16px;
 }
 
+.markdown-body-ul{
+  margin-top: 16px;
+}
+
 .markdown-body-hr {
   height: 0.25em;
   padding: 0;
@@ -286,7 +290,7 @@
 
 .markdown-body-ul,
 .markdown-body-ol {
-  /* padding-left: 2em; */
+  padding-left: 5px;
 }
 
 .markdown-body-li {

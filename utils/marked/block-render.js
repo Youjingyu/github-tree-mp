@@ -91,13 +91,13 @@ module.exports = {
       })
       return ''
     }
-    renderer.listitem = function (string) {
-      return string + '----listitem----'
-    }
     renderer.list = function (string) {
       const listItems = string.split('----listitem----')
       const value = []
       listItems.forEach(li => {
+        if (/^\s*$/.test(li)) {
+          return
+        }
         value.push({
           itemValue: value.concat(getBlockValue(li))
         })
@@ -107,6 +107,9 @@ module.exports = {
         value: value
       })
       return ''
+    }
+    renderer.listitem = function (string) {
+      return string + '----listitem----'
     }
     renderer.paragraph = function (string) {
       let type = 'view'
