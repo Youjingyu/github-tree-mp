@@ -20,7 +20,7 @@
     <scroll-view hidden="{{viewType !== 'text'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
       <text selectable="{{true}}">{{viewText}}</text>
     </scroll-view>
-    <scroll-view hidden="{{viewType !== 'md'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
+    <scroll-view class="md-container" hidden="{{viewType !== 'md'}}" scroll-y scroll-x scroll-top="{{scrollTop}}">
       <!-- <template is="wxParse" data="{{wxParseData:md.nodes}}"/> -->
       <template is="markdown" data="{{markdownNodes}}"/>
     </scroll-view>

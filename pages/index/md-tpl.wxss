@@ -40,7 +40,14 @@
   font-family: monospace, monospace;
   font-size: 1em;
 } */
-
+.markdown-body-block-code {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #2d2d2d;
+  color:#ccc;
+  white-space:pre;
+  overflow:scroll;
+}
 .markdown-body-hr {
   box-sizing: content-box;
   height: 0;

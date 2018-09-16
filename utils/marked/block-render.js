@@ -25,10 +25,26 @@ module.exports = {
         html = escapedHtml(code)
       }
       html = html.replace(/\n/g, '<br>')
+      // 安卓上white-space: pre不生效，只能用这种方式hack
+      html = html.replace(/[ ]+<span/g, function (match) {
+        const spacesLen = match.replace('<span', '').length
+        return `<span style="padding-right:${spacesLen * 10}px"></span><span`
+      })
+      html = html.replace(/<\/span>[ ]+/g, function (match) {
+        const spacesLen = match.replace('</span>', '').length
+        return `</span><span style="padding-left:${spacesLen * 10}px"></span>`
+      })
+      html = html.replace(/<\/span>[ ]+/g, function (match) {
+        const spacesLen = match.replace('</span>', '').length
+        return `</span><span style="padding-left:${spacesLen * 10}px"></span>`
+      })
+      html = html.replace(/<br>[ ]+/g, function (match) {
+        const spacesLen = match.replace('<br>', '').length
+        return `<br><span style="padding-left:${spacesLen * 10}px"></span>`
+      })
       nodes.push({
         type: 'html',
-        value: `<div style="background-color: #2d2d2d;color:#ccc;white-space:pre;overflow:scroll;
-        ;padding: 10px;margin: 10px 0;">${html}</div>`
+        value: `<div class="markdown-body-block-code">${html}</div>`
       })
       return ''
     }
