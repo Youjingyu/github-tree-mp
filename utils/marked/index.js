@@ -1,4 +1,4 @@
-const marked = require('marked')
+const marked = require('./marked')
 const blockRender = require('./block-render')
 
 const renderer = new marked.Renderer()
@@ -10,8 +10,8 @@ module.exports = function (md, imgPath) {
   marked(md, {
     renderer,
     headerIds: false,
-    baseUrl: imgPath
-    // breaks: true
+    baseUrl: imgPath,
+    breaks: true
   })
   return blockRender.getNodes()
 }

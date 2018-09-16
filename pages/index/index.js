@@ -241,12 +241,12 @@ Page({
   parseFile (content, fileInfo, cb) {
     let { type, languageRender } = fileInfo
     let dataToUpdate = {}
-    if (type === 'md') {
-      dataToUpdate = {
-        markdownNodes: marked(content, apis.getImgRawPath())
-      }
-    } else if (type === 'language') {
-      try {
+    try {
+      if (type === 'md') {
+        dataToUpdate = {
+          markdownNodes: marked(content, apis.getImgRawPath())
+        }
+      } else if (type === 'language') {
         let codeRowsCache = hightlight(content, languageRender)
         dataToUpdate = {
           // 初始时，只显示150行
@@ -258,15 +258,15 @@ Page({
             codeRows: codeRowsCache
           })
         }, 1500)
-      } catch (err) {
-        console.log(err)
-        this.toast('代码解析失败，将以纯文本展示')
-        type = 'text'
+      } else if (type === 'text') {
         dataToUpdate = {
           viewText: content
         }
       }
-    } else if (type === 'text') {
+    } catch (err) {
+      console.log(err)
+      this.toast('代码解析失败，将以纯文本展示')
+      type = 'text'
       dataToUpdate = {
         viewText: content
       }

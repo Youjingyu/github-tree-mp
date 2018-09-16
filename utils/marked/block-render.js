@@ -1,6 +1,6 @@
 const htmlParser = require('../wxParse/htmlparser')
 const Prism = require('../prism/prism')
-const supportLanguage = require('../prism/language').supportLanguage
+const { supportLanguage, languageMap } = require('../prism/language')
 const { strDiscode } = require('../wxParse/wxDiscode')
 
 let nodes = []
@@ -18,7 +18,7 @@ module.exports = {
   init (renderer) {
     renderer.code = function (code, type, escaped) {
       let html
-      const render = supportLanguage[type]
+      const render = supportLanguage[type] || (languageMap[type] && languageMap[type].render)
       if (render) {
         html = Prism.highlight(code, Prism.languages[render], render)
       } else {
@@ -27,7 +27,7 @@ module.exports = {
       html = html.replace(/\n/g, '<br>')
       nodes.push({
         type: 'html',
-        value: `<div style="background-color: #2d2d2d;color:#ccc;
+        value: `<div style="background-color: #2d2d2d;color:#ccc;white-space:pre;overflow:scroll;
         ;padding: 10px;margin: 10px 0;">${html}</div>`
       })
       return ''
@@ -92,11 +92,19 @@ module.exports = {
       return ''
     }
     renderer.listitem = function (string) {
-      const value = [{tagName: 'listdot', text: '•  '}]
+      return string + '----listitem----'
+    }
+    renderer.list = function (string) {
+      const listItems = string.split('----listitem----')
+      const value = []
+      listItems.forEach(li => {
+        value.push({
+          itemValue: value.concat(getBlockValue(li))
+        })
+      })
       nodes.push({
-        type: 'view',
-        value: value.concat(getBlockValue(string)),
-        class: 'markdown-body-li'
+        type: 'list',
+        value: value
       })
       return ''
     }

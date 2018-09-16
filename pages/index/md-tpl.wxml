@@ -1,6 +1,14 @@
 <template name="markdown">
  <view wx:for="{{markdownNodes}}" wx:key="{{index}}" class="markdown-body">
     <rich-text wx:if="{{item.type === 'html'}}" nodes="{{item.value}}"></rich-text>
+    <view wx:elif="{{item.type === 'list'}}" class="markdown-body-ul">
+        <view  wx:for="{{item.value}}" wx:key="index" class="markdown-body-li"><text>•  </text><text
+            wx:for="{{item.itemValue}}"
+            wx:key="index" selectable decode
+            data-href="{{item.href}}"
+            bindtap="mdtap"
+            class="{{item.tagName ? 'markdown-body-' + item.tagName : ''}}">{{item.text}}</text></view>
+    </view>
     <view wx:else class="{{item.class}}"><text wx:for="{{item.value}}"
         wx:key="index" selectable decode
         data-href="{{item.href}}"
