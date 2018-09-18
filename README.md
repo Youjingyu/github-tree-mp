@@ -6,5 +6,6 @@
 - 支持常见文件类型渲染
 - 可以分享项目中的指定文件
 
-效果图： 
+效果图：   
+
 <img src="https://github.com/Youjingyu/github-tree-mp/raw/master/preview.gif" alt="效果图" />
