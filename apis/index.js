@@ -103,7 +103,7 @@ function request(url, isJson = true) {
                 }
                 if (statusCode !== 200) {
                     return reject({
-                        message: data.message,
+                        message: data,
                         code: 2
                     });
                 }
@@ -120,7 +120,7 @@ function request(url, isJson = true) {
             },
             fail: function (err) {
                 reject({
-                    message: err.message,
+                    message: err.errMsg,
                     code: 4
                 });
             }

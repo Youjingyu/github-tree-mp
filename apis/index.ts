@@ -106,7 +106,7 @@ function request (url:string, isJson:boolean=true):Promise<any>{
         }
         if (statusCode !== 200) {
           return reject({
-            message: data.message,
+            message: data,
             code: 2
           })
         }
@@ -123,7 +123,7 @@ function request (url:string, isJson:boolean=true):Promise<any>{
       },
       fail: function(err:any){
         reject({
-          message: err.message,
+          message: err.errMsg,
           code: 4
         })
       }
