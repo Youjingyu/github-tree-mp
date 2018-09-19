@@ -115,7 +115,7 @@ module.exports = {
           return
         }
         value.push({
-          itemValue: value.concat(getBlockValue(li))
+          itemValue: getBlockValue(li)
         })
       })
       nodes.push({
