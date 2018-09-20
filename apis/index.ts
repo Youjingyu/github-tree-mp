@@ -13,7 +13,6 @@ class Apis {
   public baseUrl = apiServer + 'repos/'
   public reposUrl = ''
   public reposPath = ''
-  public sha = '34709373e6157be33748b58344969c318bec9fc1'
   public branch = 'master'
   public setResp (githubUrl:string) {
     this.reposPath = githubUrl.replace('https://github.com/', '').replace(/\/$/,  '')
