@@ -9,11 +9,23 @@
 			{
 				"type": "folder",
 				"value": "node_modules"
-			}
+      },
+      {
+				"type": "folder",
+				"value": "img"
+      },
+      {
+				"type": "folder",
+				"value": "typings"
+      },
+      {
+				"type": "suffix",
+				"value": "ts"
+      }
 		]
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
