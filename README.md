@@ -15,3 +15,5 @@
 效果图：   
 
 <img src="https://github.com/Youjingyu/github-tree-mp/raw/master/img/preview.gif" alt="效果图" />
+
+附[一篇采坑指南](https://zhuanlan.zhihu.com/p/44854336)
