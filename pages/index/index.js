@@ -305,7 +305,7 @@ Page({
       const filePath = getHrefPath(href, that.data.reposPath, that.data.curBranch)
       if (filePath) {
         this.viewFile({
-          detail: {path: filePath, size: 1, noBranch: true}
+          detail: { path: filePath, size: 1, noBranch: true }
         })
       } else {
         wx.setClipboardData({

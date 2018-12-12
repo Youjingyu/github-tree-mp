@@ -6,16 +6,16 @@ module.exports = function (codeString, type, line = 1) {
   let codeSegments = html.split(/\n/)
   const codeRows = []
   codeSegments.forEach((segment) => {
-    const res = [{text: line}]
+    const res = [{ text: line }]
     if (segment === '') {
-      res.push({text: ''})
+      res.push({ text: '' })
       line++
       return codeRows.push(res)
     }
     const spaces = segment.match(/^(\s+)/)
     if (spaces) {
       res.push({
-        text: spaces[1]
+        text: spaces[1].replace(/\s/g, ' ')
       })
     }
     let className
