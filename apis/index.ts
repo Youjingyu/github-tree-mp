@@ -5,9 +5,9 @@ interface githubApiRes {
   tree: Array<TreeApiItem>
 }
 
-// const apiServer = 'https://www.whaleyou.club/'
+const apiServer = 'https://www.whaleyou.club/'
 // const apiServer = 'https://api.github.com/'
-const apiServer = 'https://github.whaleyou.club/'
+// const apiServer = 'https://github.whaleyou.club/'
 
 class Apis {
   public baseUrl = apiServer + 'repos/'

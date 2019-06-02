@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const cache_1 = require("./cache");
-// const apiServer = 'https://www.whaleyou.club/'
+const apiServer = 'https://www.whaleyou.club/';
 // const apiServer = 'https://api.github.com/'
-const apiServer = 'https://github.whaleyou.club/';
+// const apiServer = 'https://github.whaleyou.club/'
 class Apis {
     constructor() {
         this.baseUrl = apiServer + 'repos/';
         this.reposUrl = '';
         this.reposPath = '';
-        this.sha = '34709373e6157be33748b58344969c318bec9fc1';
         this.branch = 'master';
     }
     setResp(githubUrl) {
